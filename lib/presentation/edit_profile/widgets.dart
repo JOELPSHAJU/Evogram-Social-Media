@@ -26,10 +26,13 @@ class TextFormFieldEditProfile extends StatelessWidget {
       maxLines: maxlines,
       controller: controller,
       keyboardType: keyboard,
-      cursorColor: black,
+      cursorColor:
+          Theme.of(context).brightness == Brightness.light ? black : white,
       style: const TextStyle(fontWeight: FontWeight.w600),
       decoration: InputDecoration(
-          fillColor: lightgrey,
+          fillColor: Theme.of(context).brightness == Brightness.light
+              ? lightgrey
+              : black,
           filled: true,
           hintText: hintText,
           border: const OutlineInputBorder(
@@ -53,15 +56,21 @@ class EditButton extends StatelessWidget {
       decoration: BoxDecoration(
           color: blueaccent2,
           borderRadius: BorderRadius.circular(100),
-          border: Border.all(width: 3, color: white)),
+          border: Border.all(
+              width: 3,
+              color: Theme.of(context).brightness == Brightness.light
+                  ? white
+                  : black)),
       height: 50,
       width: 50,
       child: Center(
         child: IconButton(
             onPressed: () {},
-            icon: const Icon(
+            icon: Icon(
               Icons.edit,
-              color: white,
+              color: Theme.of(context).brightness == Brightness.light
+                  ? white
+                  : black,
             )),
       ),
     );

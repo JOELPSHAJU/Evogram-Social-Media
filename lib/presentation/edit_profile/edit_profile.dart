@@ -20,7 +20,6 @@ class EditProfileScreen extends StatelessWidget {
 
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: white,
       appBar: AppBar(
         title: appbarTitle(title: 'Edit Profile'),
       ),
@@ -52,7 +51,12 @@ class EditProfileScreen extends StatelessWidget {
                                   fit: BoxFit.cover),
                               color: blueaccent3,
                               borderRadius: BorderRadius.circular(100),
-                              border: Border.all(width: 5, color: white)),
+                              border: Border.all(
+                                  width: 5,
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.light
+                                      ? white
+                                      : black)),
                           child: const Align(
                             alignment: Alignment.bottomRight,
                             child: EditButton(),

@@ -11,7 +11,6 @@ class AddPostScreen extends StatelessWidget {
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-          surfaceTintColor: white,
           automaticallyImplyLeading: false,
           title: appbarTitle(title: 'New Post')),
       body: SingleChildScrollView(
@@ -23,8 +22,10 @@ class AddPostScreen extends StatelessWidget {
               Container(
                 width: size.width,
                 height: 300,
-                decoration: const BoxDecoration(
-                  color: lightgreyauth,
+                decoration: BoxDecoration(
+                  color: Theme.of(context).brightness == Brightness.light
+                      ? lightgreyauth
+                      : darkgrey,
                 ),
                 child: const Center(
                     child: Icon(
@@ -45,7 +46,9 @@ class AddPostScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     MaterialButton(
-                        color: white,
+                        color: Theme.of(context).brightness == Brightness.light
+                            ? white
+                            : darkgreymain,
                         minWidth: size.width * .4,
                         height: 55,
                         shape: RoundedRectangleBorder(

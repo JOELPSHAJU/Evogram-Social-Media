@@ -1,3 +1,5 @@
+import 'package:evogram/presentation/main_screen/main_screen.dart';
+
 import '../../core/constants.dart';
 import '../home_screen/home_screen.dart';
 import '../login_screen/login_screen.dart';
@@ -29,17 +31,24 @@ class _SplashScreenState extends State<SplashScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Image.asset(
-              logo,
+              logo2,
               width: size.width * .55,
             ),
             h10,
-            Image.asset(
-              logoletters,
-              width: size.width * .35,
-            ),
+            Theme.of(context).brightness == Brightness.light
+                ? Image.asset(
+                    logoletters,
+                    width: size.width * .35,
+                  )
+                : Image.asset(
+                    logoletterswhite,
+                    width: size.width * .35,
+                  ),
             h10,
             LoadingAnimationWidget.prograssiveDots(
-              color: black,
+              color: Theme.of(context).brightness == Brightness.light
+                  ? black
+                  : white,
               size: 40,
             )
           ],
@@ -59,7 +68,7 @@ class _SplashScreenState extends State<SplashScreen> {
     } else {
       await Future.delayed(const Duration(seconds: 3));
       Navigator.of(context).pushReplacement(MaterialPageRoute(
-        builder: (context) => HomeScreen(),
+        builder: (context) => const MainScreen(),
       ));
     }
   }

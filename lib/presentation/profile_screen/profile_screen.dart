@@ -2,12 +2,9 @@ import 'package:evogram/presentation/profile_screen/widgets/grid.dart';
 import 'package:evogram/presentation/profile_screen/widgets/profile_header.dart';
 
 import '../../core/constants.dart';
-import '../edit_profile/edit_profile.dart';
-import '../followers_screen/followers_screen.dart';
-import '../following_screen/following_screen.dart';
-import 'widgets/profile_styles.dart';
+
 import '../settings_screen/settings_screen.dart';
-import '../user_posts/user_post.dart';
+
 import 'package:flutter/material.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -22,11 +19,8 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
-        backgroundColor: white,
         extendBody: true,
         appBar: AppBar(
-          surfaceTintColor: white,
-          backgroundColor: white,
           automaticallyImplyLeading: false,
           toolbarHeight: 50,
           title: const Padding(
@@ -64,7 +58,6 @@ class ProfileScreen extends StatelessWidget {
                 },
                 icon: const Icon(
                   Icons.more_vert,
-                  color: black,
                 ))
           ],
         ),
@@ -82,12 +75,11 @@ class ProfileScreen extends StatelessWidget {
                 body: const Column(
                   children: [
                     Material(
-                      color: white,
                       child: TabBar(
                           dividerColor: blueaccent3,
-                          unselectedLabelColor: blueaccent2,
-                          labelColor: blueaccent3,
-                          indicatorColor: blueaccent3,
+                          unselectedLabelColor: grey,
+                          labelColor: blueaccent2,
+                          indicatorColor: blueaccent2,
                           tabs: [
                             Tab(
                               icon: Icon(

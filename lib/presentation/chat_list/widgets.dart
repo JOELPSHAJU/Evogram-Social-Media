@@ -20,7 +20,8 @@ class TextFormFieldChatPage extends StatelessWidget {
       cursorWidth: 2,
       controller: controller,
       keyboardType: keyboard,
-      cursorColor: black,
+      cursorColor:
+          Theme.of(context).brightness == Brightness.light ? black : white,
       style: const TextStyle(fontWeight: FontWeight.w600),
       decoration: InputDecoration(
         border: OutlineInputBorder(
@@ -40,9 +41,10 @@ class TextFormFieldChatPage extends StatelessWidget {
             borderSide: const BorderSide(color: lightgreyauth)),
         prefixIcon: const Icon(
           Icons.search,
-          color: grey80,
         ),
-        fillColor: lightgrey,
+        fillColor: Theme.of(context).brightness == Brightness.light
+            ? lightgrey
+            : darkgreymain,
         filled: true,
         hintText: hintText,
       ),

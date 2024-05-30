@@ -22,10 +22,13 @@ class TextFormFieldAddPost extends StatelessWidget {
         cursorWidth: 2,
         controller: controller,
         keyboardType: keyboard,
-        cursorColor: black,
+        cursorColor:
+            Theme.of(context).brightness == Brightness.light ? black : white,
         style: const TextStyle(fontWeight: FontWeight.w600),
         decoration: InputDecoration(
-            fillColor: lightgreyauth,
+            fillColor: Theme.of(context).brightness == Brightness.light
+                ? lightgreyauth
+                : darkgrey,
             filled: true,
             hintText: hintText,
             border: const OutlineInputBorder(

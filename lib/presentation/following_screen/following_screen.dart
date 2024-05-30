@@ -15,7 +15,6 @@ class FollowingPersonScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: white,
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
@@ -23,18 +22,21 @@ class FollowingPersonScreen extends StatelessWidget {
             Navigator.of(context).pop();
           },
         ),
-        surfaceTintColor: white,
-        backgroundColor: white,
         automaticallyImplyLeading: false,
         title: appbarTitle(title: 'Following'),
         bottom: PreferredSize(
           preferredSize: Size(size.width, 50),
           child: Padding(
             padding: const EdgeInsets.only(left: 15.0, right: 15),
-            child: TextFormFieldChatPage(
-                controller: searchPersonController,
-                hintText: 'Search..',
-                keyboard: TextInputType.name),
+            child: Column(
+              children: [
+                TextFormFieldChatPage(
+                    controller: searchPersonController,
+                    hintText: 'Search..',
+                    keyboard: TextInputType.name),
+                h10
+              ],
+            ),
           ),
         ),
       ),

@@ -2,9 +2,6 @@ import '../../core/constants.dart';
 
 import 'package:flutter/material.dart';
 
-const authheadingstyle =
-    TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: black);
-
 class TextFormFieldAuth extends StatelessWidget {
   final TextEditingController controller;
   final String hintText;
@@ -23,10 +20,13 @@ class TextFormFieldAuth extends StatelessWidget {
       cursorWidth: 2,
       controller: controller,
       validator: validator,
-      cursorColor: black,
+      cursorColor:
+          Theme.of(context).brightness == Brightness.light ? black : white,
       style: const TextStyle(fontWeight: FontWeight.w600),
       decoration: InputDecoration(
-          fillColor: lightgreyauth,
+          fillColor: Theme.of(context).brightness == Brightness.light
+              ? lightgreyauth
+              : black,
           filled: true,
           hintText: hintText,
           border: const OutlineInputBorder(
@@ -64,10 +64,13 @@ class _TextFormFieldPasswordState extends State<TextFormFieldPassword> {
       cursorWidth: 2,
       controller: widget.controller,
       validator: widget.validator,
-      cursorColor: black,
+      cursorColor:
+          Theme.of(context).brightness == Brightness.light ? black : white,
       style: const TextStyle(fontWeight: FontWeight.w600),
       decoration: InputDecoration(
-          fillColor: lightgreyauth,
+          fillColor: Theme.of(context).brightness == Brightness.light
+              ? lightgreyauth
+              : black,
           filled: true,
           hintText: widget.hintText,
           border: const OutlineInputBorder(

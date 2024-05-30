@@ -64,7 +64,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
         builder: (context, state) {
           return SingleChildScrollView(
             child: Container(
-              color: white,
               width: size.width,
               height: size.height,
               child: Padding(
@@ -73,13 +72,27 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Image.asset(
-                      logoletters,
-                      width: size.width * .45,
-                    ),
+                    Theme.of(context).brightness == Brightness.light
+                        ? Image.asset(
+                            logoletters,
+                            width: size.width * .45,
+                          )
+                        : Image.asset(
+                            logoletterswhite,
+                            width: size.width * .45,
+                          ),
                     h30,
-                    const Row(
-                      children: [Text('Register', style: authheadingstyle)],
+                    Row(
+                      children: [
+                        Text('Register',
+                            style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: Theme.of(context).brightness ==
+                                        Brightness.light
+                                    ? black
+                                    : white))
+                      ],
                     ),
                     h10,
                     Form(
@@ -146,17 +159,28 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       width: size.width,
                       height: 60,
                       decoration: BoxDecoration(
-                          color: white, border: Border.all(color: lightgrey)),
+                          color:
+                              Theme.of(context).brightness == Brightness.light
+                                  ? white
+                                  : darkgreymain,
+                          border: Border.all(
+                              color: Theme.of(context).brightness ==
+                                      Brightness.light
+                                  ? lightgrey
+                                  : darkgrey)),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          const Text(
+                          Text(
                             'Already Have An Account?',
                             style: TextStyle(
                                 fontSize: 15,
                                 fontWeight: FontWeight.w700,
-                                color: darkgrey),
+                                color: Theme.of(context).brightness ==
+                                        Brightness.light
+                                    ? darkgrey
+                                    : lightgrey),
                           ),
                           TextButton(
                             onPressed: () {

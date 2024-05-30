@@ -56,15 +56,16 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        backgroundColor: white,
-        surfaceTintColor: white,
-        shape: const Border(
-            bottom: BorderSide(
-                color: Color.fromARGB(255, 211, 210, 210), width: 1.5)),
-        title: Image.asset(
-          logoletters,
-          width: size.width * .2,
-        ),
+        shape: const Border(bottom: BorderSide(color: darkgrey, width: 1.5)),
+        title: Theme.of(context).brightness == Brightness.light
+            ? Image.asset(
+                logoletters,
+                width: size.width * .2,
+              )
+            : Image.asset(
+                logoletterswhite,
+                width: size.width * .2,
+              ),
         actions: [
           GestureDetector(
             onTap: () {

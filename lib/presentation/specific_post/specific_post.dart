@@ -40,8 +40,6 @@ class SpecificPostScreen extends StatelessWidget {
             },
             icon: const Icon(Icons.arrow_back)),
         automaticallyImplyLeading: false,
-        backgroundColor: white,
-        surfaceTintColor: white,
         shape: const Border(
             bottom: BorderSide(
                 color: Color.fromARGB(255, 211, 210, 210), width: 1.5)),
@@ -105,46 +103,47 @@ class SpecificPostScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        GestureDetector(
-                          onTap: () {},
-                          child: Image.asset(
-                            likeborderlogo,
-                            width: 30,
-                          ),
-                        ),
+                        IconButton(
+                            onPressed: () {},
+                            icon: Icon(
+                              Icons.favorite_outline,
+                              size: 35,
+                            )),
                         w10,
-                        GestureDetector(
-                          onTap: () {},
-                          child: Image.asset(
-                            commentborderlogo,
-                            width: 30,
-                          ),
-                        ),
+                        IconButton(
+                            onPressed: () {},
+                            icon: Icon(
+                              Icons.message_outlined,
+                              size: 35,
+                            )),
                         w10,
-                        GestureDetector(
-                          onTap: () {},
-                          child: Image.asset(
-                            shareborderlogo,
-                            width: 30,
-                          ),
-                        )
+                        IconButton(
+                            onPressed: () {},
+                            icon: Icon(
+                              Icons.share,
+                              size: 35,
+                            )),
                       ],
                     ),
-                    GestureDetector(
-                      onTap: () {},
-                      child: Image.asset(
-                        savedborderlogo,
-                        width: 30,
-                      ),
-                    )
+                    IconButton(
+                        onPressed: () {},
+                        icon: Icon(
+                          Icons.save,
+                          size: 35,
+                        ))
                   ],
                 ),
               ),
               RichText(
                 text: TextSpan(
                     text: 'Liked by',
-                    style: GoogleFonts.inter(fontSize: 15, color: black),
+                    style: GoogleFonts.inter(
+                        fontSize: 15,
+                        color: Theme.of(context).brightness == Brightness.light
+                            ? black
+                            : white),
                     children: <TextSpan>[
                       TextSpan(
                         text: ' $likedpersonname ',
@@ -155,7 +154,12 @@ class SpecificPostScreen extends StatelessWidget {
                       ),
                       TextSpan(
                         text: 'and others',
-                        style: GoogleFonts.inter(fontSize: 15, color: black),
+                        style: GoogleFonts.inter(
+                            fontSize: 15,
+                            color:
+                                Theme.of(context).brightness == Brightness.light
+                                    ? black
+                                    : white),
                       ),
                     ]),
               ),

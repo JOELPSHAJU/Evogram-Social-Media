@@ -5,7 +5,6 @@ import 'find_profile.dart';
 import '../widgets/text_styles.dart';
 import 'package:flutter/material.dart';
 
-
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
 
@@ -24,7 +23,6 @@ class _SearchScreenState extends State<SearchScreen> {
     return Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          backgroundColor: white,
           title: appbarTitle(title: 'Discover'),
           bottom: PreferredSize(
             preferredSize: Size(size.width, 50),
@@ -38,7 +36,9 @@ class _SearchScreenState extends State<SearchScreen> {
                   },
                   cursorWidth: 2,
                   controller: searchText,
-                  cursorColor: black,
+                  cursorColor: Theme.of(context).brightness == Brightness.light
+                      ? black
+                      : white,
                   style: const TextStyle(fontWeight: FontWeight.w600),
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
@@ -58,9 +58,10 @@ class _SearchScreenState extends State<SearchScreen> {
                         borderSide: const BorderSide(color: lightgreyauth)),
                     prefixIcon: const Icon(
                       Icons.search,
-                      color: grey80,
                     ),
-                    fillColor: lightgrey,
+                    fillColor: Theme.of(context).brightness == Brightness.light
+                        ? lightgrey
+                        : darkgreymain,
                     filled: true,
                     hintText: 'Search',
                   ),

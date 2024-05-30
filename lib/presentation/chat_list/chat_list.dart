@@ -16,20 +16,22 @@ class FindChatPersonScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: white,
       appBar: AppBar(
-        surfaceTintColor: white,
-        backgroundColor: white,
         automaticallyImplyLeading: false,
         title: appbarTitle(title: 'Messages'),
         bottom: PreferredSize(
           preferredSize: Size(size.width, 50),
           child: Padding(
             padding: const EdgeInsets.only(left: 15.0, right: 15),
-            child: TextFormFieldChatPage(
-                controller: searchPersonController,
-                hintText: 'Search..',
-                keyboard: TextInputType.name),
+            child: Column(
+              children: [
+                TextFormFieldChatPage(
+                    controller: searchPersonController,
+                    hintText: 'Search..',
+                    keyboard: TextInputType.name),
+                h10
+              ],
+            ),
           ),
         ),
       ),

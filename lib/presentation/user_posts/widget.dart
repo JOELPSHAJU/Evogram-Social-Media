@@ -74,56 +74,75 @@ class SpecificPost extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    GestureDetector(
-                      onTap: () {},
-                      child: Image.asset(
-                        likeborderlogo,
-                        width: 30,
-                      ),
-                    ),
+                    IconButton(
+                        onPressed: () {},
+                        icon: Icon(
+                          Icons.favorite_outline,
+                          size: 35,
+                        )),
                     w10,
-                    GestureDetector(
-                      onTap: () {},
-                      child: Image.asset(
-                        commentborderlogo,
-                        width: 30,
-                      ),
-                    ),
+                    IconButton(
+                        onPressed: () {},
+                        icon: Icon(
+                          Icons.message_outlined,
+                          size: 35,
+                        )),
                     w10,
-                    GestureDetector(
-                      onTap: () {},
-                      child: Image.asset(
-                        shareborderlogo,
-                        width: 30,
-                      ),
-                    )
+                    IconButton(
+                        onPressed: () {},
+                        icon: Icon(
+                          Icons.share,
+                          size: 35,
+                        )),
                   ],
                 ),
+                IconButton(
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.save,
+                      size: 35,
+                    ))
               ],
             ),
           ),
           RichText(
             text: TextSpan(
                 text: 'Liked by',
-                style: GoogleFonts.inter(fontSize: 15, color: black),
+                style: GoogleFonts.inter(
+                    fontSize: 15,
+                    color: Theme.of(context).brightness == Brightness.light
+                        ? black
+                        : white),
                 children: <TextSpan>[
                   TextSpan(
                     text: ' $likedpersonname ',
                     style: GoogleFonts.inter(
                       fontSize: 16,
+                      color: Theme.of(context).brightness == Brightness.light
+                          ? black
+                          : white,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
                   TextSpan(
                     text: 'and others',
-                    style: GoogleFonts.inter(fontSize: 15, color: black),
+                    style: GoogleFonts.inter(
+                        fontSize: 15,
+                        color: Theme.of(context).brightness == Brightness.light
+                            ? black
+                            : white),
                   ),
                 ]),
           ),
           Text(
             date,
-            style: const TextStyle(fontWeight: FontWeight.w600),
+            style: TextStyle(
+                fontWeight: FontWeight.w600,
+                color: Theme.of(context).brightness == Brightness.light
+                    ? black
+                    : white),
           ),
           h10,
           Text(

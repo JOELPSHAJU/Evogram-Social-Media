@@ -12,6 +12,7 @@ class ChatScreen extends StatelessWidget {
     final TextEditingController messageinput = TextEditingController();
     final size = MediaQuery.of(context).size;
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       appBar: AppBar(
         leading: IconButton(
             onPressed: () {
@@ -19,11 +20,8 @@ class ChatScreen extends StatelessWidget {
             },
             icon: const Icon(
               Icons.arrow_back,
-              color: black,
             )),
         automaticallyImplyLeading: false,
-        backgroundColor: white,
-        surfaceTintColor: white,
         shape: const Border(
             bottom: BorderSide(
                 color: Color.fromARGB(255, 211, 210, 210), width: 1.5)),
@@ -62,11 +60,11 @@ class ChatScreen extends StatelessWidget {
       body: Container(
         height: size.height,
         width: size.width,
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
             image: DecorationImage(
-                image: AssetImage(
-                  chatbg,
-                ),
+                image: Theme.of(context).brightness == Brightness.light
+                    ? AssetImage(chatbg)
+                    : AssetImage(chatbgdark),
                 fit: BoxFit.cover)),
         child: Form(
           key: formkey,
@@ -110,7 +108,7 @@ class ChatScreen extends StatelessWidget {
                             bottom: 8,
                           ),
                           child: CircleAvatar(
-                            backgroundColor: blueaccent3,
+                            backgroundColor: green50,
                             radius: 25,
                             child: IconButton(
                                 onPressed: () {},

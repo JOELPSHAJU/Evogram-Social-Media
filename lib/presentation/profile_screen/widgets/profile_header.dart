@@ -12,9 +12,8 @@ Widget profileHeaderWidgets(
   coverpic,
   profilepic,
 ) {
-  return Container(
+  return SizedBox(
     width: double.infinity,
-    color: white,
     child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Container(
         height: 210,
@@ -33,8 +32,11 @@ Widget profileHeaderWidgets(
                 height: 180,
                 width: 180,
                 decoration: BoxDecoration(
-                    color: white,
-                    border: Border.all(width: 5, color: white),
+                    border: Border.all(
+                        width: 5,
+                        color: Theme.of(context).brightness == Brightness.light
+                            ? white
+                            : darkgreymain),
                     image: DecorationImage(
                         image: NetworkImage(
                           profilepic,

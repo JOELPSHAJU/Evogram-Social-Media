@@ -1,38 +1,38 @@
 import '../../core/constants.dart';
+
 import 'package:flutter/material.dart';
 
-class TextFormFieldAuthRegister extends StatelessWidget {
+const authheadingstyle =
+    TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: black);
+
+class TextformfieldCustom extends StatelessWidget {
   final TextEditingController controller;
   final String hintText;
-  final TextInputType keyboard;
   final String? Function(String?)? validator;
-  const TextFormFieldAuthRegister(
-      {super.key,
-      required this.controller,
-      required this.hintText,
-      required this.keyboard,
-      this.validator});
+
+  const TextformfieldCustom({
+    super.key,
+    required this.controller,
+    required this.hintText,
+    this.validator,
+  });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      validator: validator,
       cursorWidth: 2,
       controller: controller,
-      keyboardType: keyboard,
-      cursorColor:
-          Theme.of(context).brightness == Brightness.light ? black : white,
+      validator: validator,
+      cursorColor: black,
       style: const TextStyle(fontWeight: FontWeight.w600),
       decoration: InputDecoration(
-          fillColor: Theme.of(context).brightness == Brightness.light
-              ? lightgreyauth
-              : black,
+          fillColor: lightgreyauth,
           filled: true,
           hintText: hintText,
           border: const OutlineInputBorder(
               borderSide: BorderSide(color: lightgrey)),
-          focusedBorder:
-              const OutlineInputBorder(borderSide: BorderSide(color: blue)),
+          focusedBorder: const OutlineInputBorder(
+              borderSide: BorderSide(color: blue, width: 1.5)),
           enabledBorder:
               const OutlineInputBorder(borderSide: BorderSide(color: grey))),
     );
@@ -41,12 +41,12 @@ class TextFormFieldAuthRegister extends StatelessWidget {
 
 bool obsecure = true;
 
-class TextFormFieldPasswordRegister extends StatefulWidget {
+class TextFormFieldPassword extends StatefulWidget {
   final TextEditingController controller;
   final String hintText;
   final String? Function(String?)? validator;
 
-  const TextFormFieldPasswordRegister({
+  const TextFormFieldPassword({
     super.key,
     required this.controller,
     required this.hintText,
@@ -54,25 +54,20 @@ class TextFormFieldPasswordRegister extends StatefulWidget {
   });
 
   @override
-  State<TextFormFieldPasswordRegister> createState() =>
-      _TextFormFieldPasswordRegisterState();
+  State<TextFormFieldPassword> createState() => _TextFormFieldPasswordState();
 }
 
-class _TextFormFieldPasswordRegisterState
-    extends State<TextFormFieldPasswordRegister> {
+class _TextFormFieldPasswordState extends State<TextFormFieldPassword> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       cursorWidth: 2,
       controller: widget.controller,
       validator: widget.validator,
-      cursorColor:
-          Theme.of(context).brightness == Brightness.light ? black : white,
+      cursorColor: black,
       style: const TextStyle(fontWeight: FontWeight.w600),
       decoration: InputDecoration(
-          fillColor: Theme.of(context).brightness == Brightness.light
-              ? lightgreyauth
-              : black,
+          fillColor: lightgreyauth,
           filled: true,
           hintText: widget.hintText,
           border: const OutlineInputBorder(

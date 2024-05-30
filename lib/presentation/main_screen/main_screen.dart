@@ -23,7 +23,7 @@ class _MainScreenState extends State<MainScreen> {
     const SearchScreen(),
     AddPostScreen(),
     FindChatPersonScreen(),
-     ProfileScreen(),
+    ProfileScreen(),
   ];
 
   @override
@@ -39,8 +39,12 @@ class _MainScreenState extends State<MainScreen> {
       ),
       bottomNavigationBar: CurvedNavigationBar(
         backgroundColor: Colors.transparent,
-        buttonBackgroundColor: lightgreyauth,
-        color: lightgreyauth,
+        buttonBackgroundColor: Theme.of(context).brightness == Brightness.light
+            ? lightgreyauth
+            : black,
+        color: Theme.of(context).brightness == Brightness.light
+            ? lightgrey
+            : black,
         height: 55,
         index: currentPage.value,
         items: const <Widget>[

@@ -1,3 +1,4 @@
+import 'package:evogram/core/constants.dart';
 import 'package:evogram/presentation/login_screen/login_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -6,15 +7,18 @@ Future<void> showSignOutAlert(BuildContext context) async {
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
-        backgroundColor: Colors.white,
+        backgroundColor:
+            Theme.of(context).brightness == Brightness.light ? white : darkgrey,
         title: Column(
           children: [
-            const Text(
+            Text(
               textAlign: TextAlign.center,
               'Sign Out',
               style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  color: Colors.black,
+                  color: Theme.of(context).brightness == Brightness.light
+                      ? black
+                      : darkgreymain,
                   fontSize: 20),
             ),
             Text(
@@ -22,7 +26,9 @@ Future<void> showSignOutAlert(BuildContext context) async {
               'Do you really want to sign out?',
               style: TextStyle(
                   fontWeight: FontWeight.w500,
-                  color: Colors.black,
+                  color: Theme.of(context).brightness == Brightness.light
+                      ? black
+                      : darkgreymain,
                   fontSize: MediaQuery.of(context).size.height * .02),
             ),
           ],
@@ -32,9 +38,11 @@ Future<void> showSignOutAlert(BuildContext context) async {
         actions: [
           OutlinedButton(
               onPressed: () => Navigator.pop(context, 'Cancel'),
-              child: const Text('Cancel',
+              child: Text('Cancel',
                   style: TextStyle(
-                      color: Color.fromARGB(255, 109, 109, 109),
+                      color: Theme.of(context).brightness == Brightness.light
+                          ? grey
+                          : darkgreymain,
                       fontWeight: FontWeight.bold))),
           OutlinedButton(
             onPressed: () {
@@ -42,10 +50,13 @@ Future<void> showSignOutAlert(BuildContext context) async {
                   MaterialPageRoute(builder: (ctx2) => const LoginScreen()),
                   (route) => false);
             },
-            child: const Text(
+            child: Text(
               'Sign Out',
-              style:
-                  TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  color: Theme.of(context).brightness == Brightness.light
+                      ? black
+                      : white,
+                  fontWeight: FontWeight.bold),
             ),
           ),
         ],

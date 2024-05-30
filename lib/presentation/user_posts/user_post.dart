@@ -62,11 +62,9 @@ class UserPostScreen extends StatelessWidget {
               },
               icon: const Icon(Icons.arrow_back)),
           automaticallyImplyLeading: false,
-          backgroundColor: white,
-          surfaceTintColor: white,
           shape: const Border(
               bottom: BorderSide(
-                  color: Color.fromARGB(255, 211, 210, 210), width: 1.5)),
+                  color: Color.fromARGB(255, 44, 44, 44), width: 1.5)),
           title: appbarTitle(title: 'Your Posts')),
       body: ListView.builder(
           itemCount: 5,

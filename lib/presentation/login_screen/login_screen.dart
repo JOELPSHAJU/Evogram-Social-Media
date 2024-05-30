@@ -1,4 +1,5 @@
 import 'package:evogram/infrastructure/bloc/login_bloc/login_bloc.dart';
+import 'package:evogram/presentation/forget_password/forget_password_screen.dart';
 import 'package:evogram/presentation/widgets/custom_navigators.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -30,7 +31,6 @@ class _LoginScreenState extends State<LoginScreen> {
     final loginbloc = context.read<LoginBloc>();
     return SafeArea(
         child: Scaffold(
-      backgroundColor: white,
       body: BlocConsumer<LoginBloc, LoginState>(
         listener: (context, state) {
           if (state is LoginSuccessState) {
@@ -49,7 +49,6 @@ class _LoginScreenState extends State<LoginScreen> {
         builder: (context, state) {
           return SingleChildScrollView(
             child: Container(
-              color: Colors.white,
               width: size.width,
               height: size.height,
               child: Padding(
@@ -58,13 +57,27 @@ class _LoginScreenState extends State<LoginScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Image.asset(
-                          logoletters,
-                          width: size.width * .45,
-                        ),
+                        Theme.of(context).brightness == Brightness.light
+                            ? Image.asset(
+                                logoletters,
+                                width: size.width * .45,
+                              )
+                            : Image.asset(
+                                logoletterswhite,
+                                width: size.width * .45,
+                              ),
                         h30,
-                        const Row(
-                          children: [Text('Login', style: authheadingstyle)],
+                        Row(
+                          children: [
+                            Text('Login',
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.light
+                                        ? black
+                                        : white))
+                          ],
                         ),
                         h20,
                         Form(
@@ -85,7 +98,22 @@ class _LoginScreenState extends State<LoginScreen> {
                             ],
                           ),
                         ),
-                        h20,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            TextButton(
+                                onPressed: () {
+                                  gotoForgetPassword();
+                                },
+                                child: const Text(
+                                  'Forget Password?',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: blue,
+                                      fontSize: 15),
+                                ))
+                          ],
+                        ),
                         MaterialButton(
                             color: blue,
                             minWidth: size.width,
@@ -119,71 +147,69 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ],
                         ),
-                        h10,
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Image.asset(
-                              googlelogo,
-                              width: 30,
-                            ),
-                            w10,
-                            const Text(
-                              'Login with Google',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16,
-                                  color: darkgrey),
-                            )
-                          ],
-                        ),
-                        h10,
+                        h20,
                         Container(
                           width: size.width,
                           height: 60,
                           decoration: BoxDecoration(
-                              color: white,
-                              border: Border.all(color: lightgrey)),
+                              color: Theme.of(context).brightness ==
+                                      Brightness.light
+                                  ? white
+                                  : darkgreymain,
+                              border: Border.all(
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.light
+                                      ? lightgrey
+                                      : darkgrey)),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              const Text(
-                                'Dont Have An Account?',
-                                style: TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w700,
-                                    color: darkgrey),
+                              Image.asset(
+                                googlelogo,
+                                width: 30,
                               ),
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (ctx) => RegisterScreen()));
-                                },
-                                child: const Text(
-                                  'Sign Up',
-                                  style: TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w700,
-                                      color: blue),
-                                ),
+                              w10,
+                              Text(
+                                'Login with Google',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16,
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.light
+                                        ? darkgrey
+                                        : grey),
                               )
                             ],
                           ),
                         ),
-                        h10,
+                        h20,
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
+                            Text(
+                              'Dont Have An Account?',
+                              style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w700,
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.light
+                                      ? darkgrey
+                                      : grey),
+                            ),
                             TextButton(
-                                onPressed: () {},
-                                child: const Text(
-                                  'Forget Password?',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: grey,
-                                      fontSize: 15),
-                                ))
+                              onPressed: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (ctx) => RegisterScreen()));
+                              },
+                              child: const Text(
+                                'Sign Up',
+                                style: TextStyle(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w700,
+                                    color: blue),
+                              ),
+                            )
                           ],
                         ),
                       ])),
@@ -192,5 +218,10 @@ class _LoginScreenState extends State<LoginScreen> {
         },
       ),
     ));
+  }
+
+  gotoForgetPassword() {
+    return Navigator.of(context).push(
+        MaterialPageRoute(builder: (forgetpassword) => ForgetPasswordScreen()));
   }
 }
