@@ -42,5 +42,6 @@ String getallmessageurl = '/chats/message';
 //google urls
 const String googleLoginurl = '/users/google-login';
 const String verifyOtpReset = '/users/verifyOtp?email=';
-const String forgotPassword = '/users/forgotPassword?email=';
-const String updatePassword = '/users/changepassword';
+const String forgotPasswordurl = '/users/forgotPassword?email=';
+const String updatePasswordurl = '/users/changepassword';
+

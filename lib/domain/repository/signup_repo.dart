@@ -122,4 +122,43 @@ class SignupRepo {
       return null;
     }
   }
+
+  static Future<Response?> resetPassSendOtp(String email) async {
+    try {
+      Response? response =
+          await client.get(Uri.parse('${baseurl + forgotPasswordurl}$email'));
+      // print('${ApiEndpoints.baseUrl+ApiEndpoints.forgotPassword}$email');
+      print(response.body);
+
+      return response;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  static Future<Response?> verifyOtpPasswordReset(
+      String email, String otp) async {
+    try {
+      var response = await client
+          .get(Uri.parse('${baseurl + verifyOtpReset}$email&otp=$otp'));
+      // print(response.body);
+      //  print('${ApiEndpoints.baseUrl+ApiEndpoints.verifyOtpReset}$email&otp=$otp');
+      return response;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  static Future<Response?> updatePassword(String email, String password) async {
+    try {
+      var user = {'email': email, 'password': password};
+      var response = await client.patch(Uri.parse(baseurl + updatePasswordurl),
+          body: jsonEncode(user),
+          headers: {"Content-Type": 'application/json'});
+      print(response.body);
+      return response;
+    } catch (e) {
+      return null;
+    }
+  }
 }

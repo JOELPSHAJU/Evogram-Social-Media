@@ -166,7 +166,7 @@ class SettingsScreen extends StatelessWidget {
                 ],
               ),
               const Spacer(),
-              Text(
+              const Text(
                 'Version 1.0.0',
                 style: TextStyle(fontSize: 14, color: grey),
               ),

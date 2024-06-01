@@ -1,5 +1,6 @@
 import 'package:evogram/core/constants.dart';
 import 'package:evogram/firebase_options.dart';
+import 'package:evogram/infrastructure/bloc/forget_password_bloc/forgetpassword_bloc.dart';
 import 'package:evogram/infrastructure/bloc/login_bloc/login_bloc.dart';
 import 'package:evogram/infrastructure/bloc/otp_bloc/bloc/otp_bloc.dart';
 import 'package:evogram/infrastructure/bloc/signup_bloc/signup_bloc.dart';
@@ -34,6 +35,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => LoginBloc(),
+        ),
+        BlocProvider(
+          create: (context) => ForgetpasswordBloc(),
         ),
       ],
       child: MaterialApp(

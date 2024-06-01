@@ -23,10 +23,13 @@ class TextformfieldCustom extends StatelessWidget {
       cursorWidth: 2,
       controller: controller,
       validator: validator,
-      cursorColor: black,
+      cursorColor:
+          Theme.of(context).brightness == Brightness.light ? black : white,
       style: const TextStyle(fontWeight: FontWeight.w600),
       decoration: InputDecoration(
-          fillColor: lightgreyauth,
+          fillColor: Theme.of(context).brightness == Brightness.light
+              ? lightgreyauth
+              : darkgreymain,
           filled: true,
           hintText: hintText,
           border: const OutlineInputBorder(
