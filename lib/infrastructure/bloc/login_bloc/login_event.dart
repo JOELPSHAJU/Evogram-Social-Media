@@ -9,3 +9,8 @@ final class LoginButtonClickEvent extends LoginEvent {
 
   LoginButtonClickEvent({required this.email, required this.password});
 }
+
+
+final class GoogleLoginButtonClickEvent extends LoginEvent {
+ 
+}

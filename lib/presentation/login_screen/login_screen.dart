@@ -1,6 +1,10 @@
+// ignore_for_file: avoid_print
+
 import 'package:evogram/infrastructure/bloc/login_bloc/login_bloc.dart';
 import 'package:evogram/presentation/forget_password/forget_password_screen.dart';
 import 'package:evogram/presentation/widgets/custom_navigators.dart';
+import 'package:evogram/presentation/login_screen/googlesigninfn.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../core/constants.dart';
@@ -44,11 +48,11 @@ class _LoginScreenState extends State<LoginScreen> {
             customSnackbar(context, 'Account is blocked', red);
           } else if (state is LoginErrorStateInternalServerError) {
             customSnackbar(context, 'Internal server Error', red);
-          }
+          } else if (state is GoogleAuthenticationErrorState) {}
         },
         builder: (context, state) {
           return SingleChildScrollView(
-            child: Container(
+            child: SizedBox(
               width: size.width,
               height: size.height,
               child: Padding(
@@ -161,25 +165,30 @@ class _LoginScreenState extends State<LoginScreen> {
                                           Brightness.light
                                       ? lightgrey
                                       : darkgrey)),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Image.asset(
-                                googlelogo,
-                                width: 30,
-                              ),
-                              w10,
-                              Text(
-                                'Login with Google',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 16,
-                                    color: Theme.of(context).brightness ==
-                                            Brightness.light
-                                        ? darkgrey
-                                        : grey),
-                              )
-                            ],
+                          child: GestureDetector(
+                            onTap: () {
+                              context.read<LoginBloc>().add(GoogleLoginButtonClickEvent());
+                            },
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Image.asset(
+                                  googlelogo,
+                                  width: 30,
+                                ),
+                                w10,
+                                Text(
+                                  'Login with Google',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16,
+                                      color: Theme.of(context).brightness ==
+                                              Brightness.light
+                                          ? darkgrey
+                                          : grey),
+                                )
+                              ],
+                            ),
                           ),
                         ),
                         h20,
@@ -200,7 +209,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             TextButton(
                               onPressed: () {
                                 Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (ctx) => RegisterScreen()));
+                                    builder: (ctx) => const RegisterScreen()));
                               },
                               child: const Text(
                                 'Sign Up',

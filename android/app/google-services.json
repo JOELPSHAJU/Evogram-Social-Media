@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "341017981931",
+    "project_id": "evogramsocialmedia-6e6e0",
+    "storage_bucket": "evogramsocialmedia-6e6e0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:341017981931:android:54c91b36a595fb149cdfae",
+        "android_client_info": {
+          "package_name": "com.example.evogram"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDEplu0BKXpmknCv8DE85s7jjAYvRGrMXo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

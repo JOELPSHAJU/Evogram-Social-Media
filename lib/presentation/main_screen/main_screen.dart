@@ -23,7 +23,7 @@ class _MainScreenState extends State<MainScreen> {
     const SearchScreen(),
     AddPostScreen(),
     FindChatPersonScreen(),
-    ProfileScreen(),
+    const ProfileScreen(),
   ];
 
   @override

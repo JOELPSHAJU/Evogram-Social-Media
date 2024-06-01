@@ -1,4 +1,4 @@
-import '../../core/constants.dart';
+
 import '../chat_screen/chat_screen.dart';
 import '../widgets/text_styles.dart';
 import 'package:flutter/material.dart';

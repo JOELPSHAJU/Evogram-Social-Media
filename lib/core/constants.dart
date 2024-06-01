@@ -30,6 +30,7 @@ const h40 = SizedBox(
   height: 40,
 );
 const red = Color.fromARGB(255, 180, 13, 1);
+const redlogout = Color.fromARGB(255, 255, 18, 1);
 const white = Colors.white;
 const grey = Colors.grey;
 const darkgreymain = Color.fromARGB(255, 21, 21, 22);

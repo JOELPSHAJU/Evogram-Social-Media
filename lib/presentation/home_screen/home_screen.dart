@@ -56,7 +56,7 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        shape: const Border(bottom: BorderSide(color: darkgrey, width: 1.5)),
+        shape: const Border(bottom: BorderSide(color: grey, width: 1.5)),
         title: Theme.of(context).brightness == Brightness.light
             ? Image.asset(
                 logoletters,

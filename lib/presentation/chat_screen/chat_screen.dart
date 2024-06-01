@@ -63,8 +63,8 @@ class ChatScreen extends StatelessWidget {
         decoration: BoxDecoration(
             image: DecorationImage(
                 image: Theme.of(context).brightness == Brightness.light
-                    ? AssetImage(chatbg)
-                    : AssetImage(chatbgdark),
+                    ? const AssetImage(chatbg)
+                    : const AssetImage(chatbgdark),
                 fit: BoxFit.cover)),
         child: Form(
           key: formkey,

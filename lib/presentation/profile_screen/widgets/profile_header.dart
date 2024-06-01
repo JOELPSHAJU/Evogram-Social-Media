@@ -4,6 +4,7 @@ import 'package:evogram/presentation/followers_screen/followers_screen.dart';
 import 'package:evogram/presentation/following_screen/following_screen.dart';
 import 'package:evogram/presentation/profile_screen/widgets/profile_styles.dart';
 import 'package:evogram/presentation/user_posts/user_post.dart';
+import 'package:evogram/presentation/widgets/custom_navigators.dart';
 import 'package:flutter/material.dart';
 
 Widget profileHeaderWidgets(
@@ -70,25 +71,7 @@ Widget profileHeaderWidgets(
         children: [
           GestureDetector(
             onTap: () {
-              Navigator.push(
-                  context,
-                  PageRouteBuilder(
-                    pageBuilder: (context, animation, secondaryAnimation) =>
-                        UserPostScreen(),
-                    transitionsBuilder:
-                        (context, animation, secondaryAnimation, child) {
-                      const begin = Offset(0.0, 1.0);
-                      const end = Offset.zero;
-                      const curve = Curves.ease;
-                      var tween = Tween(begin: begin, end: end)
-                          .chain(CurveTween(curve: curve));
-
-                      return SlideTransition(
-                        position: animation.drive(tween),
-                        child: child,
-                      );
-                    },
-                  ));
+              navigatePushAnimaterbottomtotop(context, UserPostScreen());
             },
             child: const Column(
               children: [
@@ -102,25 +85,7 @@ Widget profileHeaderWidgets(
           ),
           GestureDetector(
             onTap: () {
-              Navigator.push(
-                  context,
-                  PageRouteBuilder(
-                    pageBuilder: (context, animation, secondaryAnimation) =>
-                        FollowersScreen(),
-                    transitionsBuilder:
-                        (context, animation, secondaryAnimation, child) {
-                      const begin = Offset(0.0, 1.0);
-                      const end = Offset.zero;
-                      const curve = Curves.ease;
-                      var tween = Tween(begin: begin, end: end)
-                          .chain(CurveTween(curve: curve));
-
-                      return SlideTransition(
-                        position: animation.drive(tween),
-                        child: child,
-                      );
-                    },
-                  ));
+              navigatePushAnimaterbottomtotop(context, FollowersScreen());
             },
             child: const Column(
               children: [
@@ -134,25 +99,7 @@ Widget profileHeaderWidgets(
           ),
           GestureDetector(
             onTap: () {
-              Navigator.push(
-                  context,
-                  PageRouteBuilder(
-                    pageBuilder: (context, animation, secondaryAnimation) =>
-                        FollowingPersonScreen(),
-                    transitionsBuilder:
-                        (context, animation, secondaryAnimation, child) {
-                      const begin = Offset(0.0, 1.0);
-                      const end = Offset.zero;
-                      const curve = Curves.ease;
-                      var tween = Tween(begin: begin, end: end)
-                          .chain(CurveTween(curve: curve));
-
-                      return SlideTransition(
-                        position: animation.drive(tween),
-                        child: child,
-                      );
-                    },
-                  ));
+              navigatePushAnimaterbottomtotop(context, FollowingPersonScreen());
             },
             child: const Column(
               children: [
@@ -177,25 +124,7 @@ Widget profileHeaderWidgets(
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5)),
               onPressed: () {
-                Navigator.push(
-                    context,
-                    PageRouteBuilder(
-                      pageBuilder: (context, animation, secondaryAnimation) =>
-                          EditProfileScreen(),
-                      transitionsBuilder:
-                          (context, animation, secondaryAnimation, child) {
-                        const begin = Offset(0.0, 1.0);
-                        const end = Offset.zero;
-                        const curve = Curves.ease;
-                        var tween = Tween(begin: begin, end: end)
-                            .chain(CurveTween(curve: curve));
-
-                        return SlideTransition(
-                          position: animation.drive(tween),
-                          child: child,
-                        );
-                      },
-                    ));
+                navigatePushAnimaterbottomtotop(context, EditProfileScreen());
               },
               child: const Text('Edit Profile',
                   style: TextStyle(

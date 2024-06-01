@@ -43,10 +43,15 @@ class SpecificPostScreen extends StatelessWidget {
         shape: const Border(
             bottom: BorderSide(
                 color: Color.fromARGB(255, 211, 210, 210), width: 1.5)),
-        title: Image.asset(
-          logoletters,
-          width: size.width * .2,
-        ),
+        title: Theme.of(context).brightness == Brightness.light
+            ? Image.asset(
+                logoletters,
+                width: size.width * .2,
+              )
+            : Image.asset(
+                logoletterswhite,
+                width: size.width * .2,
+              ),
       ),
       body: SizedBox(
         width: size.width,
@@ -59,8 +64,8 @@ class SpecificPostScreen extends StatelessWidget {
               Row(
                 children: [
                   Container(
-                    height: 60,
-                    width: 60,
+                    height: 50,
+                    width: 50,
                     decoration: BoxDecoration(
                         image: DecorationImage(
                             image: NetworkImage(profileimage),
@@ -75,13 +80,13 @@ class SpecificPostScreen extends StatelessWidget {
                         Text(
                           account,
                           style: const TextStyle(
-                              fontWeight: FontWeight.w600, fontSize: 15),
+                              fontWeight: FontWeight.w600, fontSize: 14),
                         ),
                         const Text(
                           '2d',
                           style: TextStyle(
                               fontWeight: FontWeight.w600,
-                              fontSize: 15,
+                              fontSize: 13,
                               color: grey),
                         )
                       ],
@@ -97,50 +102,47 @@ class SpecificPostScreen extends StatelessWidget {
                     mainimage,
                     fit: BoxFit.cover,
                   )),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        IconButton(
-                            onPressed: () {},
-                            icon: Icon(
-                              Icons.favorite_outline,
-                              size: 35,
-                            )),
-                        w10,
-                        IconButton(
-                            onPressed: () {},
-                            icon: Icon(
-                              Icons.message_outlined,
-                              size: 35,
-                            )),
-                        w10,
-                        IconButton(
-                            onPressed: () {},
-                            icon: Icon(
-                              Icons.share,
-                              size: 35,
-                            )),
-                      ],
-                    ),
-                    IconButton(
-                        onPressed: () {},
-                        icon: Icon(
-                          Icons.save,
-                          size: 35,
-                        ))
-                  ],
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      IconButton(
+                          onPressed: () {},
+                          icon: const Icon(
+                            Icons.favorite_outline,
+                            size: 25,
+                          )),
+                      w10,
+                      IconButton(
+                          onPressed: () {},
+                          icon: const Icon(
+                            Icons.message_outlined,
+                            size: 25,
+                          )),
+                      w10,
+                      IconButton(
+                          onPressed: () {},
+                          icon: const Icon(
+                            Icons.share,
+                            size: 25,
+                          )),
+                    ],
+                  ),
+                  IconButton(
+                      onPressed: () {},
+                      icon: const Icon(
+                        Icons.save,
+                        size: 25,
+                      ))
+                ],
               ),
               RichText(
                 text: TextSpan(
                     text: 'Liked by',
                     style: GoogleFonts.inter(
-                        fontSize: 15,
+                        fontSize: 13,
                         color: Theme.of(context).brightness == Brightness.light
                             ? black
                             : white),
@@ -148,14 +150,14 @@ class SpecificPostScreen extends StatelessWidget {
                       TextSpan(
                         text: ' $likedpersonname ',
                         style: GoogleFonts.inter(
-                          fontSize: 16,
+                          fontSize: 13,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
                       TextSpan(
                         text: 'and others',
                         style: GoogleFonts.inter(
-                            fontSize: 15,
+                            fontSize: 13,
                             color:
                                 Theme.of(context).brightness == Brightness.light
                                     ? black
@@ -163,17 +165,21 @@ class SpecificPostScreen extends StatelessWidget {
                       ),
                     ]),
               ),
-              Text(
-                date,
-                style: const TextStyle(fontWeight: FontWeight.w600),
-              ),
               h10,
               Text(
                 description,
                 maxLines: 3,
                 style: const TextStyle(overflow: TextOverflow.ellipsis),
               ),
-              h10
+              Text(
+                date,
+                style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    color: Theme.of(context).brightness == Brightness.light
+                        ? grey
+                        : grey),
+              ),
+              h10,
             ],
           ),
         ),

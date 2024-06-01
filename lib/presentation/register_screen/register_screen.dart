@@ -1,20 +1,20 @@
 import 'package:evogram/application/models/signup_model.dart';
 import 'package:evogram/infrastructure/bloc/signup_bloc/signup_bloc.dart';
+import 'package:evogram/presentation/widgets/custom_button.dart';
 import 'package:evogram/presentation/widgets/custom_navigators.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:http/http.dart';
 
 import '../../core/constants.dart';
 import '../login_screen/login_screen.dart';
-import '../login_screen/widgets.dart';
+
 import 'widgets.dart';
-import '../sent_otp/otp_screen.dart';
+import '../otp_sent_screen/otp_screen.dart';
 import '../widgets/snakbars.dart';
 import '../widgets/validators.dart';
 import 'package:flutter/material.dart';
 
 class RegisterScreen extends StatefulWidget {
-  RegisterScreen({super.key});
+  const RegisterScreen({super.key});
 
   @override
   State<RegisterScreen> createState() => _RegisterScreenState();
@@ -63,7 +63,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         },
         builder: (context, state) {
           return SingleChildScrollView(
-            child: Container(
+            child: SizedBox(
               width: size.width,
               height: size.height,
               child: Padding(
@@ -130,30 +130,40 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                     ),
                     h20,
-                    MaterialButton(
-                        color: blue,
-                        minWidth: size.width,
-                        height: 55,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5)),
-                        onPressed: () {
-                          if (formKeyRegister.currentState!.validate()) {
-                            final user = UserModel(
-                                email: emailAddressController.text,
-                                userName: usernameController.text,
-                                phone: phoneNumberController.text,
-                                password: passwordController.text);
-                            userdetails = user;
-                            signupbloc.add(SignupButtenClickEvent(user: user));
-                          } else {
-                            customSnackbar(context, 'fill all fields', red);
-                          }
-                        },
-                        child: const Text('Register',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: white,
-                                fontSize: 17))),
+                    BlocBuilder<SignupBloc, SignupState>(
+                      builder: (context, state) {
+                        if (state is SignupLoadingState) {
+                          return loadingButton(
+                              media: size, onPressed: () {}, color: blue);
+                        }
+                        return MaterialButton(
+                            color: blue,
+                            minWidth: size.width,
+                            height: 55,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(5)),
+                            onPressed: () {
+                              if (formKeyRegister.currentState!.validate()) {
+                                final user = UserModel(
+                                    email: emailAddressController.text,
+                                    userName: usernameController.text,
+                                    phone: phoneNumberController.text,
+                                    password: passwordController.text);
+                                userdetails = user;
+
+                                signupbloc
+                                    .add(SignupButtenClickEvent(user: user));
+                              } else {
+                                customSnackbar(context, 'fill all fields', red);
+                              }
+                            },
+                            child: const Text('Register',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: white,
+                                    fontSize: 17)));
+                      },
+                    ),
                     h20,
                     Container(
                       width: size.width,

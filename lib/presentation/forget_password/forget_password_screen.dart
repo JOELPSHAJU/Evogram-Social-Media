@@ -1,4 +1,8 @@
+import 'package:evogram/presentation/forget_password/otp_forgetpassword.dart';
+import 'package:evogram/presentation/widgets/custom_navigators.dart';
 import 'package:evogram/presentation/widgets/textformfield.dart';
+import 'package:evogram/presentation/widgets/validators.dart';
+// ignore: unnecessary_import
 import 'package:flutter/widgets.dart';
 
 import '../../core/constants.dart';
@@ -7,11 +11,11 @@ import 'package:flutter/material.dart';
 class ForgetPasswordScreen extends StatelessWidget {
   ForgetPasswordScreen({super.key});
   final emailController = TextEditingController();
+  final forgetpasswordkey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: white,
       body: SizedBox(
         width: size.width,
         height: size.height,
@@ -43,8 +47,13 @@ class ForgetPasswordScreen extends StatelessWidget {
                       color: darkgrey),
                 ),
                 h30,
-                TextformfieldCustom(
-                    controller: emailController, hintText: 'Email Address'),
+                Form(
+                  key: forgetpasswordkey,
+                  child: TextformfieldCustom(
+                      controller: emailController,
+                      validator: validateEmail,
+                      hintText: 'Email Address'),
+                ),
                 h30,
                 MaterialButton(
                     color: blue,
@@ -52,8 +61,13 @@ class ForgetPasswordScreen extends StatelessWidget {
                     height: 55,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5)),
-                    onPressed: () {},
-                    child: const Text('Continued',
+                    onPressed: () {
+                      if (forgetpasswordkey.currentState!.validate()) {
+                        navigatePushAnimaterighttoleft(
+                            context, OtpForgetpassword());
+                      } else {}
+                    },
+                    child: const Text('Continue',
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: white,
@@ -65,7 +79,7 @@ class ForgetPasswordScreen extends StatelessWidget {
                     },
                     child: const Text(
                       'Back to Login',
-                      style: const TextStyle(
+                      style: TextStyle(
                           fontSize: 17,
                           decoration: TextDecoration.underline,
                           decorationColor: blue,

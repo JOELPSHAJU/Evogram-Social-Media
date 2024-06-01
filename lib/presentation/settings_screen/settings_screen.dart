@@ -1,4 +1,3 @@
-
 import 'package:evogram/presentation/settings_screen/widgets.dart';
 
 import '../../core/constants.dart';
@@ -17,6 +16,10 @@ class SettingsScreen extends StatelessWidget {
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
         appBar: AppBar(
+          backgroundColor:
+              Theme.of(context).brightness == Brightness.light ? white : black,
+          surfaceTintColor:
+              Theme.of(context).brightness == Brightness.light ? white : black,
           title: appbarTitle(title: 'Settings and activity'),
         ),
         body: SizedBox(
@@ -163,7 +166,10 @@ class SettingsScreen extends StatelessWidget {
                 ],
               ),
               const Spacer(),
-              appbarTitle(title: 'Version 1.0.0'),
+              Text(
+                'Version 1.0.0',
+                style: TextStyle(fontSize: 14, color: grey),
+              ),
               h30
             ],
           ),
@@ -190,18 +196,18 @@ class SettingsTile extends StatelessWidget {
         children: [
           Icon(
             leadingIcon,
-            size: 30,
+            size: 25,
             weight: 2,
           ),
           w10,
           Text(
             text,
-            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
           ),
           const Spacer(),
           Icon(
             trailingIcon,
-            size: 30,
+            size: 25,
             weight: 3,
           )
         ],

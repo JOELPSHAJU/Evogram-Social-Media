@@ -1,4 +1,5 @@
-import '../../core/constants.dart';
+import 'package:evogram/core/constants.dart';
+
 import 'widget.dart';
 import '../widgets/text_styles.dart';
 import 'package:flutter/material.dart';
@@ -62,9 +63,7 @@ class UserPostScreen extends StatelessWidget {
               },
               icon: const Icon(Icons.arrow_back)),
           automaticallyImplyLeading: false,
-          shape: const Border(
-              bottom: BorderSide(
-                  color: Color.fromARGB(255, 44, 44, 44), width: 1.5)),
+          shape: const Border(bottom: BorderSide(color: grey, width: 1.5)),
           title: appbarTitle(title: 'Your Posts')),
       body: ListView.builder(
           itemCount: 5,

@@ -1,5 +1,4 @@
 import '../../core/constants.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -32,8 +31,8 @@ class ListTileMainScreen extends StatelessWidget {
           Row(
             children: [
               Container(
-                height: 60,
-                width: 60,
+                height: 50,
+                width: 50,
                 decoration: BoxDecoration(
                     image: DecorationImage(
                         image: NetworkImage(profileimage), fit: BoxFit.cover),
@@ -47,13 +46,13 @@ class ListTileMainScreen extends StatelessWidget {
                     Text(
                       account,
                       style: const TextStyle(
-                          fontWeight: FontWeight.w600, fontSize: 15),
+                          fontWeight: FontWeight.w600, fontSize: 14),
                     ),
                     const Text(
                       '2d',
                       style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 15,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 13,
                           color: grey),
                     )
                   ],
@@ -69,50 +68,45 @@ class ListTileMainScreen extends StatelessWidget {
                 mainimage,
                 fit: BoxFit.cover,
               )),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    IconButton(
-                        onPressed: () {},
-                        icon: Icon(
-                          Icons.favorite_outline,
-                          size: 35,
-                        )),
-                    w10,
-                    IconButton(
-                        onPressed: () {},
-                        icon: Icon(
-                          Icons.message_outlined,
-                          size: 35,
-                        )),
-                    w10,
-                    IconButton(
-                        onPressed: () {},
-                        icon: Icon(
-                          Icons.share,
-                          size: 35,
-                        )),
-                  ],
-                ),
-                IconButton(
-                    onPressed: () {},
-                    icon: Icon(
-                      Icons.save,
-                      size: 35,
-                    ))
-              ],
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  IconButton(
+                      onPressed: () {},
+                      icon: const Icon(
+                        Icons.favorite_outline,
+                        size: 25,
+                      )),
+                  IconButton(
+                      onPressed: () {},
+                      icon: const Icon(
+                        Icons.chat_bubble_outline_rounded,
+                        size: 25,
+                      )),
+                  IconButton(
+                      onPressed: () {},
+                      icon: const Icon(
+                        Icons.share_rounded,
+                        size: 25,
+                      )),
+                ],
+              ),
+              IconButton(
+                  onPressed: () {},
+                  icon: const Icon(
+                    Icons.save,
+                    size: 25,
+                  ))
+            ],
           ),
           RichText(
             text: TextSpan(
                 text: 'Liked by',
                 style: GoogleFonts.inter(
-                    fontSize: 15,
+                    fontSize: 13,
                     color: Theme.of(context).brightness == Brightness.light
                         ? black
                         : white),
@@ -120,23 +114,19 @@ class ListTileMainScreen extends StatelessWidget {
                   TextSpan(
                     text: ' $likedpersonname ',
                     style: GoogleFonts.inter(
-                      fontSize: 16,
+                      fontSize: 13,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
                   TextSpan(
                     text: 'and others',
                     style: GoogleFonts.inter(
-                        fontSize: 15,
+                        fontSize: 13,
                         color: Theme.of(context).brightness == Brightness.light
                             ? black
                             : white),
                   ),
                 ]),
-          ),
-          Text(
-            date,
-            style: const TextStyle(fontWeight: FontWeight.w600),
           ),
           h10,
           Text(
@@ -144,7 +134,16 @@ class ListTileMainScreen extends StatelessWidget {
             maxLines: 3,
             style: const TextStyle(overflow: TextOverflow.ellipsis),
           ),
-          h10
+          Text(
+            date,
+            style: TextStyle(
+                fontWeight: FontWeight.w400,
+                fontSize: 13,
+                color: Theme.of(context).brightness == Brightness.light
+                    ? grey
+                    : grey),
+          ),
+          h10,
         ],
       ),
     );

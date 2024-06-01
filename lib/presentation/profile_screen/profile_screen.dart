@@ -1,5 +1,6 @@
 import 'package:evogram/presentation/profile_screen/widgets/grid.dart';
 import 'package:evogram/presentation/profile_screen/widgets/profile_header.dart';
+import 'package:evogram/presentation/widgets/custom_navigators.dart';
 
 import '../../core/constants.dart';
 
@@ -8,7 +9,7 @@ import '../settings_screen/settings_screen.dart';
 import 'package:flutter/material.dart';
 
 class ProfileScreen extends StatelessWidget {
-  ProfileScreen({super.key});
+  const ProfileScreen({super.key});
   final String mainImages =
       'https://www.motortrend.com/uploads/sites/25/2019/05/2019-Petersen-Japanse-Car-Cruise-In-x-SS-Meet-Fast-and-Furious-Eclipse.jpg?w=768&width=768&q=75&format=webp';
   final coverpic =
@@ -36,25 +37,7 @@ class ProfileScreen extends StatelessWidget {
           actions: [
             IconButton(
                 onPressed: () {
-                  Navigator.push(
-                      context,
-                      PageRouteBuilder(
-                        pageBuilder: (context, animation, secondaryAnimation) =>
-                            const SettingsScreen(),
-                        transitionsBuilder:
-                            (context, animation, secondaryAnimation, child) {
-                          const begin = Offset(1.0, 0.0);
-                          const end = Offset.zero;
-                          const curve = Curves.ease;
-                          var tween = Tween(begin: begin, end: end)
-                              .chain(CurveTween(curve: curve));
-
-                          return SlideTransition(
-                            position: animation.drive(tween),
-                            child: child,
-                          );
-                        },
-                      ));
+                  navigatePushAnimaterighttoleft(context, SettingsScreen());
                 },
                 icon: const Icon(
                   Icons.more_vert,
@@ -72,10 +55,13 @@ class ProfileScreen extends StatelessWidget {
                     ]))
                   ];
                 },
-                body: const Column(
+                body: Column(
                   children: [
                     Material(
-                      child: TabBar(
+                      color: Theme.of(context).brightness == Brightness.light
+                          ? white
+                          : black,
+                      child: const TabBar(
                           dividerColor: blueaccent3,
                           unselectedLabelColor: grey,
                           labelColor: blueaccent2,
@@ -95,7 +81,7 @@ class ProfileScreen extends StatelessWidget {
                             )
                           ]),
                     ),
-                    Expanded(
+                    const Expanded(
                         child: TabBarView(
                             children: [GridviewProfile(), GridviewProfile()]))
                   ],

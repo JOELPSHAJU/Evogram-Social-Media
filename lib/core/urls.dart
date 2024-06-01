@@ -1,4 +1,4 @@
-String baseurl = 'https://hyperedge.online/api';
+String baseurl = 'https://3b5xb3l8-7002.inc1.devtunnels.ms/api';
 //signup
 String signup = '/users/send-otp';
 String otpurl = '/users/verify-otp';
@@ -38,3 +38,9 @@ String getconversationurl = '/chats/conversation';
 String createconversationurl = '/chats/conversation';
 String addmessageurl = '/chats/message';
 String getallmessageurl = '/chats/message';
+
+//google urls
+const String googleLoginurl = '/users/google-login';
+const String verifyOtpReset = '/users/verifyOtp?email=';
+const String forgotPassword = '/users/forgotPassword?email=';
+const String updatePassword = '/users/changepassword';

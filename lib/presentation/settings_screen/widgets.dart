@@ -1,6 +1,7 @@
 import 'package:evogram/core/constants.dart';
 import 'package:evogram/presentation/login_screen/login_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 Future<void> showSignOutAlert(BuildContext context) async {
   return showDialog<void>(
@@ -11,16 +12,20 @@ Future<void> showSignOutAlert(BuildContext context) async {
             Theme.of(context).brightness == Brightness.light ? white : darkgrey,
         title: Column(
           children: [
-            Text(
-              textAlign: TextAlign.center,
-              'Sign Out',
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Theme.of(context).brightness == Brightness.light
-                      ? black
-                      : darkgreymain,
-                  fontSize: 20),
+            w10,
+            Center(
+              child: Text(
+                textAlign: TextAlign.center,
+                'Sign Out',
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context).brightness == Brightness.light
+                        ? redlogout
+                        : redlogout,
+                    fontSize: 20),
+              ),
             ),
+            h10,
             Text(
               textAlign: TextAlign.center,
               'Do you really want to sign out?',
@@ -45,7 +50,9 @@ Future<void> showSignOutAlert(BuildContext context) async {
                           : darkgreymain,
                       fontWeight: FontWeight.bold))),
           OutlinedButton(
-            onPressed: () {
+            onPressed: ()async {
+                SharedPreferences preferences = await SharedPreferences.getInstance();
+          preferences.setBool('LOGIN', false);
               Navigator.of(context).pushAndRemoveUntil(
                   MaterialPageRoute(builder: (ctx2) => const LoginScreen()),
                   (route) => false);
@@ -54,8 +61,8 @@ Future<void> showSignOutAlert(BuildContext context) async {
               'Sign Out',
               style: TextStyle(
                   color: Theme.of(context).brightness == Brightness.light
-                      ? black
-                      : white,
+                      ? redlogout
+                      : redlogout,
                   fontWeight: FontWeight.bold),
             ),
           ),
