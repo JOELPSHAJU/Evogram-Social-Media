@@ -19,7 +19,7 @@ class TermsAndConditionsScreen extends StatelessWidget {
       ),
       body: const SingleChildScrollView(
         padding: EdgeInsets.all(16.0),
-        child: const Column(
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(

@@ -1,8 +1,6 @@
-import 'package:evogram/presentation/userprofile/edit_profile/widgets.dart';
-
-import '../../core/constants.dart';
-
-import '../widgets/text_styles.dart';
+import '../../../core/constants.dart';
+import 'widgets.dart';
+import '../../widgets/text_styles.dart';
 import 'package:flutter/material.dart';
 
 class EditProfileScreen extends StatelessWidget {
@@ -22,7 +20,6 @@ class EditProfileScreen extends StatelessWidget {
 
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
-      
       appBar: AppBar(
         title: appbarTitle(title: 'Edit Profile'),
       ),

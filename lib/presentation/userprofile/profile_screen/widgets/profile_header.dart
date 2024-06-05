@@ -1,9 +1,10 @@
 import 'package:evogram/core/constants.dart';
-import 'package:evogram/presentation/edit_profile/edit_profile.dart';
 import 'package:evogram/presentation/followers_screen/followers_screen.dart';
 import 'package:evogram/presentation/following_screen/following_screen.dart';
-import 'package:evogram/presentation/profile_screen/widgets/profile_styles.dart';
-import 'package:evogram/presentation/user_posts/user_post.dart';
+import 'package:evogram/presentation/userprofile/edit_profile/edit_profile.dart';
+
+import 'package:evogram/presentation/userprofile/profile_screen/widgets/profile_styles.dart';
+import 'package:evogram/presentation/userprofile/user_posts/user_post.dart';
 import 'package:evogram/presentation/widgets/custom_navigators.dart';
 import 'package:flutter/material.dart';
 
@@ -117,20 +118,36 @@ Widget profileHeaderWidgets(
       Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          MaterialButton(
-              color: blueaccent3,
-              minWidth: size.width * .5,
-              height: 45,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(5)),
-              onPressed: () {
-                navigatePushAnimaterbottomtotop(context, EditProfileScreen());
-              },
-              child: const Text('Edit Profile',
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: white,
-                      fontSize: 16))),
+          GestureDetector(
+            onTap: () {
+              navigatePushAnimaterbottomtotop(context, EditProfileScreen());
+            },
+            child: Container(
+                decoration: BoxDecoration(
+                    color: const Color(0XFFEFF3F6),
+                    borderRadius: BorderRadius.circular(10),
+                    boxShadow: const [
+                      BoxShadow(
+                          color: Color.fromRGBO(0, 0, 0, 0.1),
+                          offset: Offset(6.0, 2.0),
+                          blurRadius: 9,
+                          spreadRadius: 3.0),
+                      BoxShadow(
+                          color: Color.fromRGBO(255, 255, 255, .9),
+                          offset: Offset(-6.0, -2.0),
+                          blurRadius: 6,
+                          spreadRadius: 3.0)
+                    ]),
+                width: size.width * .5,
+                height: 45,
+                child: const Center(
+                  child: Text('Edit Profile',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: black,
+                          fontSize: 16)),
+                )),
+          ),
         ],
       ),
       h20,

@@ -1,5 +1,8 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:evogram/core/constants.dart';
 import 'package:evogram/infrastructure/bloc/forget_password_bloc/forgetpassword_bloc.dart';
+
 import 'package:evogram/presentation/login_screen/login_screen.dart';
 import 'package:evogram/presentation/widgets/custom_button.dart';
 import 'package:evogram/presentation/widgets/custom_navigators.dart';
@@ -26,7 +29,7 @@ class OtpForgetpassword extends StatelessWidget {
     return BlocConsumer<ForgetpasswordBloc, ForgetpasswordState>(
       listener: (context, state) {
         if (state is ResetPasswordSuccesState) {
-          navigatePushandRemoveuntil(context, LoginScreen());
+          navigatePushandRemoveuntil(context, const LoginScreen());
         } else if (state is OtpverifiedErrorState) {
           customSnackbar(context, state.error, redlogout);
         } else if (state is ResetPasswordErrorState) {
@@ -36,73 +39,94 @@ class OtpForgetpassword extends StatelessWidget {
       builder: (context, state) {
         if (state is OtpverifiedSuccesState) {
           return Scaffold(
-            body: Container(
+            body: SizedBox(
               width: size.width,
               height: size.height,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Form(
-                      key: formkeyreset,
-                      child: Column(
-                        children: [
-                          TextformfieldCustom(
-                              controller: passwordcontroller,
-                              validator: validatePassword,
-                              hintText: 'Enter New Password'),
-                          TextformfieldCustom(
-                              controller: confirmpasswordcontroller,
-                              validator: validatePassword,
-                              hintText: 'Confirm Password')
-                        ],
-                      )),
-                  BlocBuilder<ForgetpasswordBloc, ForgetpasswordState>(
-                    builder: (context, state) {
-                      if (state is ForgetpasswordLoadingState) {
-                        return loadingButton(
-                            media: size, onPressed: () {}, color: blue);
-                      }
-                      return BlocBuilder<ForgetpasswordBloc,
-                          ForgetpasswordState>(
-                        builder: (context, state) {
-                          if (state is ResetpasswordLoadingState) {
-                            return loadingButton(
-                                media: size,
-                                onPressed: () {},
-                                color: redlogout);
-                          }
-                          return MaterialButton(
-                              color: blue,
-                              minWidth: size.width,
-                              height: 55,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(5)),
-                              onPressed: () {
-                                if (formkeyreset.currentState!.validate()) {
-                                  print(otp);
-                                  print(email);
-                                  print('dsfsdf');
-                                  context.read<ForgetpasswordBloc>().add(
-                                      OnResetPasswordButtonClickedEvent(
-                                          email: email,
-                                          password: passwordcontroller.text));
-                                  print('After context');
-                                } else {
-                                  customSnackbar(
-                                      context, 'Fill The Field', redlogout);
-                                }
-                                print('test');
-                              },
-                              child: const Text('Continue',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: white,
-                                      fontSize: 17)));
-                        },
-                      );
-                    },
-                  ),
-                ],
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      logo2,
+                      width: size.width * .3,
+                    ),
+                    h10,
+                    const Text(
+                      'Set your New Password',
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                    ),
+                    h10,
+                    const Text(
+                      textAlign: TextAlign.center,
+                      'Once you reset your password, You can login to your account using that password',
+                      style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                          color: grey),
+                    ),
+                    h10,
+                    Form(
+                        key: formkeyreset,
+                        child: Column(
+                          children: [
+                            TextformfieldCustom(
+                                controller: passwordcontroller,
+                                validator: validatePassword,
+                                hintText: 'Enter New Password'),
+                            h10,
+                            TextformfieldCustom(
+                                controller: confirmpasswordcontroller,
+                                validator: validatePassword,
+                                hintText: 'Confirm Password')
+                          ],
+                        )),
+                    h20,
+                    BlocBuilder<ForgetpasswordBloc, ForgetpasswordState>(
+                      builder: (context, state) {
+                        if (state is ForgetpasswordLoadingState) {
+                          return loadingButton(
+                              media: size, onPressed: () {}, color: blue);
+                        }
+                        return BlocBuilder<ForgetpasswordBloc,
+                            ForgetpasswordState>(
+                          builder: (context, state) {
+                            if (state is ResetpasswordLoadingState) {
+                              return loadingButton(
+                                  media: size,
+                                  onPressed: () {},
+                                  color: redlogout);
+                            }
+                            return MaterialButton(
+                                color: blue,
+                                minWidth: size.width,
+                                height: 55,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(5)),
+                                onPressed: () {
+                                  if (formkeyreset.currentState!.validate()) {
+                                    context.read<ForgetpasswordBloc>().add(
+                                        OnResetPasswordButtonClickedEvent(
+                         
+                                            email: email,
+                                            password: passwordcontroller.text));
+                                  } else {
+                                    customSnackbar(
+                                        context, 'Fill The Field', redlogout);
+                                  }
+                                },
+                                child: const Text('Continue',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: white,
+                                        fontSize: 17)));
+                          },
+                        );
+                      },
+                    ),
+                  ],
+                ),
               ),
             ),
           );
@@ -123,8 +147,8 @@ class OtpForgetpassword extends StatelessWidget {
                   h10,
                   appbarTitle(title: 'Please check your Email'),
                   h10,
-                  Padding(
-                    padding: const EdgeInsets.only(left: 10.0, right: 10),
+                  const Padding(
+                    padding: EdgeInsets.only(left: 10.0, right: 10),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,

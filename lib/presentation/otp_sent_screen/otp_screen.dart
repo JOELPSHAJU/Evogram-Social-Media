@@ -4,6 +4,7 @@ import 'package:evogram/application/models/signup_model.dart';
 import 'package:evogram/infrastructure/bloc/otp_bloc/bloc/otp_bloc.dart';
 import 'package:evogram/infrastructure/bloc/signup_bloc/signup_bloc.dart';
 import 'package:evogram/presentation/login_screen/login_screen.dart';
+
 import 'package:evogram/presentation/widgets/snakbars.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -205,9 +206,10 @@ class _OtpScreenState extends State<OtpScreen> {
                               side: const BorderSide(color: black),
                               borderRadius: BorderRadius.circular(5)),
                           onPressed: () {
-                            Navigator.of(context).pushReplacement(
+                            Navigator.of(context).pushAndRemoveUntil(
                                 MaterialPageRoute(
-                                    builder: (cts) => LoginScreen()));
+                                    builder: (context) => const LoginScreen()),
+                                (route) => false);
                           },
                           child: Text('Cancel',
                               style: TextStyle(

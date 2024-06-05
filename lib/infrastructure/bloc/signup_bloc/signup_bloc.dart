@@ -20,12 +20,10 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
 
   FutureOr<void> signupevent(
       SignupButtenClickEvent event, Emitter<SignupState> emit) async {
-    print('loading...');
     emit(SignupLoadingState());
     String response = await SignupRepo.signupuser(user: event.user);
     debugPrint(response);
     emit(SignupLoadingState());
-     print('loading...done');
 
     if (response == 'Successful') {
       emit(SignupSuccessState());

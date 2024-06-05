@@ -1,9 +1,7 @@
 import 'package:evogram/core/constants.dart';
-import 'package:evogram/presentation/userprofile/user_posts/widget.dart';
-import 'package:evogram/presentation/widgets/text_styles.dart';
 
-
-
+import 'widget.dart';
+import '../../widgets/text_styles.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable

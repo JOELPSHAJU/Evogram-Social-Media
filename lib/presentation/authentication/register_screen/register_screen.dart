@@ -1,17 +1,18 @@
 import 'package:evogram/application/models/signup_model.dart';
 import 'package:evogram/infrastructure/bloc/signup_bloc/signup_bloc.dart';
 import 'package:evogram/presentation/login_screen/login_screen.dart';
+import 'package:evogram/presentation/register_screen/widgets.dart';
 import 'package:evogram/presentation/widgets/custom_button.dart';
 import 'package:evogram/presentation/widgets/custom_navigators.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../core/constants.dart';
+import '../../../core/constants.dart';
 
 
-import 'widgets.dart';
-import '../otp_sent_screen/otp_screen.dart';
-import '../widgets/snakbars.dart';
-import '../widgets/validators.dart';
+
+import '../../otp_sent_screen/otp_screen.dart';
+import '../../widgets/snakbars.dart';
+import '../../widgets/validators.dart';
 import 'package:flutter/material.dart';
 
 class RegisterScreen extends StatefulWidget {

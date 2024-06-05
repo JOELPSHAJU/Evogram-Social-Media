@@ -1,6 +1,11 @@
+// ignore_for_file: use_build_context_synchronously, no_leading_underscores_for_local_identifiers, unused_element
+
 import 'package:evogram/core/constants.dart';
 import 'package:evogram/presentation/login_screen/login_screen.dart';
+
+import 'package:evogram/presentation/widgets/snakbars.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 Future<void> showSignOutAlert(BuildContext context) async {
@@ -20,8 +25,8 @@ Future<void> showSignOutAlert(BuildContext context) async {
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Theme.of(context).brightness == Brightness.light
-                        ? redlogout
-                        : redlogout,
+                        ? black
+                        : black,
                     fontSize: 20),
               ),
             ),
@@ -50,9 +55,22 @@ Future<void> showSignOutAlert(BuildContext context) async {
                           : darkgreymain,
                       fontWeight: FontWeight.bold))),
           OutlinedButton(
-            onPressed: ()async {
-                SharedPreferences preferences = await SharedPreferences.getInstance();
-          preferences.setBool('LOGIN', false);
+            onPressed: () async {
+              final GoogleSignIn _googleSignIn = GoogleSignIn();
+              Future<void> signOut() async {
+                try {
+                  await _googleSignIn.signOut();
+                  customSnackbar(
+                      context, 'User signed out from Google account', green50);
+                } catch (error) {
+                  customSnackbar(
+                      context, "Error signing out: $error", redlogout);
+                }
+              }
+
+              SharedPreferences preferences =
+                  await SharedPreferences.getInstance();
+              preferences.setBool('LOGIN', false);
               Navigator.of(context).pushAndRemoveUntil(
                   MaterialPageRoute(builder: (ctx2) => const LoginScreen()),
                   (route) => false);
@@ -61,8 +79,8 @@ Future<void> showSignOutAlert(BuildContext context) async {
               'Sign Out',
               style: TextStyle(
                   color: Theme.of(context).brightness == Brightness.light
-                      ? redlogout
-                      : redlogout,
+                      ? black
+                      : black,
                   fontWeight: FontWeight.bold),
             ),
           ),

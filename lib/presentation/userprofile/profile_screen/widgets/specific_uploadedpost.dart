@@ -1,14 +1,14 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:evogram/core/constants.dart';
-import 'package:evogram/presentation/userprofile/user_posts/widget.dart';
+import 'package:evogram/presentation/home_screen/list_tile_main.dart';
 import 'package:evogram/presentation/widgets/text_styles.dart';
-
-
-
 import 'package:flutter/material.dart';
 
-// ignore: must_be_immutable
-class UserPostScreen extends StatelessWidget {
-  UserPostScreen({super.key});
+class UserPosts extends StatelessWidget {
+  final int index;
+  UserPosts({super.key, required this.index});
+
   late List<String> profileImages = [
     'https://media.cnn.com/api/v1/images/stellar/prod/131130213718-paul-walker.jpg?q=x_17,y_55,h_937,w_1666,c_crop/w_800',
     'https://media.glamour.com/photos/60d117f9d3094557c1d38582/16:9/w_1280,c_limit/Jordana-Brewster-social.jpg',
@@ -53,26 +53,21 @@ class UserPostScreen extends StatelessWidget {
     'Michele Rodregues',
     'Decard Shaw'
   ];
-
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-          leading: IconButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              icon: const Icon(Icons.arrow_back)),
-          automaticallyImplyLeading: false,
-          shape: const Border(bottom: BorderSide(color: grey, width: 1.5)),
-          title: appbarTitle(title: 'Your Posts')),
+        shape: const Border(bottom: BorderSide(color: grey, width: 1.5)),
+        title: appbarTitle(title: 'My Posts'),
+      ),
       body: ListView.builder(
           itemCount: 5,
+          
           itemBuilder: (BuildContext context, int index) {
             return Padding(
               padding: const EdgeInsets.all(8.0),
-              child: SpecificPost(
+              child: ListTileMainScreen(
                   size: size,
                   account: account[index],
                   mainimage: mainImages[index],

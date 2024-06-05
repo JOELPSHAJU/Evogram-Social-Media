@@ -32,7 +32,7 @@ const h40 = SizedBox(
 const red = Color.fromARGB(255, 180, 13, 1);
 const redlogout = Color.fromARGB(255, 255, 18, 1);
 const white = Colors.white;
-const grey = Colors.grey;
+const grey = Color.fromARGB(255, 142, 140, 140);
 const darkgreymain = Color.fromARGB(255, 21, 21, 22);
 const darkgrey = Color.fromARGB(255, 84, 82, 82);
 const lightgreyauth = Color.fromARGB(255, 238, 237, 237);
@@ -59,9 +59,14 @@ const likeborderlogo = 'assets/like_bordered_logo.png';
 const savedborderlogo = 'assets/save.png';
 const shareborderlogo = 'assets/share_bordered_icon.png';
 const googlelogo = 'assets/google_logo.png';
-const home = 'assets/home.png';
+
 const grid = 'assets/grid.png';
 const addperson = 'assets/add_person.png';
 const profile = 'assets/search.png';
-const discover = 'assets/profile.png';
 const otpsent = 'assets/otpsent.jpg';
+
+//Icons
+
+final bgcolor = Colors.grey[300];
+final shadowdown = Colors.grey[500];
+final shadowup = Colors.grey[100];

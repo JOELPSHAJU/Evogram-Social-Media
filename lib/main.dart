@@ -4,11 +4,10 @@ import 'package:evogram/infrastructure/bloc/forget_password_bloc/forgetpassword_
 import 'package:evogram/infrastructure/bloc/login_bloc/login_bloc.dart';
 import 'package:evogram/infrastructure/bloc/otp_bloc/bloc/otp_bloc.dart';
 import 'package:evogram/infrastructure/bloc/signup_bloc/signup_bloc.dart';
+import 'package:evogram/presentation/splash_screen/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import 'presentation/splash_screen/splash_screen.dart';
 
 import 'package:flutter/material.dart';
 
@@ -44,8 +43,10 @@ class MyApp extends StatelessWidget {
         navigatorKey: NavigationService.navigatorKey,
         themeMode: ThemeMode.system,
         theme: ThemeData(
-            tabBarTheme:
-                TabBarTheme(overlayColor: WidgetStatePropertyAll(white)),
+            tabBarTheme: const TabBarTheme(
+                overlayColor: WidgetStatePropertyAll(
+              white,
+            )),
             brightness: Brightness.light,
             scaffoldBackgroundColor: white,
             appBarTheme: const AppBarTheme(

@@ -1,11 +1,10 @@
-import 'package:evogram/presentation/settings_screen/settings_screen.dart';
 import 'package:evogram/presentation/userprofile/profile_screen/widgets/grid.dart';
 import 'package:evogram/presentation/userprofile/profile_screen/widgets/profile_header.dart';
 import 'package:evogram/presentation/widgets/custom_navigators.dart';
 
 import '../../../core/constants.dart';
 
-
+import '../../settings_screen/settings_screen.dart';
 
 import 'package:flutter/material.dart';
 

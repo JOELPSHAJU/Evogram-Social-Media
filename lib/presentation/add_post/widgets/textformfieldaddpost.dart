@@ -1,4 +1,4 @@
-import '../../core/constants.dart';
+import '../../../core/constants.dart';
 import 'package:flutter/material.dart';
 
 class TextFormFieldAddPost extends StatelessWidget {
@@ -18,6 +18,7 @@ class TextFormFieldAddPost extends StatelessWidget {
     return TextFormField(
         minLines: 3,
         maxLines: 5,
+        maxLength: 150,
         validator: validator,
         cursorWidth: 2,
         controller: controller,
@@ -26,6 +27,11 @@ class TextFormFieldAddPost extends StatelessWidget {
             Theme.of(context).brightness == Brightness.light ? black : white,
         style: const TextStyle(fontWeight: FontWeight.w600),
         decoration: InputDecoration(
+            hintStyle: TextStyle(
+              color: Theme.of(context).brightness == Brightness.light
+                  ? grey
+                  : white,
+            ),
             fillColor: Theme.of(context).brightness == Brightness.light
                 ? lightgreyauth
                 : darkgrey,

@@ -1,4 +1,6 @@
-import '../specific_post/specific_post.dart';
+import 'package:evogram/presentation/specific_post/specific_post.dart';
+
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 

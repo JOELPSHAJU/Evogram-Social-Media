@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print, duplicate_ignore
+
 import 'dart:convert';
 import 'dart:developer';
 
@@ -91,6 +93,8 @@ class SignupRepo {
         preferences.setString('USER_ID', responsebody['user']['_id']);
         preferences.setString('USER_NAME', responsebody['user']['userName']);
         return response;
+      } else {
+        return response;
       }
     } catch (e) {
       debugPrint(e.toString());
@@ -128,6 +132,7 @@ class SignupRepo {
       Response? response =
           await client.get(Uri.parse('${baseurl + forgotPasswordurl}$email'));
       // print('${ApiEndpoints.baseUrl+ApiEndpoints.forgotPassword}$email');
+      // ignore: avoid_print
       print(response.body);
 
       return response;
