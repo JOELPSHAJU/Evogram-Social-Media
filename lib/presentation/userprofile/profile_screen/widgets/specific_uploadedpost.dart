@@ -1,82 +1,230 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:evogram/core/constants.dart';
-import 'package:evogram/presentation/home_screen/list_tile_main.dart';
+import 'package:evogram/infrastructure/fetchuserpost/fetching_user_post_bloc.dart';
+import 'package:evogram/presentation/userprofile/profile_screen/widgets/debouncer.dart';
+import 'package:evogram/presentation/userprofile/profile_screen/widgets/popupbutton.dart';
+import 'package:evogram/presentation/userprofile/profile_screen/widgets/shimmer.dart';
 import 'package:evogram/presentation/widgets/text_styles.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:timeago/timeago.dart' as timeago;
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
-class UserPosts extends StatelessWidget {
-  final int index;
-  UserPosts({super.key, required this.index});
+class UserPosts extends StatefulWidget {
+  final String userId;
+  final int initialindex;
+  const UserPosts({
+    super.key,
+    required this.userId,
+    required this.initialindex,
+  });
 
-  late List<String> profileImages = [
-    'https://media.cnn.com/api/v1/images/stellar/prod/131130213718-paul-walker.jpg?q=x_17,y_55,h_937,w_1666,c_crop/w_800',
-    'https://media.glamour.com/photos/60d117f9d3094557c1d38582/16:9/w_1280,c_limit/Jordana-Brewster-social.jpg',
-    'https://hips.hearstapps.com/hmg-prod/images/gettyimages-492532708-copy.jpg',
-    'https://i.redd.it/rate-actress-michelle-rodriguez-had-roles-in-avatar-fast-v0-5ajp4kyc4iva1.jpg?width=2527&format=pjpg&auto=webp&s=e0e15527167cf143508acc91e2d25d021e6e24f8',
-    'https://www.mensjournal.com/.image/t_share/MTk2MTM2NDk0NzM0MjU1MjQ5/jason-statham-main.jpg'
-  ];
+  @override
+  State<UserPosts> createState() => _UserPostsState();
+}
 
-  late List<String> mainImages = [
-    'https://www.motortrend.com/uploads/sites/25/2019/05/2019-Petersen-Japanse-Car-Cruise-In-x-SS-Meet-Fast-and-Furious-Eclipse.jpg?w=768&width=768&q=75&format=webp',
-    'https://live.staticflickr.com/8255/8750940484_ddbfee1410_b.jpg',
-    'https://mir-s3-cdn-cf.behance.net/project_modules/fs/abd02a98993327.5ee8e3a24669e.jpg',
-    'https://4kwallpapers.com/images/wallpapers/fast-furious-9-vin-diesel-jordana-brewster-ludacris-2048x2048-561.jpg',
-    'https://static1.moviewebimages.com/wordpress/wp-content/uploads/article/Ybqs2RxTrf0vkMuDCPdm34stmtHmuz.jpg'
-  ];
+class _UserPostsState extends State<UserPosts> {
+  @override
+  void initState() {
+    context.read<FetchingUserPostBloc>().add(FetchingUserpostInitialEvent());
+    super.initState();
+  }
 
-  final List<String> likedPerson = [
-    'Roman Pierce',
-    'Tej Parkor',
-    'Ramsey Allison',
-    'Ken Block',
-    'Luke Hobbs'
-  ];
-  final List<String> date = [
-    'May 15',
-    ' May 16',
-    'May 26',
-    'June 10',
-    'June 12'
-  ];
-  final List<String> description = [
-    'Thinking about a knockout audio system for your car? Not sure what you need, want, or can afford? Car Audio For Dummies is a great place to find some answers! But wait — what if speakers that vibrate your floorboards',
-    'This is a must-have for anyone interested in achieving better performance through car modification!So you want to turn your Yugo into a Viper? Sorry--you need a certified magician. But if you want to turn your sedate',
-    'A practical guide that gets you geared up with proper riding techniques, safety gear, indispensable items for long trips, and handling characteristics of various motorcycle types Few activities offer more fun and',
-    'Auto Repair For Dummies, 2nd Edition (9781119543619) was previously published as Auto Repair For Dummies, 2nd Edition (9780764599026). While this version features a new Dummies cover and design, the',
-    'Drive into the 21st century in an electric car With falling cost of ownership, expanded incentives for purchasing, and more model and body type options than ever, it may finally be time to retire the old gas-'
-  ];
-  final List<String> account = [
-    'Paul William Walker',
-    'Jordana Breuster',
-    'Dominic Toretto',
-    'Michele Rodregues',
-    'Decard Shaw'
-  ];
+  final Debouncer debouncer = Debouncer(milliseconds: 500);
+  Future<void> fetchDataProfileWithDebounce() async {
+    await debouncer.run(() async {
+      context.read<FetchingUserPostBloc>().add(FetchingUserpostInitialEvent());
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: AppBar(
-        shape: const Border(bottom: BorderSide(color: grey, width: 1.5)),
-        title: appbarTitle(title: 'My Posts'),
-      ),
-      body: ListView.builder(
-          itemCount: 5,
-          
-          itemBuilder: (BuildContext context, int index) {
-            return Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ListTileMainScreen(
-                  size: size,
-                  account: account[index],
-                  mainimage: mainImages[index],
-                  profileimage: profileImages[index],
-                  likedpersonname: likedPerson[index],
-                  date: date[index],
-                  description: description[index]),
-            );
-          }),
-    );
+        appBar: AppBar(
+          shape: const Border(bottom: BorderSide(color: grey, width: 1.5)),
+          title: appbarTitle(title: 'My Posts'),
+        ),
+        body: BlocConsumer<FetchingUserPostBloc, FetchingUserPostState>(
+          listener: (context, state) {},
+          builder: (context, state) {
+            if (state is FetchUserPostLoadingState) {
+              return ListView.builder(
+                  itemCount: 10,
+                  itemBuilder: (context, index) {
+                    return shimmerWidgetpost(size);
+                  });
+            } else if (state is FetchUserPostSuccessState) {
+              return ListView.builder(
+                  controller: ScrollController(
+                      initialScrollOffset: widget.initialindex * 800),
+                  itemCount: state.userposts.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    String formatDate(String dateStr) {
+                      DateTime dateTime = DateTime.parse(dateStr);
+                      DateFormat formatter = DateFormat('d MMMM yyyy');
+                      return formatter.format(dateTime);
+                    }
+
+                    String formattedDate =
+                        formatDate('${state.userposts[index].date}');
+
+                    return SizedBox(
+                      width: size.width,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          h10,
+                          Padding(
+                            padding: const EdgeInsets.only(left: 8.0),
+                            child: Row(
+                              children: [
+                                Container(
+                                    height: 50,
+                                    width: 50,
+                                    decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(100)),
+                                    child: ClipOval(
+                                      child: CachedNetworkImage(
+                                        imageUrl: state.userposts[index].image,
+                                        fit: BoxFit.cover,
+                                        placeholder: (context, url) {
+                                          return LoadingAnimationWidget.flickr(
+                                              leftDotColor: blueaccent2,
+                                              rightDotColor: blueaccent3,
+                                              size: 23);
+                                        },
+                                      ),
+                                    )),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 18.0),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        state.userposts[index].userId.userName,
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 14),
+                                      ),
+                                      Text(
+                                        timeago.format(
+                                            state.userposts[index].createdAt),
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 13,
+                                            color: grey),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                const Spacer(),
+                                PopupmenuButtons(
+                                    list: state.userposts, index: index)
+                              ],
+                            ),
+                          ),
+                          h10,
+                          SizedBox(
+                              height: size.width * .84,
+                              width: size.width,
+                              child: CachedNetworkImage(
+                                imageUrl: state.userposts[index].image,
+                                fit: BoxFit.cover,
+                                placeholder: (context, url) {
+                                  return LoadingAnimationWidget.hexagonDots(
+                                      color: blueaccent, size: 30);
+                                },
+                              )),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 8),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    IconButton(
+                                        onPressed: () {},
+                                        icon: const Icon(
+                                          Icons.favorite_outline,
+                                          size: 25,
+                                        )),
+                                    IconButton(
+                                        onPressed: () {},
+                                        icon: const Icon(
+                                          Icons.chat_bubble_outline_rounded,
+                                          size: 25,
+                                        )),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 8.0),
+                            child: RichText(
+                              text: TextSpan(
+                                  text: 'Liked by',
+                                  style: GoogleFonts.inter(
+                                      fontSize: 13,
+                                      color: Theme.of(context).brightness ==
+                                              Brightness.light
+                                          ? black
+                                          : white),
+                                  children: <TextSpan>[
+                                    TextSpan(
+                                      text:
+                                          ' ${state.userposts[index].likes.length} ',
+                                      style: GoogleFonts.inter(
+                                        fontSize: 13,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                  ]),
+                            ),
+                          ),
+                          h10,
+                          Padding(
+                            padding: const EdgeInsets.only(left: 8.0, right: 8),
+                            child: Text(
+                              state.userposts[index].description,
+                              maxLines: 3,
+                              style: const TextStyle(
+                                  overflow: TextOverflow.ellipsis),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 8.0),
+                            child: Text(
+                              formattedDate,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 13,
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.light
+                                      ? grey
+                                      : grey),
+                            ),
+                          ),
+                          h20,
+                        ],
+                      ),
+                    );
+                  });
+            }
+            return ListView.builder(
+                itemCount: 10,
+                itemBuilder: (context, index) {
+                  return shimmerWidgetpost(size);
+                });
+          },
+        ));
   }
 }

@@ -55,8 +55,9 @@ class HomeScreen extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
+        elevation: 1,
+        shadowColor: lightgrey,
         automaticallyImplyLeading: false,
-        shape: const Border(bottom: BorderSide(color: grey, width: 1.5)),
         title: Theme.of(context).brightness == Brightness.light
             ? Image.asset(
                 logoletters,

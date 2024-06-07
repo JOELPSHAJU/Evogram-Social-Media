@@ -1,5 +1,3 @@
-
-
 import 'package:evogram/presentation/main_screen/main_screen.dart';
 
 import '../../../core/constants.dart';
@@ -27,6 +25,8 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
+      backgroundColor:
+          Theme.of(context).brightness == Brightness.light ? white : black,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -34,9 +34,9 @@ class _SplashScreenState extends State<SplashScreen> {
           children: [
             Image.asset(
               logo2,
-              width: size.width * .55,
+              width: size.width * .4,
             ),
-            h10,
+            h20,
             Theme.of(context).brightness == Brightness.light
                 ? Image.asset(
                     logoletters,
@@ -50,7 +50,7 @@ class _SplashScreenState extends State<SplashScreen> {
             LoadingAnimationWidget.prograssiveDots(
               color: Theme.of(context).brightness == Brightness.light
                   ? black
-                  : white,
+                  : darkgrey,
               size: 40,
             )
           ],

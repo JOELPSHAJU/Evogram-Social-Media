@@ -22,14 +22,23 @@ class ForgetPasswordScreen extends StatelessWidget {
     return BlocConsumer<ForgetpasswordBloc, ForgetpasswordState>(
       listener: (context, state) {
         if (state is ForgetpasswordSucessState) {
-          navigatePushAnimaterighttoleft(context, OtpForgetpassword(email:emailController.text,));
+          navigatePushAnimaterighttoleft(
+              context,
+              OtpForgetpassword(
+                email: emailController.text,
+              ));
         } else if (state is ForgetpasswordErrorState) {
           customSnackbar(context, state.error, redlogout);
         }
       },
       builder: (context, state) {
         return Scaffold(
-          body: SizedBox(
+          backgroundColor:
+              Theme.of(context).brightness == Brightness.light ? white : black,
+          body: Container(
+            color: Theme.of(context).brightness == Brightness.light
+                ? white
+                : black,
             width: size.width,
             height: size.height,
             child: Padding(

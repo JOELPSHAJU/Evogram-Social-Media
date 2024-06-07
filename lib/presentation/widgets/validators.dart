@@ -45,3 +45,16 @@ String? validateUsername(String? username) {
   }
   return null;
 }
+
+
+//add post description validator
+
+String? validatePostdesctiption(String? username) {
+  if (username == null || username.isEmpty) {
+    return 'Please enter a Description.';
+  }
+  if (username.length <= 3) {
+    return 'Description must be more than 3 characters.';
+  }
+  return null;
+}

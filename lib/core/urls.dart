@@ -4,10 +4,12 @@ String signup = '/users/send-otp';
 String otpurl = '/users/verify-otp';
 String loginurl = '/users/login';
 //post
-String addposturl = '/posts/addPost';
+ const String addpostUrl = '/posts/addPost';
+ const String getallPost = '/posts/getpost';
+ String addposturl = '/posts/addPost';
 String fetchposturl = '/posts/getpost';
 String fetchuserposturl = '/posts/getuserpost';
-String deleteposturl = '/posts/delete-post';
+String deleteposturln = '/posts/delete-post';
 String editposturl = '/posts/update-post';
 String followersposturl = '/posts/allfollowingsPost';
 String postlikeurl = '/posts/like-post';

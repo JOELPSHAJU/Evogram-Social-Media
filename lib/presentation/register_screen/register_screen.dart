@@ -7,7 +7,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../core/constants.dart';
 
-
 import 'widgets.dart';
 import '../otp_sent_screen/otp_screen.dart';
 import '../widgets/snakbars.dart';
@@ -41,6 +40,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
     final signupbloc = context.read<SignupBloc>();
     return SafeArea(
         child: Scaffold(
+      backgroundColor:
+          Theme.of(context).brightness == Brightness.light ? white : black,
       body: BlocConsumer<SignupBloc, SignupState>(
         listener: (context, state) {
           if (state is SignupSuccessState) {
@@ -76,18 +77,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     Theme.of(context).brightness == Brightness.light
                         ? Image.asset(
                             logoletters,
-                            width: size.width * .45,
+                            width: size.width * .4,
                           )
                         : Image.asset(
                             logoletterswhite,
-                            width: size.width * .45,
+                            width: size.width * .4,
                           ),
                     h30,
                     Row(
                       children: [
                         Text('Register',
                             style: TextStyle(
-                                fontSize: 18,
+                                fontSize: 17,
                                 fontWeight: FontWeight.bold,
                                 color: Theme.of(context).brightness ==
                                         Brightness.light
@@ -173,7 +174,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           color:
                               Theme.of(context).brightness == Brightness.light
                                   ? white
-                                  : darkgreymain,
+                                  : black,
                           border: Border.all(
                               color: Theme.of(context).brightness ==
                                       Brightness.light

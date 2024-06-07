@@ -1,12 +1,12 @@
 // ignore_for_file: avoid_print
 
 import 'package:evogram/infrastructure/bloc/login_bloc/login_bloc.dart';
-import 'package:evogram/presentation/authentication/forget_password/forget_password_screen.dart';
+
+import 'package:evogram/presentation/forget_password/forget_password_screen.dart';
 import 'package:evogram/presentation/main_screen/main_screen.dart';
 import 'package:evogram/presentation/widgets/custom_button.dart';
 import 'package:evogram/presentation/widgets/snakbars.dart';
 import 'package:evogram/presentation/widgets/validators.dart';
-
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -37,6 +37,8 @@ class _LoginScreenState extends State<LoginScreen> {
     final loginbloc = context.read<LoginBloc>();
     return SafeArea(
         child: Scaffold(
+      backgroundColor:
+          Theme.of(context).brightness == Brightness.light ? white : black,
       body: BlocConsumer<LoginBloc, LoginState>(
         listener: (context, state) {
           if (state is LoginSuccessState) {
@@ -68,18 +70,18 @@ class _LoginScreenState extends State<LoginScreen> {
                             Theme.of(context).brightness == Brightness.light
                                 ? Image.asset(
                                     logoletters,
-                                    width: size.width * .45,
+                                    width: size.width * .4,
                                   )
                                 : Image.asset(
                                     logoletterswhite,
-                                    width: size.width * .45,
+                                    width: size.width * .4,
                                   ),
                             h30,
                             Row(
                               children: [
                                 Text('Login',
                                     style: TextStyle(
-                                        fontSize: 18,
+                                        fontSize: 17,
                                         fontWeight: FontWeight.bold,
                                         color: Theme.of(context).brightness ==
                                                 Brightness.light
@@ -174,7 +176,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   color: Theme.of(context).brightness ==
                                           Brightness.light
                                       ? white
-                                      : darkgreymain,
+                                      : black,
                                   border: Border.all(
                                       color: Theme.of(context).brightness ==
                                               Brightness.light

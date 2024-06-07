@@ -10,6 +10,10 @@ class TermsAndConditionsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        surfaceTintColor:
+            Theme.of(context).brightness == Brightness.light ? white : black,
+        backgroundColor:
+            Theme.of(context).brightness == Brightness.light ? white : black,
         leading: IconButton(
             onPressed: () {
               Navigator.of(context).pop();

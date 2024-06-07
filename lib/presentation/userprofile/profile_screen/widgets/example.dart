@@ -4,8 +4,8 @@ import 'package:evogram/presentation/userprofile/profile_screen/widgets/specific
 import 'package:evogram/presentation/widgets/custom_navigators.dart';
 import 'package:flutter/material.dart';
 
-class GridviewProfile extends StatelessWidget {
-  GridviewProfile({super.key});
+class GridviewProfileExample extends StatelessWidget {
+  GridviewProfileExample({super.key});
 
   late List<String> mainImages = [
     'https://www.motortrend.com/uploads/sites/25/2019/05/2019-Petersen-Japanse-Car-Cruise-In-x-SS-Meet-Fast-and-Furious-Eclipse.jpg?w=768&width=768&q=75&format=webp',
@@ -27,11 +27,11 @@ class GridviewProfile extends StatelessWidget {
       children: List.generate(mainImages.length, (index) {
         return GestureDetector(
           onTap: () {
-            navigatePush(
-                context,
-                UserPosts(
-                  index: index,
-                ));
+            // navigatePush(
+            //     context,
+            //     UserPosts(
+            //       index: index,
+            //     ));
           },
           child: Card(
             child: GridTile(

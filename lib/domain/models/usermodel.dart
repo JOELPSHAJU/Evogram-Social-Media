@@ -25,3 +25,4 @@ class UserModel {
         'password': password,
       };
 }
+

@@ -26,13 +26,24 @@ class TextFormFieldAuth extends StatelessWidget {
       decoration: InputDecoration(
           fillColor: Theme.of(context).brightness == Brightness.light
               ? lightgreyauth
-              : black,
+              : darkgreymain,
           filled: true,
-          hintText: hintText,
+          labelStyle: TextStyle(
+              fontWeight: FontWeight.w500,
+              color: Theme.of(context).brightness == Brightness.light
+                  ? darkbg
+                  : grey),
+          label: Text(
+            hintText,
+            style: const TextStyle(fontWeight: FontWeight.w500),
+          ),
           border: const OutlineInputBorder(
               borderSide: BorderSide(color: lightgrey)),
-          focusedBorder:
-              const OutlineInputBorder(borderSide: BorderSide(color: blue)),
+          focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+            color:
+                Theme.of(context).brightness == Brightness.light ? blue : white,
+          )),
           enabledBorder:
               const OutlineInputBorder(borderSide: BorderSide(color: grey))),
     );
@@ -70,13 +81,24 @@ class _TextFormFieldPasswordState extends State<TextFormFieldPassword> {
       decoration: InputDecoration(
           fillColor: Theme.of(context).brightness == Brightness.light
               ? lightgreyauth
-              : black,
+              : darkgreymain,
           filled: true,
-          hintText: widget.hintText,
+          labelStyle: TextStyle(
+              fontWeight: FontWeight.w500,
+              color: Theme.of(context).brightness == Brightness.light
+                  ? darkbg
+                  : grey),
+          label: Text(
+            widget.hintText,
+            style: const TextStyle(fontWeight: FontWeight.w500),
+          ),
           border: const OutlineInputBorder(
               borderSide: BorderSide(color: lightgrey)),
-          focusedBorder:
-              const OutlineInputBorder(borderSide: BorderSide(color: blue)),
+          focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                  color: Theme.of(context).brightness == Brightness.light
+                      ? blue
+                      : white)),
           enabledBorder:
               const OutlineInputBorder(borderSide: BorderSide(color: grey)),
           suffixIcon: IconButton(

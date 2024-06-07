@@ -1,4 +1,10 @@
+import 'package:evogram/presentation/login_screen/login_screen.dart';
 import 'package:evogram/presentation/settings_screen/widgets.dart';
+import 'package:evogram/presentation/widgets/snakbars.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:quickalert/models/quickalert_type.dart';
+import 'package:quickalert/widgets/quickalert_dialog.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../core/constants.dart';
 import '../about_us_screen/about_us_screen.dart';
@@ -156,7 +162,7 @@ class SettingsScreen extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      showSignOutAlert(context);
+                      showCustomAlert(context);
                     },
                     child: const SettingsTile(
                         text: 'Logout',

@@ -45,6 +45,10 @@ const blueaccent = Color.fromARGB(255, 174, 198, 211);
 const blueaccent2 = Color.fromARGB(255, 114, 158, 180);
 const blueaccent3 = Color.fromARGB(255, 66, 112, 135);
 const grey80 = Color.fromARGB(255, 54, 52, 52);
+const bgcolor = Color(0XFFEFF3F6);
+final shadowdown = Colors.grey[500];
+final shadowup = Colors.grey[100];
+final darkbg = Colors.grey.shade900;
 
 const chatbg = 'assets/chatbg.png';
 const chatbgdark = 'assets/chatbgdark.jpg';
@@ -65,8 +69,10 @@ const addperson = 'assets/add_person.png';
 const profile = 'assets/search.png';
 const otpsent = 'assets/otpsent.jpg';
 
+const nopostblack = 'assets/nopostfoundblk.png';
+const nopostwht = 'assets/nopostfoundwht.png';
+
 //Icons
 
-final bgcolor = Colors.grey[300];
-final shadowdown = Colors.grey[500];
-final shadowup = Colors.grey[100];
+//token key sharedpreference
+const tokenKey = 'USER_TOKEN';

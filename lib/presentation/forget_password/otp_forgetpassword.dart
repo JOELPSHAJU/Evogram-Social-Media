@@ -39,6 +39,9 @@ class OtpForgetpassword extends StatelessWidget {
       builder: (context, state) {
         if (state is OtpverifiedSuccesState) {
           return Scaffold(
+            backgroundColor: Theme.of(context).brightness == Brightness.light
+                ? white
+                : black,
             body: SizedBox(
               width: size.width,
               height: size.height,
@@ -108,7 +111,6 @@ class OtpForgetpassword extends StatelessWidget {
                                   if (formkeyreset.currentState!.validate()) {
                                     context.read<ForgetpasswordBloc>().add(
                                         OnResetPasswordButtonClickedEvent(
-                         
                                             email: email,
                                             password: passwordcontroller.text));
                                   } else {
@@ -132,6 +134,8 @@ class OtpForgetpassword extends StatelessWidget {
           );
         }
         return Scaffold(
+          backgroundColor:
+              Theme.of(context).brightness == Brightness.light ? white : black,
           body: SingleChildScrollView(
             child: SizedBox(
               height: size.height,
