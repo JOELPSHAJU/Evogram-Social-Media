@@ -1,3 +1,5 @@
+// ignore_for_file: unused_element, use_build_context_synchronously, no_leading_underscores_for_local_identifiers
+
 import 'package:evogram/core/constants.dart';
 import 'package:evogram/presentation/login_screen/login_screen.dart';
 import 'package:evogram/presentation/widgets/snakbars.dart';
@@ -11,6 +13,7 @@ void showCustomAlert(BuildContext context) {
     backgroundColor:
         Theme.of(context).brightness == Brightness.light ? white : darkbg,
     context: context,
+    confirmBtnText: 'Signout',
     confirmBtnColor: black,
     type: QuickAlertType.custom,
     showCancelBtn: true,
@@ -26,7 +29,7 @@ void showCustomAlert(BuildContext context) {
         SizedBox(height: 10),
         Text(
           textAlign: TextAlign.center,
-          "Are you sure? Do you really want to \nSign Out.",
+          "Are you sure? Do you really want to Sign Out.",
           style: TextStyle(fontSize: 16),
         ),
       ],

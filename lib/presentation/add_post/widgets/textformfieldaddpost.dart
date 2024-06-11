@@ -34,7 +34,7 @@ class TextFormFieldAddPost extends StatelessWidget {
             ),
             fillColor: Theme.of(context).brightness == Brightness.light
                 ? bgcolor
-                : darkbg,
+                : darkgreymain,
             filled: true,
             hintText: hintText,
             border: const OutlineInputBorder(

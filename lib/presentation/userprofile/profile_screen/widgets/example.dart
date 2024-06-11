@@ -1,7 +1,5 @@
 // ignore_for_file: must_be_immutable
 
-import 'package:evogram/presentation/userprofile/profile_screen/widgets/specific_uploadedpost.dart';
-import 'package:evogram/presentation/widgets/custom_navigators.dart';
 import 'package:flutter/material.dart';
 
 class GridviewProfileExample extends StatelessWidget {

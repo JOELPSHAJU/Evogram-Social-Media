@@ -10,6 +10,8 @@ class TermsAndConditionsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 30,
+        shadowColor:  Theme.of(context).brightness == Brightness.light ? white : grey80,
         surfaceTintColor:
             Theme.of(context).brightness == Brightness.light ? white : black,
         backgroundColor:
@@ -80,7 +82,7 @@ class TermsAndConditionsScreen extends StatelessWidget {
             ),
             h10,
             Text(
-              'The Service Provider may wish to update the application at some point. The application is currently available as per the requirements for the operating system (and for any additional systems they decide to extend the availability of the application to) may change, and you will need to download the updates if you want to continue using the application. The Service Provider does not guarantee that it will always update the application so that it is relevant to you and/or compatible with the particular operating system version installed on your device. However, you agree to always accept updates to the application when offered to you. The Service Provider may also wish to cease providing the application and may terminate its use at any time without providing termination notice to you. Unless they inform you otherwise, upon any termination, (a) the rights and licenses granted to you in these terms will end; (b) you must cease using the application, and (if necessary) delete it from your device.',
+              'The Service Provider may wish to update the application at some point. The application is currently available as per the requirements for the operating system (and for any additional systems they decide to extend the availability of the application to) may change, and you will need to download the updates if you want to continue using the application. The Service Provider does not guarantee that it will always update the application so that it is relevant to you and/or compatible with the particular operating system version installed on your device. However, you agree to always accept updates to the application when offered to you. The Service Provider may also wish to cease providing the application and may terminate its use at any time without providing termination notice to you. Unless they inform you otherwise, upon any termination,\n(a) the rights and licenses granted to you in these terms will end;\n(b) you must cease using the application, and (if necessary) delete it from your device.',
               textAlign: TextAlign.justify,
               style: TextStyle(fontSize: 14, color: grey),
             ),
@@ -106,9 +108,14 @@ class TermsAndConditionsScreen extends StatelessWidget {
               style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
             ),
             Text(
-              'If you have any questions or suggestions about the Terms and Conditions, please do not hesitate to contact the Service Provider at joelpshaju@gmail.com.',
+              'If you have any questions or suggestions about the Terms and Conditions, please do not hesitate to contact the Service Provider of this application at;',
               textAlign: TextAlign.justify,
               style: TextStyle(fontSize: 14, color: grey),
+            ),
+            Text(
+              'joelpshaju@gmail.com',
+              style: TextStyle(
+                  fontSize: 16.0, fontWeight: FontWeight.w500, color: blue),
             ),
             h10
           ],

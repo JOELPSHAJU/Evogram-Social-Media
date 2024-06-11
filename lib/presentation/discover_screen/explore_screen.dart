@@ -1,4 +1,4 @@
-import 'package:evogram/presentation/specific_post/specific_post.dart';
+
 
 
 import 'package:flutter/cupertino.dart';
@@ -29,27 +29,27 @@ class ExploreScreen extends StatelessWidget {
         itemBuilder: (context, index) {
           return GestureDetector(
             onTap: () {
-              Navigator.push(
-                  context,
-                  PageRouteBuilder(
-                    pageBuilder: (context, animation, secondaryAnimation) =>
-                        SpecificPostScreen(
-                      mainimage: mainImages[index],
-                    ),
-                    transitionsBuilder:
-                        (context, animation, secondaryAnimation, child) {
-                      const begin = Offset(1.0, 0.0);
-                      const end = Offset.zero;
-                      const curve = Curves.ease;
-                      var tween = Tween(begin: begin, end: end)
-                          .chain(CurveTween(curve: curve));
+              // Navigator.push(
+              //     context,
+              //     PageRouteBuilder(
+              //       pageBuilder: (context, animation, secondaryAnimation) =>
+              //           SpecificPostScreen(
+              //         mainimage: mainImages[index],
+              //       ),
+              //       transitionsBuilder:
+              //           (context, animation, secondaryAnimation, child) {
+              //         const begin = Offset(1.0, 0.0);
+              //         const end = Offset.zero;
+              //         const curve = Curves.ease;
+              //         var tween = Tween(begin: begin, end: end)
+              //             .chain(CurveTween(curve: curve));
 
-                      return SlideTransition(
-                        position: animation.drive(tween),
-                        child: child,
-                      );
-                    },
-                  ));
+              //         return SlideTransition(
+              //           position: animation.drive(tween),
+              //           child: child,
+              //         );
+              //       },
+              //     ));
             },
             child: Padding(
               padding: const EdgeInsets.all(2.0),

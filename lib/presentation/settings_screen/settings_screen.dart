@@ -1,10 +1,5 @@
-import 'package:evogram/presentation/login_screen/login_screen.dart';
 import 'package:evogram/presentation/settings_screen/widgets.dart';
-import 'package:evogram/presentation/widgets/snakbars.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:quickalert/models/quickalert_type.dart';
-import 'package:quickalert/widgets/quickalert_dialog.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:evogram/presentation/widgets/custom_navigators.dart';
 
 import '../../core/constants.dart';
 import '../about_us_screen/about_us_screen.dart';
@@ -22,6 +17,9 @@ class SettingsScreen extends StatelessWidget {
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
         appBar: AppBar(
+          elevation: 30,
+          shadowColor:
+              Theme.of(context).brightness == Brightness.light ? white : grey80,
           backgroundColor:
               Theme.of(context).brightness == Brightness.light ? white : black,
           surfaceTintColor:
@@ -53,79 +51,18 @@ class SettingsScreen extends StatelessWidget {
                   h20,
                   GestureDetector(
                     onTap: () {
-                      Navigator.of(context).push(PageRouteBuilder(
-                        pageBuilder: (context, animation, secondaryAnimation) =>
-                            const AboutUsScreen(),
-                        transitionsBuilder:
-                            (context, animation, secondaryAnimation, child) {
-                          const begin = Offset(0.0, 1.0);
-                          const end = Offset.zero;
-                          const curve = Curves.ease;
-
-                          var tween = Tween(begin: begin, end: end)
-                              .chain(CurveTween(curve: curve));
-
-                          var offsetAnimation = animation.drive(tween);
-
-                          return SlideTransition(
-                            position: offsetAnimation,
-                            child: child,
-                          );
-                        },
-                      ));
+                      navigatePushAnimaterighttoleft(
+                          context, const AboutUsScreen());
                     },
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.of(context).push(PageRouteBuilder(
-                          pageBuilder:
-                              (context, animation, secondaryAnimation) =>
-                                  const AboutUsScreen(),
-                          transitionsBuilder:
-                              (context, animation, secondaryAnimation, child) {
-                            const begin = Offset(0.0, 1.0);
-                            const end = Offset.zero;
-                            const curve = Curves.ease;
-
-                            var tween = Tween(begin: begin, end: end)
-                                .chain(CurveTween(curve: curve));
-
-                            var offsetAnimation = animation.drive(tween);
-
-                            return SlideTransition(
-                              position: offsetAnimation,
-                              child: child,
-                            );
-                          },
-                        ));
-                      },
-                      child: const SettingsTile(
-                          leadingIcon: CupertinoIcons.info,
-                          text: 'About Us',
-                          trailingIcon: Icons.arrow_forward_ios),
-                    ),
+                    child: const SettingsTile(
+                        leadingIcon: CupertinoIcons.info,
+                        text: 'About Us',
+                        trailingIcon: Icons.arrow_forward_ios),
                   ),
                   GestureDetector(
                     onTap: () {
-                      Navigator.of(context).push(PageRouteBuilder(
-                        pageBuilder: (context, animation, secondaryAnimation) =>
-                            const PrivacyPolicyScreen(),
-                        transitionsBuilder:
-                            (context, animation, secondaryAnimation, child) {
-                          const begin = Offset(0.0, 1.0);
-                          const end = Offset.zero;
-                          const curve = Curves.ease;
-
-                          var tween = Tween(begin: begin, end: end)
-                              .chain(CurveTween(curve: curve));
-
-                          var offsetAnimation = animation.drive(tween);
-
-                          return SlideTransition(
-                            position: offsetAnimation,
-                            child: child,
-                          );
-                        },
-                      ));
+                      navigatePushAnimaterighttoleft(
+                          context, const PrivacyPolicyScreen());
                     },
                     child: const SettingsTile(
                         text: 'Privacy Policies',
@@ -134,26 +71,8 @@ class SettingsScreen extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Navigator.of(context).push(PageRouteBuilder(
-                        pageBuilder: (context, animation, secondaryAnimation) =>
-                            const TermsAndConditionsScreen(),
-                        transitionsBuilder:
-                            (context, animation, secondaryAnimation, child) {
-                          const begin = Offset(0.0, 1.0);
-                          const end = Offset.zero;
-                          const curve = Curves.ease;
-
-                          var tween = Tween(begin: begin, end: end)
-                              .chain(CurveTween(curve: curve));
-
-                          var offsetAnimation = animation.drive(tween);
-
-                          return SlideTransition(
-                            position: offsetAnimation,
-                            child: child,
-                          );
-                        },
-                      ));
+                      navigatePushAnimaterighttoleft(
+                          context, const TermsAndConditionsScreen());
                     },
                     child: const SettingsTile(
                         text: 'Terms & Conditions',

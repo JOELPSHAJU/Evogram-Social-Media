@@ -1,7 +1,9 @@
+// ignore_for_file: avoid_print, must_be_immutable
+
 import 'dart:io';
 
 import 'package:evogram/infrastructure/bloc/add_post_bloc/addpost_bloc.dart';
-import 'package:evogram/infrastructure/bloc/fetch_post_bloc/fetch_post_bloc.dart';
+
 import 'package:evogram/infrastructure/fetchuserpost/fetching_user_post_bloc.dart';
 import 'package:evogram/presentation/widgets/custom_button.dart';
 import 'package:evogram/presentation/widgets/snakbars.dart';
@@ -45,6 +47,8 @@ class AddPostScreen extends StatelessWidget {
       },
       builder: (context, state) {
         return Scaffold(
+          backgroundColor:
+              Theme.of(context).brightness == Brightness.light ? white : black,
           appBar: AppBar(
             surfaceTintColor: Theme.of(context).brightness == Brightness.light
                 ? white
@@ -55,7 +59,7 @@ class AddPostScreen extends StatelessWidget {
             elevation: 4,
             shadowColor: Theme.of(context).brightness == Brightness.light
                 ? lightgreyauth
-                : darkgrey,
+                : darkgreymain,
             automaticallyImplyLeading: false,
             title: appbarTitle(title: 'New Post'),
             actions: [
@@ -70,7 +74,7 @@ class AddPostScreen extends StatelessWidget {
                         child: loadingButton(
                           media: size,
                           onPressed: () {},
-                          color: blueaccent3,
+                          color: blue,
                         ),
                       ),
                     );
@@ -79,7 +83,7 @@ class AddPostScreen extends StatelessWidget {
                   return Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: MaterialButton(
-                        color: blueaccent3,
+                        color: blue,
                         minWidth: 100,
                         height: 40,
                         shape: RoundedRectangleBorder(
@@ -130,41 +134,62 @@ class AddPostScreen extends StatelessWidget {
                               pickImage.value = file!.path;
                             }
                           },
-                          child: Container(
-                              width: size.width,
-                              height: 300,
-                              decoration: BoxDecoration(
-                                color: Theme.of(context).brightness ==
-                                        Brightness.light
-                                    ? bgcolor
-                                    : darkbg,
-                              ),
-                              child: pickImage.value == ''
-                                  ? Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Icon(
-                                          CupertinoIcons.photo,
-                                          color: Theme.of(context).brightness ==
-                                                  Brightness.light
-                                              ? lightgrey
-                                              : darkgrey,
-                                          size: 50,
-                                        ),
-                                        const Text(
-                                          'Add Image....',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.w600,
-                                              color: grey),
-                                        ),
-                                        h10,
-                                      ],
-                                    )
-                                  : Image.file(File(pickImage.value),
-                                      fit: BoxFit.cover)));
+                          child: Stack(
+                            children: [
+                              Container(
+                                  width: size.width,
+                                  height: 300,
+                                  decoration: BoxDecoration(
+                                    color: Theme.of(context).brightness ==
+                                            Brightness.light
+                                        ? bgcolor
+                                        : darkgreymain,
+                                  ),
+                                  child: pickImage.value == ''
+                                      ? Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Icon(
+                                              CupertinoIcons.photo,
+                                              color: Theme.of(context)
+                                                          .brightness ==
+                                                      Brightness.light
+                                                  ? lightgrey
+                                                  : darkgrey,
+                                              size: 50,
+                                            ),
+                                            const Text(
+                                              'Add Image....',
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.w600,
+                                                  color: grey),
+                                            ),
+                                            h10,
+                                          ],
+                                        )
+                                      : Image.file(File(pickImage.value),
+                                          fit: BoxFit.cover)),
+                              Positioned(
+                                top: 10,
+                                right: 10,
+                                child: IconButton(
+                                    onPressed: () {
+                                      pickImage.value = '';
+                                    },
+                                    icon: Icon(
+                                      Icons.cancel,
+                                      color: Theme.of(context).brightness ==
+                                              Brightness.light
+                                          ? grey
+                                          : darkgrey,
+                                      size: 35,
+                                    )),
+                              )
+                            ],
+                          ));
                     },
                   ),
                   Padding(

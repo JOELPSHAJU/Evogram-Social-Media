@@ -46,7 +46,16 @@ class _UserPostsState extends State<UserPosts> {
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
         appBar: AppBar(
-          shape: const Border(bottom: BorderSide(color: grey, width: 1.5)),
+          backgroundColor:
+              Theme.of(context).brightness == Brightness.light ? white : black,
+          surfaceTintColor:
+              Theme.of(context).brightness == Brightness.light ? white : black,
+          shape: Border(
+              bottom: BorderSide(
+                  color: Theme.of(context).brightness == Brightness.light
+                      ? lightgreyauth
+                      : black,
+                  width: 1.5)),
           title: appbarTitle(title: 'My Posts'),
         ),
         body: BlocConsumer<FetchingUserPostBloc, FetchingUserPostState>(
@@ -56,12 +65,12 @@ class _UserPostsState extends State<UserPosts> {
               return ListView.builder(
                   itemCount: 10,
                   itemBuilder: (context, index) {
-                    return shimmerWidgetpost(size);
+                    return shimmerWidgetpost(size, context);
                   });
             } else if (state is FetchUserPostSuccessState) {
               return ListView.builder(
                   controller: ScrollController(
-                      initialScrollOffset: widget.initialindex * 800),
+                      initialScrollOffset: widget.initialindex * 550),
                   itemCount: state.userposts.length,
                   itemBuilder: (BuildContext context, int index) {
                     String formatDate(String dateStr) {
@@ -222,7 +231,7 @@ class _UserPostsState extends State<UserPosts> {
             return ListView.builder(
                 itemCount: 10,
                 itemBuilder: (context, index) {
-                  return shimmerWidgetpost(size);
+                  return shimmerWidgetpost(size, context);
                 });
           },
         ));

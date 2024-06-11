@@ -54,6 +54,7 @@ const chatbg = 'assets/chatbg.png';
 const chatbgdark = 'assets/chatbgdark.jpg';
 const logo2 = 'assets/logo2.png';
 const logo = 'assets/logo.png';
+const deletebg = 'assets/deletepost_prev_ui.png';
 const addimagelogo = 'assets/add_imge.png';
 const logoletters = 'assets/logoletters.png';
 const logoletterswhite = 'assets/logoletterswhite.png';

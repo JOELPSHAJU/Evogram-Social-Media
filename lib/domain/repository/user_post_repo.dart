@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
@@ -41,7 +43,7 @@ class PostRepo {
         'userId': userid
       };
 
-      var response = await client.post(Uri.parse('${baseurl + addpostUrl}'),
+      var response = await client.post(Uri.parse(baseurl + addpostUrl),
           body: jsonEncode(post),
           headers: {
             "Content-Type": 'application/json',
@@ -115,6 +117,40 @@ class PostRepo {
       debugPrint(e.toString());
       log(e.toString());
       return 'failed';
+    }
+  }
+
+//edit post
+  static Future<Response?> editpost(
+      {required String? imageurl,
+      required String? image,
+      required String description,
+      required String postid}) async {
+        dynamic cloudinaryImageurl;
+    var client = http.Client();
+    try {
+      if (image != '') {
+         cloudinaryImageurl = await uploadImage(image);
+      }
+      
+      final usereditpost = {
+        'imageUrl': image!=''?cloudinaryImageurl:imageurl,
+        'description': description,
+      };
+      final token = await getUserToken();
+      var response = await client.put(Uri.parse('$baseurl$editposturl/$postid'),
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer $token'
+          },
+          body: jsonEncode(usereditpost));
+      debugPrint('statuscode:${response.statusCode}');
+      debugPrint(response.body);
+      return response;
+    } catch (e) {
+      debugPrint(e.toString());
+      log(e.toString());
+      return null;
     }
   }
 }

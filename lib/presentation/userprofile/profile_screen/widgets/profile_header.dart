@@ -1,4 +1,5 @@
 import 'package:evogram/core/constants.dart';
+import 'package:evogram/infrastructure/bloc/login_user_bloc/login_user_bloc.dart';
 import 'package:evogram/infrastructure/fetchuserpost/fetching_user_post_bloc.dart';
 import 'package:evogram/presentation/followers_screen/followers_screen.dart';
 import 'package:evogram/presentation/following_screen/following_screen.dart';
@@ -6,17 +7,25 @@ import 'package:evogram/presentation/userprofile/edit_profile/edit_profile.dart'
 
 import 'package:evogram/presentation/userprofile/profile_screen/widgets/profile_styles.dart';
 import 'package:evogram/presentation/userprofile/profile_screen/widgets/specific_uploadedpost.dart';
-import 'package:evogram/presentation/userprofile/user_posts/user_post.dart';
+
 import 'package:evogram/presentation/widgets/custom_navigators.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
+const String mainImages =
+    'https://www.motortrend.com/uploads/sites/25/2019/05/2019-Petersen-Japanse-Car-Cruise-In-x-SS-Meet-Fast-and-Furious-Eclipse.jpg?w=768&width=768&q=75&format=webp';
+
+const coverpic =
+    'https://di-uploads-pod47.dealerinspire.com/subaruofglendale/uploads/2023/11/2023-subaru-wrx-rally.jpg';
+
+const profilepic =
+    'https://yt3.googleusercontent.com/0P0WUIUvlJ2KfaoTeDy5Xm-14u7m-7NJLy_2wa1pjBoxjHFuMqt7tMWWuZ93lETK-CYKTt4O=s900-c-k-c0x00ffffff-no-rj';
+
 Widget profileHeaderWidgets(
   BuildContext context,
+  LoginUserSucessState state,
   size,
-  coverpic,
-  profilepic,
 ) {
   return SizedBox(
     width: double.infinity,
@@ -24,7 +33,7 @@ Widget profileHeaderWidgets(
       Container(
         height: 210,
         width: size.width,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             color: blueaccent,
             image: DecorationImage(
                 image: NetworkImage(coverpic), fit: BoxFit.cover)),
@@ -41,9 +50,9 @@ Widget profileHeaderWidgets(
                     border: Border.all(
                         width: 5,
                         color: Theme.of(context).brightness == Brightness.light
-                            ? white
-                            : darkgreymain),
-                    image: DecorationImage(
+                            ? Colors.grey.shade300
+                            : black),
+                    image: const DecorationImage(
                         image: NetworkImage(
                           profilepic,
                         ),
@@ -56,17 +65,20 @@ Widget profileHeaderWidgets(
       ),
       h40,
       h30,
-      const Padding(
-        padding: EdgeInsets.only(left: 20.0),
+      Padding(
+        padding: const EdgeInsets.only(left: 20.0),
         child: Text(
-          'Ken Block',
+          state.users.userName.toUpperCase(),
           style: profilestyle,
         ),
       ),
-      const Padding(
-        padding: EdgeInsets.only(left: 20.0, right: 20),
+      Padding(
+        padding: const EdgeInsets.only(left: 20.0, right: 20),
         child: Text(
-          'I Live my life a quarter mile at a time,if you are ten seconds or less im free',
+          state.users.bio == null
+              ? 'I Live My Life A Quater Mile At A Time ,If You Are Ten Seconds Or Less, Im Free'
+                  .toLowerCase()
+              : state.users.bio.toString(),
           style: profilestyle2,
         ),
       ),
@@ -155,28 +167,31 @@ Widget profileHeaderWidgets(
             },
             child: Container(
                 decoration: BoxDecoration(
-                    color: Theme.of(context).brightness == Brightness.light
-                        ? lightgreyauth
-                        : black,
-                    borderRadius: BorderRadius.circular(10),
-                    boxShadow: [
-                      BoxShadow(
-                          color:
-                              Theme.of(context).brightness == Brightness.light
-                                  ? blueaccent
-                                  : Color.fromARGB(255, 16, 15, 15),
-                          offset: const Offset(6.0, 3.0),
-                          blurRadius: 9,
-                          spreadRadius: 3.0),
-                      BoxShadow(
-                          color:
-                              Theme.of(context).brightness == Brightness.light
-                                  ? const Color.fromRGBO(255, 255, 255, 1)
-                                  : Color.fromARGB(255, 29, 28, 28),
-                          offset: const Offset(-3.0, -2.0),
-                          blurRadius: 6,
-                          spreadRadius: 3.0)
-                    ]),
+                  color: Theme.of(context).brightness == Brightness.light
+                      ? Colors.grey[300]
+                      : darkgreymain,
+                  borderRadius: BorderRadius.circular(10.0),
+                  boxShadow: [
+                    BoxShadow(
+                      blurStyle: BlurStyle.normal,
+                      color: Theme.of(context).brightness == Brightness.light
+                          ? Colors.grey.shade500
+                          : const Color.fromARGB(255, 0, 0, 0),
+                      offset: const Offset(6.0, 6.0),
+                      blurRadius: 20.0,
+                      spreadRadius: 5.0,
+                    ),
+                    BoxShadow(
+                      blurStyle: BlurStyle.normal,
+                      color: Theme.of(context).brightness == Brightness.light
+                          ? Colors.white
+                          : const Color.fromARGB(255, 0, 0, 0),
+                      offset: const Offset(-6.0, -6.0),
+                      blurRadius: 20.0,
+                      spreadRadius: 5.0,
+                    ),
+                  ],
+                ),
                 width: size.width * .5,
                 height: 45,
                 child: Center(
@@ -185,7 +200,7 @@ Widget profileHeaderWidgets(
                           fontWeight: FontWeight.bold,
                           color:
                               Theme.of(context).brightness == Brightness.light
-                                  ? blueaccent3
+                                  ? black
                                   : white,
                           fontSize: 16)),
                 )),

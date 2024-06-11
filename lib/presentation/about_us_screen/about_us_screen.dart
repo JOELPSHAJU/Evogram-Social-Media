@@ -12,6 +12,9 @@ class AboutUsScreen extends StatelessWidget {
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
         appBar: AppBar(
+          shadowColor:
+              Theme.of(context).brightness == Brightness.light ? white : grey80,
+          elevation: 30,
           backgroundColor:
               Theme.of(context).brightness == Brightness.light ? white : black,
           surfaceTintColor:
@@ -38,12 +41,12 @@ class AboutUsScreen extends StatelessWidget {
                       text: 'Welcome to Evogram',
                       style: GoogleFonts.inter(
                           fontSize: 17,
-                          fontWeight: FontWeight.bold,
+                          fontWeight: FontWeight.w600,
                           decoration: TextDecoration.underline,
                           color:
                               Theme.of(context).brightness == Brightness.light
                                   ? black
-                                  : white),
+                                  : lightgrey),
                     ),
                   ),
                   h10,
@@ -66,12 +69,12 @@ class AboutUsScreen extends StatelessWidget {
                       text: 'Features',
                       style: GoogleFonts.inter(
                           fontSize: 17,
-                          fontWeight: FontWeight.bold,
+                          fontWeight: FontWeight.w600,
                           decoration: TextDecoration.underline,
                           color:
                               Theme.of(context).brightness == Brightness.light
                                   ? black
-                                  : white),
+                                  : lightgrey),
                     ),
                   ),
                   h10,
@@ -80,11 +83,11 @@ class AboutUsScreen extends StatelessWidget {
                         text: 'Post & Share: ',
                         style: GoogleFonts.inter(
                             fontSize: 14,
-                            fontWeight: FontWeight.bold,
+                            fontWeight: FontWeight.w600,
                             color:
                                 Theme.of(context).brightness == Brightness.light
                                     ? black
-                                    : white),
+                                    : lightgrey),
                         children: <TextSpan>[
                           TextSpan(
                             text:
@@ -102,11 +105,11 @@ class AboutUsScreen extends StatelessWidget {
                         text: 'Edit & Delete Posts: ',
                         style: GoogleFonts.inter(
                             fontSize: 14,
-                            fontWeight: FontWeight.bold,
+                            fontWeight: FontWeight.w600,
                             color:
                                 Theme.of(context).brightness == Brightness.light
-                                    ? darkgrey
-                                    : white),
+                                    ? black
+                                    : lightgrey),
                         children: <TextSpan>[
                           TextSpan(
                             text:
@@ -128,11 +131,11 @@ class AboutUsScreen extends StatelessWidget {
                         text: 'Post & Share: ',
                         style: GoogleFonts.inter(
                             fontSize: 14,
-                            fontWeight: FontWeight.bold,
+                            fontWeight: FontWeight.w600,
                             color:
                                 Theme.of(context).brightness == Brightness.light
                                     ? black
-                                    : white),
+                                    : lightgrey),
                         children: <TextSpan>[
                           TextSpan(
                             text:
@@ -150,11 +153,11 @@ class AboutUsScreen extends StatelessWidget {
                         text: 'Engage with Content: ',
                         style: GoogleFonts.inter(
                             fontSize: 14,
-                            fontWeight: FontWeight.bold,
+                            fontWeight: FontWeight.w600,
                             color:
                                 Theme.of(context).brightness == Brightness.light
                                     ? black
-                                    : white),
+                                    : lightgrey),
                         children: <TextSpan>[
                           TextSpan(
                             text:
@@ -172,11 +175,11 @@ class AboutUsScreen extends StatelessWidget {
                         text: 'Follow/Unfollow: ',
                         style: GoogleFonts.inter(
                             fontSize: 14,
-                            fontWeight: FontWeight.bold,
+                            fontWeight: FontWeight.w600,
                             color:
                                 Theme.of(context).brightness == Brightness.light
                                     ? black
-                                    : white),
+                                    : lightgrey),
                         children: <TextSpan>[
                           TextSpan(
                             text:
@@ -194,11 +197,11 @@ class AboutUsScreen extends StatelessWidget {
                         text: 'Private Messaging: ',
                         style: GoogleFonts.inter(
                             fontSize: 14,
-                            fontWeight: FontWeight.bold,
+                            fontWeight: FontWeight.w600,
                             color:
                                 Theme.of(context).brightness == Brightness.light
                                     ? black
-                                    : white),
+                                    : lightgrey),
                         children: <TextSpan>[
                           TextSpan(
                             text:
@@ -216,11 +219,11 @@ class AboutUsScreen extends StatelessWidget {
                         text: 'Customizable Profiles',
                         style: GoogleFonts.inter(
                             fontSize: 14,
-                            fontWeight: FontWeight.bold,
+                            fontWeight: FontWeight.w600,
                             color:
                                 Theme.of(context).brightness == Brightness.light
                                     ? black
-                                    : white),
+                                    : lightgrey),
                         children: <TextSpan>[
                           TextSpan(
                             text:
@@ -238,11 +241,11 @@ class AboutUsScreen extends StatelessWidget {
                         text: 'Privacy Controls',
                         style: GoogleFonts.inter(
                             fontSize: 14,
-                            fontWeight: FontWeight.bold,
+                            fontWeight: FontWeight.w600,
                             color:
                                 Theme.of(context).brightness == Brightness.light
                                     ? black
-                                    : white),
+                                    : lightgrey),
                         children: <TextSpan>[
                           TextSpan(
                             text:
@@ -258,7 +261,7 @@ class AboutUsScreen extends StatelessWidget {
                   Text(
                     'At Evogram, we are dedicated to creating a platform that not only entertains but also fosters genuine connections and community building. Join us to experience a world where every interaction matters and every connection is cherished. Welcome to Evogram – where your digital life thrives.',
                     style: GoogleFonts.inter(
-                        fontSize: 14,
+                        fontSize: 15,
                         fontWeight: FontWeight.w400,
                         color: Theme.of(context).brightness == Brightness.light
                             ? grey

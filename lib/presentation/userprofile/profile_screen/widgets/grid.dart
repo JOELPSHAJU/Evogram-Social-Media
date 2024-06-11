@@ -5,7 +5,7 @@ import 'package:evogram/core/constants.dart';
 import 'package:evogram/infrastructure/fetchuserpost/fetching_user_post_bloc.dart';
 import 'package:evogram/presentation/userprofile/profile_screen/widgets/specific_uploadedpost.dart';
 import 'package:evogram/presentation/widgets/custom_navigators.dart';
-import 'package:evogram/presentation/widgets/text_styles.dart';
+
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
@@ -17,6 +17,9 @@ class GridviewProfile extends StatelessWidget {
   Widget build(context) {
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
+        backgroundColor: Theme.of(context).brightness == Brightness.light
+            ? Colors.grey[300]
+            : darkgreymain,
         body: state.userposts.isEmpty
             ? Center(
                 child: Image.asset(
@@ -29,12 +32,12 @@ class GridviewProfile extends StatelessWidget {
                 shrinkWrap: true,
                 crossAxisCount: 3,
                 mainAxisSpacing: .1,
-                crossAxisSpacing: .1,
+                crossAxisSpacing: .03,
                 childAspectRatio: 1 / 1,
                 children: List.generate(state.userposts.length, (index) {
                   return GestureDetector(
                     onTap: () {
-                      navigatePush(
+                      navigatePushAnimaterbottomtotop(
                           context,
                           UserPosts(
                             userId: state.userposts[index].userId.id,
