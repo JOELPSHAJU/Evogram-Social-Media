@@ -31,7 +31,7 @@ class TextFormFieldEditProfile extends StatelessWidget {
       style: const TextStyle(fontWeight: FontWeight.w600),
       decoration: InputDecoration(
           fillColor: Theme.of(context).brightness == Brightness.light
-              ? lightgrey
+              ? lightgreyauth
               : black,
           filled: true,
           hintText: hintText,
@@ -54,7 +54,9 @@ class EditButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          color: blueaccent2,
+          color: Theme.of(context).brightness == Brightness.light
+              ? lightgrey
+              : darkgreymain,
           borderRadius: BorderRadius.circular(100),
           border: Border.all(
               width: 3,
@@ -69,8 +71,8 @@ class EditButton extends StatelessWidget {
             icon: Icon(
               Icons.edit,
               color: Theme.of(context).brightness == Brightness.light
-                  ? white
-                  : black,
+                  ? black
+                  : white,
             )),
       ),
     );

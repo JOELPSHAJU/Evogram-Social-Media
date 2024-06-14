@@ -123,8 +123,11 @@ class _UserPostsState extends State<UserPosts> {
                                             fontSize: 14),
                                       ),
                                       Text(
-                                        timeago.format(
-                                            state.userposts[index].createdAt),
+                                        state.userposts[index].createdAt !=
+                                                state.userposts[index].updatedAt
+                                            ? '${timeago.format(state.userposts[index].updatedAt)} (Edited)'
+                                            : timeago.format(state
+                                                .userposts[index].createdAt),
                                         style: const TextStyle(
                                             fontWeight: FontWeight.w500,
                                             fontSize: 13,

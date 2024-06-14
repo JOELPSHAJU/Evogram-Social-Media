@@ -13,15 +13,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
-const String mainImages =
-    'https://www.motortrend.com/uploads/sites/25/2019/05/2019-Petersen-Japanse-Car-Cruise-In-x-SS-Meet-Fast-and-Furious-Eclipse.jpg?w=768&width=768&q=75&format=webp';
-
-const coverpic =
-    'https://di-uploads-pod47.dealerinspire.com/subaruofglendale/uploads/2023/11/2023-subaru-wrx-rally.jpg';
-
-const profilepic =
-    'https://yt3.googleusercontent.com/0P0WUIUvlJ2KfaoTeDy5Xm-14u7m-7NJLy_2wa1pjBoxjHFuMqt7tMWWuZ93lETK-CYKTt4O=s900-c-k-c0x00ffffff-no-rj';
-
 Widget profileHeaderWidgets(
   BuildContext context,
   LoginUserSucessState state,
@@ -33,10 +24,11 @@ Widget profileHeaderWidgets(
       Container(
         height: 210,
         width: size.width,
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
             color: blueaccent,
             image: DecorationImage(
-                image: NetworkImage(coverpic), fit: BoxFit.cover)),
+                image: NetworkImage(state.users.backGroundImage),
+                fit: BoxFit.cover)),
         child: Stack(
           clipBehavior: Clip.none,
           children: [
@@ -52,9 +44,9 @@ Widget profileHeaderWidgets(
                         color: Theme.of(context).brightness == Brightness.light
                             ? Colors.grey.shade300
                             : black),
-                    image: const DecorationImage(
+                    image: DecorationImage(
                         image: NetworkImage(
-                          profilepic,
+                          state.users.profilePic,
                         ),
                         fit: BoxFit.cover),
                     borderRadius: BorderRadius.circular(100)),
@@ -68,17 +60,14 @@ Widget profileHeaderWidgets(
       Padding(
         padding: const EdgeInsets.only(left: 20.0),
         child: Text(
-          state.users.userName.toUpperCase(),
+          state.users.name.toString(),
           style: profilestyle,
         ),
       ),
       Padding(
         padding: const EdgeInsets.only(left: 20.0, right: 20),
         child: Text(
-          state.users.bio == null
-              ? 'I Live My Life A Quater Mile At A Time ,If You Are Ten Seconds Or Less, Im Free'
-                  .toLowerCase()
-              : state.users.bio.toString(),
+          state.users.bio.toString(),
           style: profilestyle2,
         ),
       ),
@@ -163,7 +152,11 @@ Widget profileHeaderWidgets(
         children: [
           GestureDetector(
             onTap: () {
-              navigatePushAnimaterbottomtotop(context, EditProfileScreen());
+              navigatePushAnimaterbottomtotop(
+                  context,
+                  EditProfileScreen(
+                    loginuser: state.users,
+                  ));
             },
             child: Container(
                 decoration: BoxDecoration(

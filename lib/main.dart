@@ -2,6 +2,7 @@ import 'package:evogram/core/constants.dart';
 import 'package:evogram/firebase_options.dart';
 import 'package:evogram/infrastructure/bloc/add_post_bloc/addpost_bloc.dart';
 import 'package:evogram/infrastructure/bloc/edit_post_bloc/edit_post_bloc.dart';
+import 'package:evogram/infrastructure/bloc/edit_profile_bloc/edit_profile_bloc.dart';
 import 'package:evogram/infrastructure/bloc/forget_password_bloc/forgetpassword_bloc.dart';
 import 'package:evogram/infrastructure/bloc/login_bloc/login_bloc.dart';
 import 'package:evogram/infrastructure/bloc/login_user_bloc/login_user_bloc.dart';
@@ -53,6 +54,9 @@ class MyApp extends StatelessWidget {
         ),
          BlocProvider(
           create: (context) => EditPostBloc(),
+        ),
+        BlocProvider(
+          create: (context) => EditProfileBloc(),
         ),
       ],
       child: MaterialApp(

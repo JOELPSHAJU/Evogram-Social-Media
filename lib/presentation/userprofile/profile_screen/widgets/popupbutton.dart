@@ -109,7 +109,7 @@ void showCustomAlertDialog(
               fontSize: 15,
               fontWeight: FontWeight.w500,
               color: Theme.of(context).brightness == Brightness.light
-                  ? grey
+                  ? darkgrey
                   : grey),
         ),
         actions: [
@@ -119,13 +119,19 @@ void showCustomAlertDialog(
               MaterialButton(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5),
-                    side: const BorderSide(color: grey)),
+                    side: BorderSide(
+                        color: Theme.of(context).brightness == Brightness.light
+                            ? darkgrey
+                            : grey)),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                child: const Text(
+                child: Text(
                   "Cancel",
-                  style: TextStyle(color: grey),
+                  style: TextStyle(
+                      color: Theme.of(context).brightness == Brightness.light
+                          ? darkgrey
+                          : grey),
                 ),
               ),
               MaterialButton(
