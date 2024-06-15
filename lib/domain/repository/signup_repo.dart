@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:evogram/application/models/signup_model.dart';
-import 'package:evogram/core/urls.dart';
+import 'package:evogram/application/core/urls.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';

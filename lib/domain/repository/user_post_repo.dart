@@ -4,9 +4,9 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:evogram/core/functions.dart';
-import 'package:evogram/core/sharedpreferences.dart';
-import 'package:evogram/core/urls.dart';
+import 'package:evogram/application/core/functions.dart';
+import 'package:evogram/application/core/sharedpreferences.dart';
+import 'package:evogram/application/core/urls.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
@@ -126,15 +126,15 @@ class PostRepo {
       required String? image,
       required String description,
       required String postid}) async {
-        dynamic cloudinaryImageurl;
+    dynamic cloudinaryImageurl;
     var client = http.Client();
     try {
       if (image != '') {
-         cloudinaryImageurl = await uploadImage(image);
+        cloudinaryImageurl = await uploadImage(image);
       }
-      
+
       final usereditpost = {
-        'imageUrl': image!=''?cloudinaryImageurl:imageurl,
+        'imageUrl': image != '' ? cloudinaryImageurl : imageurl,
         'description': description,
       };
       final token = await getUserToken();

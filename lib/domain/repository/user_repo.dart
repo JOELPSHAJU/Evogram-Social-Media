@@ -2,16 +2,17 @@ import 'dart:convert';
 
 import 'dart:io';
 
-import 'package:evogram/core/sharedpreferences.dart';
-import 'package:evogram/core/urls.dart';
-import 'package:evogram/presentation/userprofile/edit_profile/edit_profile.dart';
-import 'package:evogram/presentation/widgets/cloudinary.dart';
+import 'package:evogram/application/core/functions.dart';
+import 'package:evogram/application/core/sharedpreferences.dart';
+import 'package:evogram/application/core/urls.dart';
+import 'package:evogram/presentation/screens/userprofile/edit_profile/edit_profile.dart';
+import 'package:evogram/presentation/screens/widgets/cloudinary.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 
 class LoginUserRepo {
-  //
+  var client = http.Client();
   static Future fetchloginuser() async {
     var client = http.Client();
     final token = await getUserToken();
@@ -30,46 +31,43 @@ class LoginUserRepo {
   }
 
   //editprofile
-  static Future<Response?> editprofile(
-      {required String? imageurl,
-      required String? image,
-      required String? backgroundImageurl,
-      required String? backgroundImage,
-      required String bio,
-      required String name}) async {
-    dynamic profileimage;
-    dynamic coverimage;
+  static Future<Response?> editProfile(
+      {required image,
+      String? name,
+      String? bio,
+      String? imageUrl,
+      String? bgImageUrl,
+      required bgImage}) async {
     var client = http.Client();
     try {
-      if (image != '') {
-        profileimage = await uploadImage(image);
+      dynamic cloudinaryimageUrl;
+      dynamic cloudinarybgimageUrl;
+      if (imageUrl == '') {
+        cloudinaryimageUrl = await uploadImage(image);
       }
-      if (backgroundImage != '') {
-        coverimage = await uploadImage(backgroundImage);
+      if (bgImageUrl == '') {
+        cloudinarybgimageUrl = await uploadImage(bgImage);
       }
-      final token = await getUserToken();
-      debugPrint('image:$imageurl');
-      final editdata = {
-        'image': image != '' ? profileimage : imageurl,
-        'name': name,
-        'bio': bio,
-        'backGroundImage':
-            backgroundImage != '' ? coverimage : backgroundImageurl
+      final token = await getUsertoken();
+      final details = {
+        "name": name ?? '',
+        "bio": bio ?? '',
+        "image": imageUrl == '' ? cloudinaryimageUrl : imageUrl,
+        "backGroundImage": bgImageUrl == '' ? cloudinarybgimageUrl : bgImageUrl
       };
-
       var response = await client.put(Uri.parse('$baseurl$editprofileurl'),
+          body: jsonEncode(details),
           headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer $token'
-          },
-          body: jsonEncode(editdata));
-      debugPrint('statuscode:${response.body}');
+            'Authorization': 'Bearer $token',
+            'Content-Type': 'application/json'
+          });
+      debugPrint(response.statusCode.toString());
+      debugPrint(response.body);
       return response;
     } catch (e) {
-      debugPrint(e.toString());
-
-      return null;
+      print(e.toString());
     }
+    return null;
   }
 
   //get singleuser
