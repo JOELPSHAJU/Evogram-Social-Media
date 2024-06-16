@@ -1,4 +1,7 @@
 import 'package:evogram/application/core/constants.dart';
+import 'package:evogram/domain/models/followings_model.dart';
+import 'package:evogram/presentation/bloc/fetch_followers/fetch_followers_bloc.dart';
+import 'package:evogram/presentation/bloc/fetch_followings_bloc/fetch_followings_bloc.dart';
 import 'package:evogram/presentation/bloc/login_user_bloc/login_user_bloc.dart';
 import 'package:evogram/infrastructure/fetchuserpost/fetching_user_post_bloc.dart';
 import 'package:evogram/presentation/screens/followers_screen/followers_screen.dart';
@@ -116,33 +119,75 @@ Widget profileHeaderWidgets(
               );
             },
           ),
-          GestureDetector(
-            onTap: () {
-              navigatePushAnimaterbottomtotop(context, FollowersScreen());
+          BlocConsumer<FetchFollowersBloc, FetchFollowersState>(
+            listener: (context, state) {},
+            builder: (context, state) {
+              if (state is FetchFollowersLoadingState) {
+                return Center(
+                    child: LoadingAnimationWidget.fourRotatingDots(
+                        color: blueaccent2, size: 40));
+              } else if (state is FetchFollowersSuccessState) {
+                return GestureDetector(
+                    onTap: () {
+                      navigatePushAnimaterbottomtotop(
+                          context, FollowersScreen(followers: state.followers.followers,));
+                    },
+                    child: Column(
+                      children: [
+                        Text(
+                          state.followers.totalCount.toString(),
+                          style: profilestyle,
+                        ),
+                        Text('Followers', style: profilestyle2)
+                      ],
+                    ));
+              }
+              return const Column(
+                children: [
+                  Text(
+                    '0',
+                    style: profilestyle,
+                  ),
+                  Text('Followers', style: profilestyle2)
+                ],
+              );
             },
-            child: const Column(
-              children: [
-                Text(
-                  '200',
-                  style: profilestyle,
-                ),
-                Text('Followers', style: profilestyle2)
-              ],
-            ),
           ),
-          GestureDetector(
-            onTap: () {
-              navigatePushAnimaterbottomtotop(context, FollowingPersonScreen());
+          BlocConsumer<FetchFollowingsBloc, FetchFollowingsState>(
+            listener: (context, state) {},
+            builder: (context, state) {
+              if (state is FetchFollowingsLoadingState) {
+               
+                return Center(
+                    child: LoadingAnimationWidget.fourRotatingDots(
+                        color: blueaccent2, size: 40));
+              } else if (state is FetchFollowingsSuccesfulState) {
+                return GestureDetector(
+                  onTap: () {
+                    navigatePushAnimaterbottomtotop(
+                        context, FollowingPersonScreen(following: state.followingsModel.following,));
+                  },
+                  child: Column(
+                    children: [
+                      Text(
+                        state.followingsModel.totalCount.toString(),
+                        style: profilestyle,
+                      ),
+                      Text('Following', style: profilestyle2)
+                    ],
+                  ),
+                );
+              }
+              return const Column(
+                children: [
+                  Text(
+                    '0',
+                    style: profilestyle,
+                  ),
+                  Text('Following', style: profilestyle2)
+                ],
+              );
             },
-            child: const Column(
-              children: [
-                Text(
-                  '354',
-                  style: profilestyle,
-                ),
-                Text('Following', style: profilestyle2)
-              ],
-            ),
           ),
         ],
       ),

@@ -1,3 +1,5 @@
+import 'package:evogram/presentation/bloc/fetch_followers/fetch_followers_bloc.dart';
+import 'package:evogram/presentation/bloc/fetch_followings_bloc/fetch_followings_bloc.dart';
 import 'package:evogram/presentation/bloc/login_user_bloc/login_user_bloc.dart';
 import 'package:evogram/infrastructure/fetchuserpost/fetching_user_post_bloc.dart';
 
@@ -29,6 +31,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
   void initState() {
     context.read<FetchingUserPostBloc>().add(FetchingUserpostInitialEvent());
     context.read<LoginUserBloc>().add(LoginUserInitialFetchingEvent());
+    context.read<FetchFollowingsBloc>().add(FollowingsInitialFetchEvent());
+    context.read<FetchFollowersBloc>().add(FetchFollowersInitialEvent());
     super.initState();
   }
 
@@ -37,6 +41,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
     await debouncer.run(() async {
       context.read<FetchingUserPostBloc>().add(FetchingUserpostInitialEvent());
       context.read<LoginUserBloc>().add(LoginUserInitialFetchingEvent());
+    context.read<FetchFollowingsBloc>().add(FollowingsInitialFetchEvent());
+    context.read<FetchFollowersBloc>().add(FetchFollowersInitialEvent());
     });
   }
 

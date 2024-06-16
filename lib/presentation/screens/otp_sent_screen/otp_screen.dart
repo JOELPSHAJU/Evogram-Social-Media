@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:evogram/application/models/signup_model.dart';
+import 'package:evogram/domain/models/signup_model.dart';
 import 'package:evogram/presentation/bloc/otp_bloc/bloc/otp_bloc.dart';
 import 'package:evogram/presentation/bloc/signup_bloc/signup_bloc.dart';
 import 'package:evogram/presentation/screens/login_screen/login_screen.dart';

@@ -4,9 +4,9 @@ String signup = '/users/send-otp';
 String otpurl = '/users/verify-otp';
 String loginurl = '/users/login';
 //post
- const String addpostUrl = '/posts/addPost';
- const String getallPost = '/posts/getpost';
- String addposturl = '/posts/addPost';
+const String addpostUrl = '/posts/addPost';
+const String getallPost = '/posts/getpost';
+String addposturl = '/posts/addPost';
 String fetchposturl = '/posts/getpost';
 String fetchuserposturl = '/posts/getuserpost';
 String deleteposturln = '/posts/delete-post';
@@ -35,6 +35,16 @@ String fetchfollowersurl = '/users/fetch-followers';
 String searchusersurl = '/users/searchallusers?searchQuery=';
 String getSingleuserurl = '/users/get-single-user';
 String notificationurl = '/users/notifications';
+String logginedUser = '/users/getuser';
+String editProfile = '/users/edit-profile';
+String getFollowing = '/users/fetch-following';
+String getFollowers = '/users/fetch-followers';
+String followUser = '/users/follow';
+String unfollowUser = '/users/unfollow';
+String suggessions = '/users/fetch-users';
+String getSingleUser = '/users/get-single-user';
+String getConnections = '/users/get-count';
+String searchAllUsers = '/users/searchallusers?searchQuery=';
 //chats
 String getconversationurl = '/chats/conversation';
 String createconversationurl = '/chats/conversation';
@@ -47,3 +57,23 @@ const String verifyOtpReset = '/users/verifyOtp?email=';
 const String forgotPasswordurl = '/users/forgotPassword?email=';
 const String updatePasswordurl = '/users/changepassword';
 
+class PostUrls {
+//post Urls
+  static const String addpostUrl = '/posts/addPost';
+  static const String getallPost = '/posts/getpost';
+  static const String deletePost = '/posts/delete-post';
+  static const String updatePost = '/posts/update-post';
+  static const String getPostByUserId = '/posts/getuserpost';
+  static const String likePost = '/posts/like-post';
+  static const String unlikePost = '/posts/unlike-post';
+  static const String commentPost = '/posts/add-comment';
+  static const String getAllComments = '/posts/fetch-comments';
+  static const String deleteComments = '/posts/delete-comment';
+  static const String replayComments = '/posts/comments/reply-to';
+  static const String allFollowingsPost = '/posts/allfollowingsPost';
+  static const String savePost = '/posts/savePost';
+  static const String fetchSavedPost = '/posts/savePosts';
+  static const String removeSavedPost = '/posts/savePosts';
+  static const String explorePosts = '/posts/exploreposts';
+
+}

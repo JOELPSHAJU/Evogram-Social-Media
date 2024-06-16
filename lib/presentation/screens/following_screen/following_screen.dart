@@ -1,3 +1,5 @@
+import 'package:evogram/domain/models/followings_model.dart';
+
 import '../../../application/core/constants.dart';
 import '../chat_screen/chat_screen.dart';
 import '../chat_list/widgets.dart';
@@ -6,7 +8,8 @@ import '../widgets/text_styles.dart';
 import 'package:flutter/material.dart';
 
 class FollowingPersonScreen extends StatelessWidget {
-  FollowingPersonScreen({super.key});
+  final List<Following> following;
+  FollowingPersonScreen({super.key, required this.following});
   final profilepic =
       'https://www.mensjournal.com/.image/t_share/MTk2MTM2NDk0NzM0MjU1MjQ5/jason-statham-main.jpg';
 
@@ -46,7 +49,7 @@ class FollowingPersonScreen extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.only(top: 10),
           child: ListView.builder(
-            itemCount: 20,
+            itemCount: following.length,
             itemBuilder: (context, index) {
               return Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -80,16 +83,17 @@ class FollowingPersonScreen extends StatelessWidget {
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(100),
                             image: DecorationImage(
-                                image: NetworkImage(profilepic),
+                                image: NetworkImage(
+                                    following[index].profilePic.toString()),
                                 fit: BoxFit.cover)),
                       ),
-                      title: const Text(
-                        'Decard Shaw',
+                      title: Text(
+                        following[index].userName.toString(),
                         style: TextStyle(
                             fontSize: 15, fontWeight: FontWeight.bold),
                       ),
-                      subtitle: const Text(
-                        'decard_shaw',
+                      subtitle: Text(
+                        following[index].name.toString(),
                         style: TextStyle(
                             fontSize: 13, fontWeight: FontWeight.bold),
                       ),

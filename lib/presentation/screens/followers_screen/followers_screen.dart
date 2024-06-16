@@ -1,3 +1,5 @@
+import 'package:evogram/domain/models/followers_model.dart';
+
 import '../../../application/core/constants.dart';
 import '../chat_screen/chat_screen.dart';
 import '../chat_list/widgets.dart';
@@ -7,7 +9,8 @@ import '../widgets/text_styles.dart';
 import 'package:flutter/material.dart';
 
 class FollowersScreen extends StatelessWidget {
-  FollowersScreen({super.key});
+  final List<Follower> followers;
+  FollowersScreen({super.key, required this.followers});
   final profilepic =
       'https://i.redd.it/rate-actress-michelle-rodriguez-had-roles-in-avatar-fast-v0-5ajp4kyc4iva1.jpg?width=2527&format=pjpg&auto=webp&s=e0e15527167cf143508acc91e2d25d021e6e24f8';
   final searchPersonController = TextEditingController();
@@ -45,7 +48,7 @@ class FollowersScreen extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.only(top: 10),
           child: ListView.builder(
-            itemCount: 20,
+            itemCount: followers.length,
             itemBuilder: (context, index) {
               return Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -79,17 +82,18 @@ class FollowersScreen extends StatelessWidget {
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(100),
                             image: DecorationImage(
-                                image: NetworkImage(profilepic),
+                                image:
+                                    NetworkImage(followers[index].profilePic),
                                 fit: BoxFit.cover)),
                       ),
-                      title: const Text(
-                        'Michele Rodrigues',
-                        style: TextStyle(
+                      title: Text(
+                        followers[index].userName.toString(),
+                        style: const TextStyle(
                             fontSize: 15, fontWeight: FontWeight.bold),
                       ),
-                      subtitle: const Text(
-                        'michele_rodrigues_here',
-                        style: TextStyle(
+                      subtitle: Text(
+                        followers[index].name.toString(),
+                        style: const TextStyle(
                             fontSize: 13, fontWeight: FontWeight.bold),
                       ),
                       trailing: MaterialButton(

@@ -174,22 +174,26 @@ class AddPostScreen extends StatelessWidget {
                                         )
                                       : Image.file(File(pickImage.value),
                                           fit: BoxFit.cover)),
-                              Positioned(
-                                top: 10,
-                                right: 10,
-                                child: IconButton(
-                                    onPressed: () {
-                                      pickImage.value = '';
-                                    },
-                                    icon: Icon(
-                                      Icons.cancel,
-                                      color: Theme.of(context).brightness ==
-                                              Brightness.light
-                                          ? grey
-                                          : darkgrey,
-                                      size: 35,
-                                    )),
-                              )
+                              pickImage.value.isNotEmpty
+                                  ? Positioned(
+                                      top: 10,
+                                      right: 10,
+                                      child: IconButton(
+                                          
+                                          onPressed: () {
+                                            pickImage.value = '';
+                                          },
+                                          icon: Icon(
+                                            Icons.cancel,
+                                            color:
+                                                Theme.of(context).brightness ==
+                                                        Brightness.light
+                                                    ? red
+                                                    : darkgrey,
+                                            size: 35,
+                                          )),
+                                    )
+                                  : h10,
                             ],
                           ));
                     },

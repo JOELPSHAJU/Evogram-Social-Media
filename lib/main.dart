@@ -3,6 +3,10 @@ import 'package:evogram/firebase_options.dart';
 import 'package:evogram/presentation/bloc/add_post_bloc/addpost_bloc.dart';
 import 'package:evogram/presentation/bloc/edit_post_bloc/edit_post_bloc.dart';
 import 'package:evogram/presentation/bloc/edit_profile_bloc/edit_profile_bloc.dart';
+import 'package:evogram/presentation/bloc/fetch_followers/fetch_followers_bloc.dart';
+import 'package:evogram/presentation/bloc/fetch_followings_bloc/fetch_followings_bloc.dart';
+import 'package:evogram/presentation/bloc/fetch_suggession_user_bloc/fetch_suggession_user_bloc.dart';
+import 'package:evogram/presentation/bloc/follow_unfollow_user_bloc/follow_unfollow_user_bloc.dart';
 import 'package:evogram/presentation/bloc/forget_password_bloc/forgetpassword_bloc.dart';
 import 'package:evogram/presentation/bloc/login_bloc/login_bloc.dart';
 import 'package:evogram/presentation/bloc/login_user_bloc/login_user_bloc.dart';
@@ -57,6 +61,18 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => EditProfileBloc(),
+        ),
+           BlocProvider(
+          create: (context) => FollowUnfollowUserBloc(),
+        ),
+        BlocProvider(
+          create: (context) => FetchSuggessionUserBloc(),
+        ),
+            BlocProvider(
+          create: (context) => FetchFollowersBloc(),
+        ),
+        BlocProvider(
+          create: (context) => FetchFollowingsBloc(),
         ),
       ],
       child: MaterialApp(

@@ -3,7 +3,7 @@
 import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
-import 'package:evogram/application/models/login_user.dart';
+import 'package:evogram/domain/models/login_user.dart';
 import 'package:evogram/domain/repository/user_repo.dart';
 import 'package:http/http.dart';
 import 'package:meta/meta.dart';

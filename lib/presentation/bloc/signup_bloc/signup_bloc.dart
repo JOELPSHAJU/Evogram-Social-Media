@@ -3,7 +3,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:evogram/application/models/signup_model.dart';
+import 'package:evogram/domain/models/signup_model.dart';
 import 'package:evogram/domain/repository/signup_repo.dart';
 import 'package:flutter/material.dart';
 

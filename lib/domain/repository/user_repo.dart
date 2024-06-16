@@ -1,18 +1,17 @@
 import 'dart:convert';
-
-import 'dart:io';
+import 'dart:developer';
 
 import 'package:evogram/application/core/functions.dart';
 import 'package:evogram/application/core/sharedpreferences.dart';
 import 'package:evogram/application/core/urls.dart';
-import 'package:evogram/presentation/screens/userprofile/edit_profile/edit_profile.dart';
 import 'package:evogram/presentation/screens/widgets/cloudinary.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 
 class LoginUserRepo {
-  var client = http.Client();
+  static var client = http.Client();
+
   static Future fetchloginuser() async {
     var client = http.Client();
     final token = await getUserToken();
@@ -127,6 +126,84 @@ class LoginUserRepo {
     } catch (e) {
       debugPrint(e.toString());
 
+      return 'failed';
+    }
+  }
+
+//fetch suggession of users
+  static Future<Response?> fetchSuggessionUser() async {
+    var client = http.Client();
+    try {
+      final token = await getUsertoken();
+      var response = client.get(Uri.parse('$baseurl$suggessionurl'),
+          headers: {'Authorization': 'Bearer $token'});
+      return response;
+    } catch (e) {
+      log(e.toString());
+      return null;
+    }
+  }
+
+//follow user
+  static Future followUser({required String followeesId}) async {
+    try {
+      final token = await getUsertoken();
+      var response = client.post(
+          Uri.parse('$baseurl$followuserurl/$followeesId'),
+          headers: {'Authorization': 'Bearer $token'});
+      return response;
+    } catch (e) {
+      log(e.toString());
+    }
+  }
+
+  //unfollow user
+  static Future unfollowUser({required String followeesId}) async {
+    try {
+      final token = await getUsertoken();
+      var response = client.put(
+          Uri.parse('$baseurl$unfollowuserurl/$followeesId'),
+          headers: {'Authorization': 'Bearer $token'});
+      return response;
+    } catch (e) {
+      log(e.toString());
+    }
+  }
+
+//fetch following
+  static Future fetchfollowing() async {
+    var client = http.Client();
+    final token = await getUserToken();
+    try {
+      var respose = await client.get(Uri.parse('$baseurl$fetchfollowingurl'),
+          headers: {
+            'content_Type': 'application/json',
+            'Authorization': 'Bearer $token'
+          });
+      debugPrint('statuscode:${respose.statusCode}');
+      return respose;
+    } catch (e) {
+      debugPrint(e.toString());
+      log(e.toString());
+      return 'failed';
+    }
+  }
+
+//fetch followers
+  static Future fetchfollowers() async {
+    var client = http.Client();
+    final token = await getUserToken();
+    try {
+      var respose = await client.get(Uri.parse('$baseurl$fetchfollowersurl'),
+          headers: {
+            'content_Type': 'application/json',
+            'Authorization': 'Bearer $token'
+          });
+      debugPrint('statuscode:${respose.statusCode}');
+      return respose;
+    } catch (e) {
+      debugPrint(e.toString());
+      log(e.toString());
       return 'failed';
     }
   }

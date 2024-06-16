@@ -2,7 +2,7 @@
 
 import 'dart:io';
 
-import 'package:evogram/application/models/login_user.dart';
+import 'package:evogram/domain/models/login_user.dart';
 
 import 'package:evogram/presentation/bloc/edit_post_bloc/edit_post_bloc.dart';
 import 'package:evogram/presentation/bloc/edit_profile_bloc/edit_profile_bloc.dart';

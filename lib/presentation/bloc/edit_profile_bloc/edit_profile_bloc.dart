@@ -1,10 +1,9 @@
 import 'dart:convert';
-import 'dart:io';
+
 
 import 'package:bloc/bloc.dart';
 import 'package:evogram/domain/repository/user_repo.dart';
-import 'package:evogram/presentation/screens/userprofile/edit_profile/edit_profile.dart';
-import 'package:http/http.dart';
+
 import 'package:meta/meta.dart';
 
 part 'edit_profile_event.dart';
