@@ -17,6 +17,10 @@ import '../../../../application/core/constants.dart';
 
 import 'package:flutter/material.dart';
 
+late String useridprofilescreen;
+late String profilepic;
+late String usernameprofile;
+
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
 
@@ -33,6 +37,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     context.read<LoginUserBloc>().add(LoginUserInitialFetchingEvent());
     context.read<FetchFollowingsBloc>().add(FollowingsInitialFetchEvent());
     context.read<FetchFollowersBloc>().add(FetchFollowersInitialEvent());
+
     super.initState();
   }
 
@@ -41,8 +46,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
     await debouncer.run(() async {
       context.read<FetchingUserPostBloc>().add(FetchingUserpostInitialEvent());
       context.read<LoginUserBloc>().add(LoginUserInitialFetchingEvent());
-    context.read<FetchFollowingsBloc>().add(FollowingsInitialFetchEvent());
-    context.read<FetchFollowersBloc>().add(FetchFollowersInitialEvent());
+      context.read<FetchFollowingsBloc>().add(FollowingsInitialFetchEvent());
+      context.read<FetchFollowersBloc>().add(FetchFollowersInitialEvent());
     });
   }
 
@@ -53,6 +58,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
       listener: (context, state) {},
       builder: (context, state) {
         if (state is LoginUserSucessState) {
+          useridprofilescreen = state.users.id;
+          usernameprofile = state.users.userName.toString();
+          profilepic = state.users.profilePic.toString();
           return Scaffold(
               backgroundColor: Theme.of(context).brightness == Brightness.light
                   ? Colors.grey[300]
@@ -136,7 +144,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   ),
                                   Tab(
                                     icon: Icon(
-                                      Icons.save_outlined,
+                                      Icons.bookmark_outline,
                                       size: 30,
                                     ),
                                   )

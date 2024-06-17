@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:evogram/application/core/constants.dart';
 import 'package:evogram/domain/models/followings_model.dart';
 import 'package:evogram/presentation/bloc/fetch_followers/fetch_followers_bloc.dart';
@@ -47,12 +48,21 @@ Widget profileHeaderWidgets(
                         color: Theme.of(context).brightness == Brightness.light
                             ? Colors.grey.shade300
                             : black),
-                    image: DecorationImage(
-                        image: NetworkImage(
-                          state.users.profilePic,
-                        ),
-                        fit: BoxFit.cover),
                     borderRadius: BorderRadius.circular(100)),
+                child: ClipOval(
+                  child: CachedNetworkImage(
+                    imageUrl: state.users.profilePic,
+                    fit: BoxFit.cover,
+                    placeholder: (context, url) {
+                      return ClipOval(
+                        child: Image.asset(
+                          profile,
+                          fit: BoxFit.cover,
+                        ),
+                      );
+                    },
+                  ),
+                ),
               ),
             ),
           ],
@@ -130,7 +140,10 @@ Widget profileHeaderWidgets(
                 return GestureDetector(
                     onTap: () {
                       navigatePushAnimaterbottomtotop(
-                          context, FollowersScreen(followers: state.followers.followers,));
+                          context,
+                          FollowersScreen(
+                            followers: state.followers.followers,
+                          ));
                     },
                     child: Column(
                       children: [
@@ -157,7 +170,6 @@ Widget profileHeaderWidgets(
             listener: (context, state) {},
             builder: (context, state) {
               if (state is FetchFollowingsLoadingState) {
-               
                 return Center(
                     child: LoadingAnimationWidget.fourRotatingDots(
                         color: blueaccent2, size: 40));
@@ -165,7 +177,10 @@ Widget profileHeaderWidgets(
                 return GestureDetector(
                   onTap: () {
                     navigatePushAnimaterbottomtotop(
-                        context, FollowingPersonScreen(following: state.followingsModel.following,));
+                        context,
+                        FollowingPersonScreen(
+                          following: state.followingsModel.following,
+                        ));
                   },
                   child: Column(
                     children: [

@@ -46,10 +46,11 @@ String getSingleUser = '/users/get-single-user';
 String getConnections = '/users/get-count';
 String searchAllUsers = '/users/searchallusers?searchQuery=';
 //chats
-String getconversationurl = '/chats/conversation';
-String createconversationurl = '/chats/conversation';
-String addmessageurl = '/chats/message';
-String getallmessageurl = '/chats/message';
+//chat urls
+  const String createConversationurl = '/chats/conversation';
+  const String getAllConversationsurl = '/chats/conversation';
+  const String addMessageurl = '/chats/message';
+  const String getAllMessagesurl = '/chats/message';
 
 //google urls
 const String googleLoginurl = '/users/google-login';

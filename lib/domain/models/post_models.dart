@@ -1,13 +1,13 @@
 import 'package:evogram/domain/models/user_id.dart';
 
 class Postmodel {
-    String id;
+    String? id;
     UserId userId;
-    String image;
-    String description;
+    String? image;
+    String? description;
     List<dynamic> likes;
-    bool hidden;
-    bool blocked;
+    bool? hidden;
+    bool? blocked;
     DateTime date;
     DateTime createdAt;
     DateTime updatedAt;

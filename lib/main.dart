@@ -1,6 +1,9 @@
 import 'package:evogram/application/core/constants.dart';
 import 'package:evogram/firebase_options.dart';
 import 'package:evogram/presentation/bloc/add_post_bloc/addpost_bloc.dart';
+import 'package:evogram/presentation/bloc/all_followers_posts_bloc/all_followers_posts_bloc.dart';
+import 'package:evogram/presentation/bloc/comment_post_bloc/comment_post_bloc.dart';
+import 'package:evogram/presentation/bloc/delete_comment_bloc/delete_comment_bloc.dart';
 import 'package:evogram/presentation/bloc/edit_post_bloc/edit_post_bloc.dart';
 import 'package:evogram/presentation/bloc/edit_profile_bloc/edit_profile_bloc.dart';
 import 'package:evogram/presentation/bloc/fetch_followers/fetch_followers_bloc.dart';
@@ -8,9 +11,11 @@ import 'package:evogram/presentation/bloc/fetch_followings_bloc/fetch_followings
 import 'package:evogram/presentation/bloc/fetch_suggession_user_bloc/fetch_suggession_user_bloc.dart';
 import 'package:evogram/presentation/bloc/follow_unfollow_user_bloc/follow_unfollow_user_bloc.dart';
 import 'package:evogram/presentation/bloc/forget_password_bloc/forgetpassword_bloc.dart';
+import 'package:evogram/presentation/bloc/get_comments_bloc/get_comments_bloc.dart';
 import 'package:evogram/presentation/bloc/login_bloc/login_bloc.dart';
 import 'package:evogram/presentation/bloc/login_user_bloc/login_user_bloc.dart';
 import 'package:evogram/presentation/bloc/otp_bloc/bloc/otp_bloc.dart';
+import 'package:evogram/presentation/bloc/profile_details_bloc/profile_details_bloc.dart';
 import 'package:evogram/presentation/bloc/signup_bloc/signup_bloc.dart';
 import 'package:evogram/infrastructure/fetchuserpost/fetching_user_post_bloc.dart';
 import 'package:evogram/presentation/screens/splash_screen/splash_screen.dart';
@@ -56,23 +61,38 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => LoginUserBloc(),
         ),
-         BlocProvider(
+        BlocProvider(
           create: (context) => EditPostBloc(),
         ),
         BlocProvider(
           create: (context) => EditProfileBloc(),
         ),
-           BlocProvider(
+        BlocProvider(
           create: (context) => FollowUnfollowUserBloc(),
         ),
         BlocProvider(
           create: (context) => FetchSuggessionUserBloc(),
         ),
-            BlocProvider(
+        BlocProvider(
           create: (context) => FetchFollowersBloc(),
         ),
         BlocProvider(
           create: (context) => FetchFollowingsBloc(),
+        ),
+        BlocProvider(
+          create: (context) => AllFollowersPostsBloc(),
+        ),
+        BlocProvider(
+          create: (context) => ProfileDetailsBloc(),
+        ),
+        BlocProvider(
+          create: (context) => CommentPostBloc(),
+        ),
+        BlocProvider(
+          create: (context) => DeleteCommentBloc(),
+        ),
+        BlocProvider(
+          create: (context) => GetCommentsBloc(),
         ),
       ],
       child: MaterialApp(

@@ -49,8 +49,9 @@ class AddPostScreen extends StatelessWidget {
       },
       builder: (context, state) {
         return Scaffold(
-          backgroundColor:
-              Theme.of(context).brightness == Brightness.light ? white : black,
+          backgroundColor: Theme.of(context).brightness == Brightness.light
+              ? white
+              : Color.fromARGB(255, 15, 15, 15),
           appBar: AppBar(
             surfaceTintColor: Theme.of(context).brightness == Brightness.light
                 ? white
@@ -76,7 +77,7 @@ class AddPostScreen extends StatelessWidget {
                         child: loadingButton(
                           media: size,
                           onPressed: () {},
-                          color: blue,
+                          color: buttonclr,
                         ),
                       ),
                     );
@@ -85,7 +86,7 @@ class AddPostScreen extends StatelessWidget {
                   return Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: MaterialButton(
-                        color: blue,
+                        color: buttonclr,
                         minWidth: 100,
                         height: 40,
                         shape: RoundedRectangleBorder(
@@ -179,7 +180,6 @@ class AddPostScreen extends StatelessWidget {
                                       top: 10,
                                       right: 10,
                                       child: IconButton(
-                                          
                                           onPressed: () {
                                             pickImage.value = '';
                                           },

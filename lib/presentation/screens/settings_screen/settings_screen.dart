@@ -17,9 +17,8 @@ class SettingsScreen extends StatelessWidget {
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
         appBar: AppBar(
-          elevation: 30,
-          shadowColor:
-              Theme.of(context).brightness == Brightness.light ? white : grey80,
+          elevation: 1,
+          shadowColor: lightgrey,
           backgroundColor:
               Theme.of(context).brightness == Brightness.light ? white : black,
           surfaceTintColor:

@@ -1,4 +1,5 @@
 import 'package:evogram/application/core/constants.dart';
+import 'package:evogram/presentation/bloc/fetch_followings_bloc/fetch_followings_bloc.dart';
 import 'package:evogram/presentation/bloc/fetch_suggession_user_bloc/fetch_suggession_user_bloc.dart';
 import 'package:evogram/presentation/bloc/follow_unfollow_user_bloc/follow_unfollow_user_bloc.dart';
 import 'package:evogram/presentation/screens/suggessions_screen/followers_loading.dart';
@@ -59,10 +60,12 @@ class _SuggessionScreenState extends State<SuggessionScreen> {
           listener: (context, followState) {
             if (followState is FollowUserSuccesfulState ||
                 followState is UnFollowUserSuccesfulState) {
-              // Refetch suggestions after follow/unfollow action
               context
                   .read<FetchSuggessionUserBloc>()
                   .add(SuggessionUserInitialFetchEvent());
+              context
+                  .read<FetchFollowingsBloc>()
+                  .add(FollowingsInitialFetchEvent());
             }
           },
           child: BlocBuilder<FetchSuggessionUserBloc, FetchSuggessionUserState>(

@@ -100,7 +100,8 @@ class _UserPostsState extends State<UserPosts> {
                                             BorderRadius.circular(100)),
                                     child: ClipOval(
                                       child: CachedNetworkImage(
-                                        imageUrl: state.userposts[index].image,
+                                        imageUrl: state.userposts[index].image
+                                            .toString(),
                                         fit: BoxFit.cover,
                                         placeholder: (context, url) {
                                           return LoadingAnimationWidget.flickr(
@@ -147,7 +148,8 @@ class _UserPostsState extends State<UserPosts> {
                               height: size.width * .84,
                               width: size.width,
                               child: CachedNetworkImage(
-                                imageUrl: state.userposts[index].image,
+                                imageUrl:
+                                    state.userposts[index].image.toString(),
                                 fit: BoxFit.cover,
                                 placeholder: (context, url) {
                                   return LoadingAnimationWidget.hexagonDots(
@@ -206,7 +208,7 @@ class _UserPostsState extends State<UserPosts> {
                           Padding(
                             padding: const EdgeInsets.only(left: 8.0, right: 8),
                             child: Text(
-                              state.userposts[index].description,
+                              state.userposts[index].description.toString(),
                               maxLines: 3,
                               style: const TextStyle(
                                   overflow: TextOverflow.ellipsis),

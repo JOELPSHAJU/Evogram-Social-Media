@@ -10,8 +10,8 @@ class TermsAndConditionsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        elevation: 30,
-        shadowColor:  Theme.of(context).brightness == Brightness.light ? white : grey80,
+        elevation: 1,
+        shadowColor: lightgrey,
         surfaceTintColor:
             Theme.of(context).brightness == Brightness.light ? white : black,
         backgroundColor:

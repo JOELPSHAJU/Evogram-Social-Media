@@ -12,9 +12,8 @@ class AboutUsScreen extends StatelessWidget {
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
         appBar: AppBar(
-          shadowColor:
-              Theme.of(context).brightness == Brightness.light ? white : grey80,
-          elevation: 30,
+         elevation: 1,
+        shadowColor: lightgrey,
           backgroundColor:
               Theme.of(context).brightness == Brightness.light ? white : black,
           surfaceTintColor:

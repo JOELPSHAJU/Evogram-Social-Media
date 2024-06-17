@@ -207,4 +207,16 @@ class LoginUserRepo {
       return 'failed';
     }
   }
+
+//get single user
+  static Future getSingleUser({required String userid}) async {
+    try {
+      final token = await getUsertoken();
+      var response = client.get(Uri.parse('$baseurl$getSingleuserurl/$userid'),
+          headers: {'Authorization': 'Bearer $token'});
+      return response;
+    } catch (e) {
+      log(e.toString());
+    }
+  }
 }

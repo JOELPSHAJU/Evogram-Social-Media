@@ -4,18 +4,18 @@ import 'package:evogram/domain/models/get_followers_userid_model.dart';
 
 class FollwersPostModel {
     List<dynamic> taggedUsers;
-    String id;
+    String? id;
     FollowersUserIdModel userId;
-    String image;
-    String description;
+    String? image;
+    String? description;
     List<FollowersUserIdModel> likes;
-    bool hidden;
-    bool blocked;
+    bool? hidden;
+    bool? blocked;
     List<String> tags;
     DateTime date;
     DateTime createdAt;
     DateTime updatedAt;
-    int v;
+    int? v;
     bool? isLiked;
     bool? isSaved;
 

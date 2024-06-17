@@ -24,7 +24,7 @@ final ValueNotifier<String> pickEditImage = ValueNotifier('');
 class EditPostScreen extends StatelessWidget {
   final Postmodel userpost;
   EditPostScreen({super.key, required this.userpost}) {
-    description.text = userpost.description;
+    description.text = userpost.description.toString();
   }
 
   final description = TextEditingController();
@@ -97,9 +97,9 @@ class EditPostScreen extends StatelessWidget {
                             print(pickEditImage);
                             editpostbloc.add(EditPostClickEvent(
                                 image: pickEditImage.value,
-                                imageurl: userpost.image,
+                                imageurl: userpost.image.toString(),
                                 description: description.text,
-                                postid: userpost.id));
+                                postid: userpost.id.toString()));
                             debugPrint(description.text);
                             debugPrint(userpost.image);
                           } else {}
@@ -144,7 +144,7 @@ class EditPostScreen extends StatelessWidget {
                                                 color: blue, size: 10),
                                       );
                                     },
-                                    imageUrl: userpost.image,
+                                    imageUrl: userpost.image.toString(),
                                     fit: BoxFit.cover,
                                   )
                                 : Image.file(File(pickEditImage.value),

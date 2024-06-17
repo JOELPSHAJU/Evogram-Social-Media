@@ -49,30 +49,28 @@ const bgcolor = Color(0XFFEFF3F6);
 final shadowdown = Colors.grey[500];
 final shadowup = Colors.grey[100];
 final darkbg = Colors.grey.shade900;
+final buttonclr = Color.fromARGB(255, 7, 115, 94);
 
 const chatbg = 'assets/chatbg.png';
 const chatbgdark = 'assets/chatbgdark.jpg';
 const logo2 = 'assets/logo2.png';
 const logo = 'assets/logo.png';
 const deletebg = 'assets/deletepost_prev_ui.png';
-const addimagelogo = 'assets/add_imge.png';
+
 const logoletters = 'assets/logoletters.png';
 const logoletterswhite = 'assets/logoletterswhite.png';
 const messagelogo = 'assets/message.jpg';
-const commentborderlogo = 'assets/comment_bordered_icon.png';
-const likeborderlogo = 'assets/like_bordered_logo.png';
-const savedborderlogo = 'assets/save.png';
-const shareborderlogo = 'assets/share_bordered_icon.png';
+
 const googlelogo = 'assets/google_logo.png';
 
-const grid = 'assets/grid.png';
 const addperson = 'assets/add_person.png';
-const profile = 'assets/search.png';
+const profile = 'assets/profilepic.jpg';
 const otpsent = 'assets/otpsent.jpg';
 
 const nopostblack = 'assets/nopostfoundblk.png';
 const nopostwht = 'assets/nopostfoundwht.png';
 
+const addperson2 = 'assets/add_person2.png';
 //Icons
 
 //token key sharedpreference

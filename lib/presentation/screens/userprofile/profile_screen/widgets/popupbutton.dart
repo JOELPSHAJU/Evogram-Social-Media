@@ -139,7 +139,7 @@ void showCustomAlertDialog(
                 onPressed: () {
                   context
                       .read<FetchingUserPostBloc>()
-                      .add(DeletePostClickEvent(postId: list[index].id));
+                      .add(DeletePostClickEvent(postId: list[index].id.toString()));
                   context
                       .read<FetchingUserPostBloc>()
                       .add(FetchingUserpostInitialEvent());

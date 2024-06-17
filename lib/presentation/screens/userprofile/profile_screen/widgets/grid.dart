@@ -47,7 +47,7 @@ class GridviewProfile extends StatelessWidget {
                     child: Card(
                       child: GridTile(
                           child: CachedNetworkImage(
-                              imageUrl: state.userposts[index].image,
+                              imageUrl: state.userposts[index].image.toString(),
                               fit: BoxFit.cover,
                               placeholder: (context, url) {
                                 return LoadingAnimationWidget.hexagonDots(
