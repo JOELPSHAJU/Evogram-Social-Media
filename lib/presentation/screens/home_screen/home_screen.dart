@@ -1,4 +1,6 @@
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
+import 'package:evogram/application/core/functions.dart';
+import 'package:evogram/application/core/sharedpreferences.dart';
 import 'package:evogram/presentation/bloc/all_followers_posts_bloc/all_followers_posts_bloc.dart';
 import 'package:evogram/presentation/bloc/profile_details_bloc/profile_details_bloc.dart';
 import 'package:evogram/presentation/screens/home_screen/widgets/home_page_loading.dart';
@@ -29,14 +31,18 @@ class _HomeScreenState extends State<HomeScreen> {
         .read<AllFollowersPostsBloc>()
         .add(AllFollowersPostsInitialFetchEvent());
     context.read<ProfileDetailsBloc>().add(ProfileInitialDetailsFetchEvent());
+    getToken();
     super.initState();
   }
 
   Future<void> refresh() async {
     await Future.delayed(const Duration(seconds: 2));
-    context
-        .read<AllFollowersPostsBloc>()
-        .add(AllFollowersPostsInitialFetchEvent());
+    context.read<AllFollowersPostsBloc>().add(LoadMoreEvent());
+  }
+
+  getToken() async {
+    logginedUserToken = (await getUsertoken())!;
+    logginedUserId = (await getUserId())!;
   }
 
   @override
@@ -90,7 +96,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 padding: EdgeInsets.only(right: 8.0),
                 child: Icon(
                   Iconsax.user_add,
-                  color: white,
+                  color: black,
                   size: 30,
                 ),
               ))

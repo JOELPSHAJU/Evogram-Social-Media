@@ -75,3 +75,5 @@ const addperson2 = 'assets/add_person2.png';
 
 //token key sharedpreference
 const tokenKey = 'USER_TOKEN';
+//userid key sharedpreference
+const userIdKey = 'userId';

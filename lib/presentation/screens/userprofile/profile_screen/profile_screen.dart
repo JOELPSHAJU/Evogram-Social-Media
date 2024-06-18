@@ -1,11 +1,13 @@
+import 'package:evogram/domain/models/login_user.dart';
 import 'package:evogram/presentation/bloc/fetch_followers/fetch_followers_bloc.dart';
 import 'package:evogram/presentation/bloc/fetch_followings_bloc/fetch_followings_bloc.dart';
+import 'package:evogram/presentation/bloc/fetch_saved_posts/fetch_saved_posts_bloc.dart';
 import 'package:evogram/presentation/bloc/login_user_bloc/login_user_bloc.dart';
 import 'package:evogram/infrastructure/fetchuserpost/fetching_user_post_bloc.dart';
 
 import 'package:evogram/presentation/screens/settings_screen/settings_screen.dart';
 import 'package:evogram/presentation/screens/userprofile/profile_screen/widgets/debouncer.dart';
-import 'package:evogram/presentation/screens/userprofile/profile_screen/widgets/example.dart';
+import 'package:evogram/presentation/screens/userprofile/profile_screen/widgets/savedpost_grid.dart';
 import 'package:evogram/presentation/screens/userprofile/profile_screen/widgets/grid.dart';
 import 'package:evogram/presentation/screens/userprofile/profile_screen/widgets/profile_header.dart';
 import 'package:evogram/presentation/screens/widgets/custom_navigators.dart';
@@ -20,6 +22,7 @@ import 'package:flutter/material.dart';
 late String useridprofilescreen;
 late String profilepic;
 late String usernameprofile;
+late LoginUserModel loginuserinfo;
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -37,7 +40,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     context.read<LoginUserBloc>().add(LoginUserInitialFetchingEvent());
     context.read<FetchFollowingsBloc>().add(FollowingsInitialFetchEvent());
     context.read<FetchFollowersBloc>().add(FetchFollowersInitialEvent());
-
+    context.read<FetchSavedPostsBloc>().add(SavedPostsInitialFetchEvent());
     super.initState();
   }
 
@@ -61,6 +64,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           useridprofilescreen = state.users.id;
           usernameprofile = state.users.userName.toString();
           profilepic = state.users.profilePic.toString();
+          loginuserinfo = state.users;
           return Scaffold(
               backgroundColor: Theme.of(context).brightness == Brightness.light
                   ? Colors.grey[300]
@@ -125,6 +129,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     ? Colors.grey[300]
                                     : black,
                             child: TabBar(
+                                overlayColor:
+                                    WidgetStatePropertyAll(Colors.grey[300]),
                                 dividerColor: blueaccent3,
                                 unselectedLabelColor: grey,
                                 labelColor: Theme.of(context).brightness ==
@@ -179,7 +185,34 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 );
                               },
                             ),
-                            GridviewProfileExample()
+                            BlocConsumer<FetchSavedPostsBloc,
+                                FetchSavedPostsState>(
+                              listener: (context, state) {},
+                              builder: (context, state) {
+                                if (state is FetchSavedPostsLoadingState) {
+                                  return Center(
+                                      child: LoadingAnimationWidget
+                                          .fourRotatingDots(
+                                              color: blueaccent2, size: 40));
+                                } else if (state
+                                    is FetchSavedPostsSuccesfulState) {
+                                  return SavedPostGrid(
+                                    saveddata: state.posts,
+                                  );
+                                }
+                                return Center(
+                                  child: Theme.of(context).brightness ==
+                                          Brightness.light
+                                      ? Image.asset(
+                                          nopostblack,
+                                          color: black,
+                                          width: size.width * .4,
+                                        )
+                                      : Image.asset(nopostwht,
+                                          width: size.width * .5),
+                                );
+                              },
+                            )
                           ]))
                         ],
                       ))));
