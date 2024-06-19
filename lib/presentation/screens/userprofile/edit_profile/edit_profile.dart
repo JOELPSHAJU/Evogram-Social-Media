@@ -1,16 +1,16 @@
-// ignore_for_file: must_be_immutable
+// ignore_for_file: must_be_immutable, non_constant_identifier_names
 
 import 'dart:io';
 
 import 'package:evogram/domain/models/login_user.dart';
 
-import 'package:evogram/presentation/bloc/edit_post_bloc/edit_post_bloc.dart';
 import 'package:evogram/presentation/bloc/edit_profile_bloc/edit_profile_bloc.dart';
 import 'package:evogram/presentation/bloc/login_user_bloc/login_user_bloc.dart';
 
 import 'package:evogram/presentation/screens/widgets/custom_button.dart';
 import 'package:evogram/presentation/screens/widgets/snakbars.dart';
 import 'package:flutter/foundation.dart';
+// ignore: unnecessary_import
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -142,8 +142,8 @@ class EditProfileScreen extends StatelessWidget {
                                           child: Stack(
                                             children: [
                                               Positioned(
-                                                top: 0,
-                                                right: 0,
+                                                top: 20,
+                                                right: 20,
                                                 child: GestureDetector(
                                                     onTap: () async {
                                                       profilepicfile =
@@ -159,9 +159,11 @@ class EditProfileScreen extends StatelessWidget {
                                                             profilepicfile!
                                                                 .path;
                                                       }
-                                                      print(
-                                                          profileimageeditprofile
-                                                              .value);
+                                                      if (kDebugMode) {
+                                                        print(
+                                                            profileimageeditprofile
+                                                                .value);
+                                                      }
                                                     },
                                                     child: const EditButton()),
                                               ),
@@ -198,7 +200,7 @@ class EditProfileScreen extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.only(left: 8, right: 8),
                           child: TextFormFieldEditProfile(
-                              maxlen: 25,
+                              maxlen: false,
                               controller: nameController,
                               hintText: 'Name',
                               keyboard: TextInputType.name,
@@ -225,7 +227,7 @@ class EditProfileScreen extends StatelessWidget {
                             right: 8,
                           ),
                           child: TextFormFieldEditProfile(
-                              maxlen: 100,
+                              maxlen: true,
                               controller: bioController,
                               hintText: 'Add a bio....',
                               keyboard: TextInputType.text,
@@ -241,12 +243,12 @@ class EditProfileScreen extends StatelessWidget {
                       return Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: SizedBox(
-                          width: 100,
-                          height: 40,
+                          width: size.width,
+                          height: 55,
                           child: loadingButton(
                             media: size,
                             onPressed: () {},
-                            color: blue,
+                            color: buttonclr,
                           ),
                         ),
                       );
@@ -255,7 +257,7 @@ class EditProfileScreen extends StatelessWidget {
                       padding:
                           const EdgeInsets.only(left: 8.0, right: 8, top: 20),
                       child: MaterialButton(
-                          color: blue,
+                          color: buttonclr,
                           minWidth: size.width,
                           height: 55,
                           shape: RoundedRectangleBorder(

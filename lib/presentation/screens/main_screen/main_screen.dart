@@ -19,7 +19,7 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   final List<Widget> pages = [
-    HomeScreen(),
+    const HomeScreen(),
     const SearchScreen(),
     AddPostScreen(),
     FindChatPersonScreen(),

@@ -7,8 +7,8 @@ import 'package:evogram/infrastructure/fetchuserpost/fetching_user_post_bloc.dar
 
 import 'package:evogram/presentation/screens/settings_screen/settings_screen.dart';
 import 'package:evogram/presentation/screens/userprofile/profile_screen/widgets/debouncer.dart';
-import 'package:evogram/presentation/screens/userprofile/profile_screen/widgets/savedpost_grid.dart';
-import 'package:evogram/presentation/screens/userprofile/profile_screen/widgets/grid.dart';
+import 'package:evogram/presentation/screens/userprofile/profile_screen/widgets/savedpost/savedpost_grid.dart';
+import 'package:evogram/presentation/screens/userprofile/profile_screen/widgets/my_post/grid.dart';
 import 'package:evogram/presentation/screens/userprofile/profile_screen/widgets/profile_header.dart';
 import 'package:evogram/presentation/screens/widgets/custom_navigators.dart';
 
@@ -220,33 +220,29 @@ class _ProfileScreenState extends State<ProfileScreen> {
         return SizedBox(
           width: size.width,
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Image.asset(
                 nointernetimage,
-                width: size.width * .7,
+                width: size.width,
               ),
               const Text(
-                'Oops!',
+                'No Internet Connection',
                 style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: blueaccent3,
-                    fontSize: 24),
+                    fontWeight: FontWeight.bold, color: black, fontSize: 24),
               ),
+              h10,
               const Text(
-                'Connection lost',
+                textAlign: TextAlign.center,
+                'You are not connected to the internet.\nMake sure Mobile data is on, Airplane Mode is off\nand try again',
                 style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: blueaccent3,
-                    fontSize: 20),
+                    fontWeight: FontWeight.bold, color: grey, fontSize: 14),
               ),
-              const Text(
-                'Check your Network',
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: blueaccent2,
-                    fontSize: 18),
+              h10,
+              Image.asset(
+                logo2,
+                width: size.width * .2,
               )
             ],
           ),

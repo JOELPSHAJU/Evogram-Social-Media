@@ -51,7 +51,7 @@ class AddPostScreen extends StatelessWidget {
         return Scaffold(
           backgroundColor: Theme.of(context).brightness == Brightness.light
               ? white
-              : Color.fromARGB(255, 15, 15, 15),
+              : const Color.fromARGB(255, 15, 15, 15),
           appBar: AppBar(
             surfaceTintColor: Theme.of(context).brightness == Brightness.light
                 ? white

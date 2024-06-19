@@ -1,8 +1,9 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'package:bloc/bloc.dart';
 import 'package:evogram/domain/repository/user_repo.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
-import 'package:meta/meta.dart';
 
 part 'follow_unfollow_user_event.dart';
 part 'follow_unfollow_user_state.dart';

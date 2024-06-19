@@ -49,7 +49,7 @@ const bgcolor = Color(0XFFEFF3F6);
 final shadowdown = Colors.grey[500];
 final shadowup = Colors.grey[100];
 final darkbg = Colors.grey.shade900;
-final buttonclr = Color.fromARGB(255, 7, 115, 94);
+const buttonclr = Color.fromARGB(255, 7, 115, 94);
 
 const chatbg = 'assets/chatbg.png';
 const chatbgdark = 'assets/chatbgdark.jpg';

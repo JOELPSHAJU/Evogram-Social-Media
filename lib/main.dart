@@ -6,6 +6,7 @@ import 'package:evogram/presentation/bloc/comment_post_bloc/comment_post_bloc.da
 import 'package:evogram/presentation/bloc/delete_comment_bloc/delete_comment_bloc.dart';
 import 'package:evogram/presentation/bloc/edit_post_bloc/edit_post_bloc.dart';
 import 'package:evogram/presentation/bloc/edit_profile_bloc/edit_profile_bloc.dart';
+import 'package:evogram/presentation/bloc/fetch_explore_post_bloc/fetch_explore_post_bloc.dart';
 import 'package:evogram/presentation/bloc/fetch_followers/fetch_followers_bloc.dart';
 import 'package:evogram/presentation/bloc/fetch_followings_bloc/fetch_followings_bloc.dart';
 import 'package:evogram/presentation/bloc/fetch_saved_posts/fetch_saved_posts_bloc.dart';
@@ -19,6 +20,7 @@ import 'package:evogram/presentation/bloc/login_user_bloc/login_user_bloc.dart';
 import 'package:evogram/presentation/bloc/otp_bloc/bloc/otp_bloc.dart';
 import 'package:evogram/presentation/bloc/profile_details_bloc/profile_details_bloc.dart';
 import 'package:evogram/presentation/bloc/saved_post_bloc/saved_post_bloc.dart';
+import 'package:evogram/presentation/bloc/search_all_users_bloc/search_all_users_bloc.dart';
 import 'package:evogram/presentation/bloc/signup_bloc/signup_bloc.dart';
 import 'package:evogram/infrastructure/fetchuserpost/fetching_user_post_bloc.dart';
 import 'package:evogram/presentation/screens/splash_screen/splash_screen.dart';
@@ -97,7 +99,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => GetCommentsBloc(),
         ),
-         BlocProvider(
+        BlocProvider(
           create: (context) => FetchSavedPostsBloc(),
         ),
         BlocProvider(
@@ -105,6 +107,12 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => SavedPostBloc(),
+        ),
+        BlocProvider(
+          create: (context) => FetchExplorePostBloc(),
+        ),
+        BlocProvider(
+          create: (context) => SearchAllUsersBloc(),
         ),
       ],
       child: MaterialApp(

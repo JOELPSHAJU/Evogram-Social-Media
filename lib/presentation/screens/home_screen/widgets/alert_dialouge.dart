@@ -43,7 +43,7 @@ void confirmationDialog(BuildContext context,
           ),
           TextButton(
             onPressed: onpressed,
-            child: Text('Delete',
+            child: const Text('Delete',
                 style: TextStyle(
                     fontWeight: FontWeight.bold, fontSize: 16, color: red)),
           )

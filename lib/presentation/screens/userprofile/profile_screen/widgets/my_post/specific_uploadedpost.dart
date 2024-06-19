@@ -4,11 +4,12 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:evogram/application/core/constants.dart';
 import 'package:evogram/infrastructure/fetchuserpost/fetching_user_post_bloc.dart';
 import 'package:evogram/presentation/screens/userprofile/profile_screen/widgets/debouncer.dart';
-import 'package:evogram/presentation/screens/userprofile/profile_screen/widgets/popupbutton.dart';
+import 'package:evogram/presentation/screens/userprofile/profile_screen/widgets/my_post/widgets/popupbutton.dart';
 import 'package:evogram/presentation/screens/userprofile/profile_screen/widgets/shimmer.dart';
 import 'package:evogram/presentation/screens/widgets/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:readmore/readmore.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -206,14 +207,25 @@ class _UserPostsState extends State<UserPosts> {
                           ),
                           h10,
                           Padding(
-                            padding: const EdgeInsets.only(left: 8.0, right: 8),
-                            child: Text(
-                              state.userposts[index].description.toString(),
-                              maxLines: 3,
-                              style: const TextStyle(
-                                  overflow: TextOverflow.ellipsis),
-                            ),
-                          ),
+                              padding:
+                                  const EdgeInsets.only(left: 8.0, right: 8),
+                              child: ReadMoreText(
+                                state.userposts[index].description.toString(),
+                                trimMode: TrimMode.Line,
+                                trimLines: 2,
+                                colorClickableText: blue,
+                                trimCollapsedText: 'more.',
+                                style: const TextStyle(fontWeight: FontWeight.w500),
+                                lessStyle: const TextStyle(
+                                    fontSize: 14,
+                                    color: grey,
+                                    fontWeight: FontWeight.bold),
+                                trimExpandedText: 'show less',
+                                moreStyle: const TextStyle(
+                                    fontSize: 14,
+                                    color: grey,
+                                    fontWeight: FontWeight.bold),
+                              )),
                           Padding(
                             padding: const EdgeInsets.only(left: 8.0),
                             child: Text(

@@ -8,7 +8,7 @@ class TextFormFieldEditProfile extends StatelessWidget {
   final String hintText;
   final int minlines;
   final int maxlines;
-  final int maxlen;
+  final bool maxlen;
   final TextInputType keyboard;
   final String? Function(String?)? validator;
   const TextFormFieldEditProfile(
@@ -27,7 +27,7 @@ class TextFormFieldEditProfile extends StatelessWidget {
       maxLengthEnforcement: MaxLengthEnforcement.none,
       validator: validator,
       cursorWidth: 2,
-      maxLength: maxlen,
+      maxLength: maxlen == true ? 100 : null,
       minLines: minlines,
       maxLines: maxlines,
       controller: controller,

@@ -44,7 +44,7 @@ String unfollowUser = '/users/unfollow';
 String suggessions = '/users/fetch-users';
 String getSingleUser = '/users/get-single-user';
 String getConnections = '/users/get-count';
-String searchAllUsers = '/users/searchallusers?searchQuery=';
+String searchAllUsersurl = '/users/searchallusers?searchQuery=';
 //chats
 //chat urls
   const String createConversationurl = '/chats/conversation';

@@ -1,17 +1,15 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:evogram/application/core/constants.dart';
 import 'package:evogram/domain/models/followings_model.dart';
+import 'package:evogram/infrastructure/fetchuserpost/fetching_user_post_bloc.dart';
 import 'package:evogram/presentation/bloc/fetch_followers/fetch_followers_bloc.dart';
 import 'package:evogram/presentation/bloc/fetch_followings_bloc/fetch_followings_bloc.dart';
 import 'package:evogram/presentation/bloc/login_user_bloc/login_user_bloc.dart';
-import 'package:evogram/infrastructure/fetchuserpost/fetching_user_post_bloc.dart';
 import 'package:evogram/presentation/screens/followers_screen/followers_screen.dart';
 import 'package:evogram/presentation/screens/following_screen/following_screen.dart';
 import 'package:evogram/presentation/screens/userprofile/edit_profile/edit_profile.dart';
-
+import 'package:evogram/presentation/screens/userprofile/profile_screen/widgets/my_post/specific_uploadedpost.dart';
 import 'package:evogram/presentation/screens/userprofile/profile_screen/widgets/profile_styles.dart';
-import 'package:evogram/presentation/screens/userprofile/profile_screen/widgets/specific_uploadedpost.dart';
-
 import 'package:evogram/presentation/screens/widgets/custom_navigators.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -151,7 +149,7 @@ Widget profileHeaderWidgets(
                           state.followers.totalCount.toString(),
                           style: profilestyle,
                         ),
-                        Text('Followers', style: profilestyle2)
+                        const Text('Followers', style: profilestyle2)
                       ],
                     ));
               }
@@ -174,11 +172,13 @@ Widget profileHeaderWidgets(
                     child: LoadingAnimationWidget.fourRotatingDots(
                         color: blueaccent2, size: 40));
               } else if (state is FetchFollowingsSuccesfulState) {
+                final FollowingModel followingsModel = state.followingsModel;
                 return GestureDetector(
                   onTap: () {
                     navigatePushAnimaterbottomtotop(
                         context,
                         FollowingPersonScreen(
+                          model: followingsModel,
                           following: state.followingsModel.following,
                         ));
                   },
@@ -188,7 +188,7 @@ Widget profileHeaderWidgets(
                         state.followingsModel.totalCount.toString(),
                         style: profilestyle,
                       ),
-                      Text('Following', style: profilestyle2)
+                      const Text('Following', style: profilestyle2)
                     ],
                   ),
                 );

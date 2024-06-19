@@ -12,7 +12,7 @@ import 'package:evogram/presentation/screens/widgets/custom_button.dart';
 import 'package:evogram/presentation/screens/widgets/snakbars.dart';
 import 'package:evogram/presentation/screens/widgets/text_styles.dart';
 import 'package:evogram/presentation/screens/widgets/validators.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -64,7 +64,6 @@ class EditPostScreen extends StatelessWidget {
           shadowColor: Theme.of(context).brightness == Brightness.light
               ? lightgreyauth
               : darkgreymain,
-          automaticallyImplyLeading: false,
           title: appbarTitle(title: 'Edit Post'),
           actions: [
             BlocConsumer<EditPostBloc, EditPostState>(
@@ -91,10 +90,16 @@ class EditPostScreen extends StatelessWidget {
                           borderRadius: BorderRadius.circular(5)),
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
-                          print(pickEditImage.value);
+                          if (kDebugMode) {
+                            print(pickEditImage.value);
+                          }
                           if (description.text.isNotEmpty) {
-                            print('Description $description');
-                            print(pickEditImage);
+                            if (kDebugMode) {
+                              print('Description $description');
+                            }
+                            if (kDebugMode) {
+                              print(pickEditImage);
+                            }
                             editpostbloc.add(EditPostClickEvent(
                                 image: pickEditImage.value,
                                 imageurl: userpost.image.toString(),
@@ -167,11 +172,13 @@ class EditPostScreen extends StatelessWidget {
                                     source: ImageSource.gallery,
                                   );
                                   if (file != null) {
-                                    print(file!.path);
+                                    if (kDebugMode) {
+                                      print(file!.path);
+                                    }
                                     pickEditImage.value = file!.path;
                                   }
                                 },
-                                icon: Icon(Icons.edit)),
+                                icon: const Icon(Icons.edit)),
                           ),
                         )
                       ],

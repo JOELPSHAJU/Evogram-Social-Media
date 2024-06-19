@@ -1,9 +1,10 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'dart:async';
 import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
 import 'package:evogram/domain/models/suggession_user_model.dart';
-import 'package:evogram/domain/repository/signup_repo.dart';
 import 'package:evogram/domain/repository/user_repo.dart';
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart';

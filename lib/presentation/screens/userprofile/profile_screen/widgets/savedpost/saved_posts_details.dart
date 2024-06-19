@@ -3,18 +3,16 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:evogram/application/core/constants.dart';
 import 'package:evogram/domain/models/comment_model.dart';
-import 'package:evogram/domain/models/get_followers_userid_model.dart';
 import 'package:evogram/domain/models/saved_post_model.dart';
-import 'package:evogram/domain/models/suggession_user_model.dart';
+
 import 'package:evogram/presentation/bloc/fetch_saved_posts/fetch_saved_posts_bloc.dart';
 import 'package:evogram/presentation/bloc/get_comments_bloc/get_comments_bloc.dart';
 import 'package:evogram/presentation/bloc/saved_post_bloc/saved_post_bloc.dart';
-import 'package:evogram/presentation/screens/home_screen/home_screen.dart';
 import 'package:evogram/presentation/screens/home_screen/widgets/bottomsheet.dart';
 import 'package:evogram/presentation/screens/userprofile/profile_screen/profile_screen.dart';
-import 'package:evogram/presentation/screens/userprofile/profile_screen/widgets/debouncer.dart';
 import 'package:evogram/presentation/screens/userprofile/profile_screen/widgets/shimmer.dart';
 import 'package:evogram/presentation/screens/widgets/text_styles.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:intl/intl.dart';
@@ -25,7 +23,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
-import '../../../../bloc/like_unlike_post_bloc/like_post_bloc.dart';
+import '../../../../../bloc/like_unlike_post_bloc/like_post_bloc.dart';
 
 class SavedPostsDetailsScreen extends StatefulWidget {
   final int initialindex;
@@ -39,25 +37,20 @@ class SavedPostsDetailsScreen extends StatefulWidget {
       _SavedPostsDetailsScreenState();
 }
 
-List<SavedPostModel> posts = [];
-
 class _SavedPostsDetailsScreenState extends State<SavedPostsDetailsScreen> {
+  List<SavedPostModel>? posts = [];
+
   @override
   void initState() {
     context.read<FetchSavedPostsBloc>().add(SavedPostsInitialFetchEvent());
-    super.initState();
-  }
 
-  final Debouncer debouncer = Debouncer(milliseconds: 500);
-  Future<void> fetchDataProfileWithDebounce() async {
-    await debouncer.run(() async {
-      context.read<FetchSavedPostsBloc>().add(SavedPostsInitialFetchEvent());
-    });
+    super.initState();
   }
 
   TextEditingController commentController = TextEditingController();
   final _formkey = GlobalKey<FormState>();
   final List<Comment> _comments = [];
+
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
@@ -80,17 +73,22 @@ class _SavedPostsDetailsScreenState extends State<SavedPostsDetailsScreen> {
           builder: (context, statesaved) {
             if (statesaved is FetchSavedPostsLoadingState) {
               return ListView.builder(
-                  itemCount: 10,
-                  itemBuilder: (context, index) {
-                    return shimmerWidgetpost(size, context);
-                  });
+                itemCount: 10,
+                itemBuilder: (context, index) {
+                  return shimmerWidgetpost(size, context);
+                },
+              );
             } else if (statesaved is FetchSavedPostsSuccesfulState) {
               posts = statesaved.posts;
+
               return ListView.builder(
                   controller: ScrollController(
                       initialScrollOffset: widget.initialindex * 550),
                   itemCount: statesaved.posts.length,
                   itemBuilder: (BuildContext context, int index) {
+                    context.read<GetCommentsBloc>().add(CommentsFetchEvent(
+                        postId: statesaved.posts[index].postId.id));
+
                     String formatDate(String dateStr) {
                       DateTime dateTime = DateTime.parse(dateStr);
                       DateFormat formatter = DateFormat('d MMMM yyyy');
@@ -111,24 +109,23 @@ class _SavedPostsDetailsScreenState extends State<SavedPostsDetailsScreen> {
                             child: Row(
                               children: [
                                 Container(
-                                    height: 50,
-                                    width: 50,
-                                    decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(100)),
-                                    child: ClipOval(
+                                  height: 50,
+                                  width: 50,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(100)),
+                                  child: ClipOval(
                                       child: CachedNetworkImage(
-                                        imageUrl: statesaved.posts[index].postId
-                                            .userId.profilePic,
-                                        fit: BoxFit.cover,
-                                        placeholder: (context, url) {
-                                          return LoadingAnimationWidget.flickr(
-                                              leftDotColor: blueaccent2,
-                                              rightDotColor: blueaccent3,
-                                              size: 23);
-                                        },
-                                      ),
-                                    )),
+                                    imageUrl: statesaved
+                                        .posts[index].postId.userId.profilePic,
+                                    fit: BoxFit.cover,
+                                    placeholder: (context, url) {
+                                      return LoadingAnimationWidget.flickr(
+                                          leftDotColor: blueaccent2,
+                                          rightDotColor: blueaccent3,
+                                          size: 23);
+                                    },
+                                  )),
+                                ),
                                 Padding(
                                   padding: const EdgeInsets.only(left: 18.0),
                                   child: Column(
@@ -188,71 +185,42 @@ class _SavedPostsDetailsScreenState extends State<SavedPostsDetailsScreen> {
                                     children: [
                                       GestureDetector(
                                         onTap: () {
-                                          final currentUserId =
-                                              useridprofilescreen;
-                                          final isLiked = statesaved
+                                          if (!statesaved
                                               .posts[index].postId.likes
-                                              .any((user) =>
-                                                  user.id == currentUserId);
-                                          if (!isLiked) {
-                                            statesaved.posts[index].postId.likes.add(
-                                                FollowersUserIdModel.fromJson(User(
-                                                        id: loginuserinfo.id,
-                                                        userName: loginuserinfo
-                                                            .userName,
-                                                        email:
-                                                            loginuserinfo.email,
-                                                        profilePic:
-                                                            loginuserinfo
-                                                                .profilePic,
-                                                        phone:
-                                                            loginuserinfo.phone,
-                                                        online: loginuserinfo
-                                                            .online,
-                                                        blocked: loginuserinfo
-                                                            .blocked,
-                                                        verified: loginuserinfo
-                                                            .verified,
-                                                        createdAt: loginuserinfo
-                                                            .createdAt,
-                                                        updatedAt: loginuserinfo
-                                                            .updatedAt,
-                                                        v: 1,
-                                                        role:
-                                                            loginuserinfo.role,
-                                                        backGroundImage:
-                                                            loginuserinfo
-                                                                .backGroundImage,
-                                                        isPrivate: loginuserinfo
-                                                            .isPrivate)
-                                                    .toJson()));
-
+                                              .contains(useridprofilescreen)) {
+                                            statesaved.posts[index].postId.likes
+                                                .add(useridprofilescreen);
                                             context.read<LikePostBloc>().add(
-                                                LikePostButtonClickEvent(
-                                                    postId: statesaved
-                                                        .posts[index].postId.id
-                                                        .toString()));
+                                                  LikePostButtonClickEvent(
+                                                      postId: statesaved
+                                                          .posts[index]
+                                                          .postId
+                                                          .id),
+                                                );
                                           } else {
                                             statesaved.posts[index].postId.likes
-                                                .removeWhere((user) =>
-                                                    user.id == currentUserId);
+                                                .remove(useridprofilescreen);
                                             context.read<LikePostBloc>().add(
-                                                UnlikePostButtonClickEvent(
-                                                    postId: statesaved
-                                                        .posts[index].postId.id
-                                                        .toString()));
+                                                  UnlikePostButtonClickEvent(
+                                                      postId: statesaved
+                                                          .posts[index]
+                                                          .postId
+                                                          .id),
+                                                );
                                           }
                                         },
                                         child: Padding(
                                           padding: const EdgeInsets.all(8.0),
                                           child: Icon(
                                             statesaved.posts[index].postId.likes
-                                                    .contains(logginedUserId)
+                                                    .contains(
+                                                        useridprofilescreen)
                                                 ? Iconsax.heart5
                                                 : Iconsax.heart4,
                                             color: statesaved
                                                     .posts[index].postId.likes
-                                                    .contains(logginedUserId)
+                                                    .contains(
+                                                        useridprofilescreen)
                                                 ? red
                                                 : null,
                                           ),
@@ -261,10 +229,6 @@ class _SavedPostsDetailsScreenState extends State<SavedPostsDetailsScreen> {
                                       h10,
                                       GestureDetector(
                                         onTap: () {
-                                          context.read<GetCommentsBloc>().add(
-                                              CommentsFetchEvent(
-                                                  postId: statesaved
-                                                      .posts[index].postId.id));
                                           commentBottomSheet(
                                               context,
                                               statesaved.posts[index].postId,
@@ -281,40 +245,55 @@ class _SavedPostsDetailsScreenState extends State<SavedPostsDetailsScreen> {
                                         ),
                                       ),
                                       const Spacer(),
-                                      posts.isNotEmpty
+                                      posts != null
                                           ? Padding(
                                               padding:
                                                   const EdgeInsets.all(8.0),
                                               child: GestureDetector(
                                                 onTap: () {
-                                                  if (posts.any((element) =>
-                                                      element.postId.id ==
-                                                      statesaved.posts[index]
-                                                          .postId.id)) {
+                                                  if (index <
+                                                      statesaved.posts.length) {
+                                                    final postId = statesaved
+                                                        .posts[index].postId.id;
+
                                                     context
                                                         .read<SavedPostBloc>()
-                                                        .add(RemoveSavedPostButtonClickEvent(
-                                                            postId: statesaved
-                                                                .posts[index]
-                                                                .postId
-                                                                .id));
-                                                    posts.removeWhere(
-                                                        (element) =>
-                                                            element.postId.id ==
-                                                            statesaved
-                                                                .posts[index]
-                                                                .postId
-                                                                .id);
+                                                        .add(
+                                                            RemoveSavedPostButtonClickEvent(
+                                                                postId:
+                                                                    postId));
+
+                                                    setState(() {
+                                                      posts!.removeWhere(
+                                                          (element) =>
+                                                              element
+                                                                  .postId.id ==
+                                                              postId);
+                                                    });
                                                     context
                                                         .read<
                                                             FetchSavedPostsBloc>()
                                                         .add(
                                                             SavedPostsInitialFetchEvent());
+                                                    if (posts!.isEmpty) {
+                                                      context
+                                                          .read<
+                                                              FetchSavedPostsBloc>()
+                                                          .add(
+                                                              SavedPostsInitialFetchEvent());
+                                                      Navigator.of(context)
+                                                          .pop();
+                                                    }
+                                                  } else {
+                                                    if (kDebugMode) {
+                                                      print(
+                                                          'Error: Index $index is out of range for statesaved.posts with length ${statesaved.posts.length}');
+                                                    }
                                                   }
                                                 },
                                                 child: Icon(
                                                   size: 26,
-                                                  posts.any((element) =>
+                                                  posts!.any((element) =>
                                                           element.postId.id ==
                                                           statesaved
                                                               .posts[index]
@@ -328,65 +307,79 @@ class _SavedPostsDetailsScreenState extends State<SavedPostsDetailsScreen> {
                                           : const SizedBox()
                                     ],
                                   ),
-                                  h10,
                                   statesaved
                                           .posts[index].postId.likes.isNotEmpty
-                                      ? Text(
-                                          '${statesaved.posts[index].postId.likes.length} likes',
-                                          style: const TextStyle(
+                                      ? Padding(
+                                          padding:
+                                              const EdgeInsets.only(left: 8.0),
+                                          child: RichText(
+                                            text: TextSpan(
+                                                text:
+                                                    '${statesaved.posts[index].postId.likes.length}',
+                                                style: GoogleFonts.inter(
+                                                  fontSize: 14,
+                                                  color: Theme.of(context)
+                                                              .brightness ==
+                                                          Brightness.light
+                                                      ? black
+                                                      : white,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                                children: <TextSpan>[
+                                                  TextSpan(
+                                                    text: statesaved
+                                                                .posts[index]
+                                                                .postId
+                                                                .likes
+                                                                .length >
+                                                            1
+                                                        ? ' likes'
+                                                        : 'like',
+                                                    style: GoogleFonts.inter(
+                                                        fontSize: 14,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                        color: Theme.of(context)
+                                                                    .brightness ==
+                                                                Brightness.light
+                                                            ? black
+                                                            : white),
+                                                  ),
+                                                ]),
+                                          ),
+                                        )
+                                      : const Text(
+                                          '0 Likes',
+                                          style: TextStyle(
                                             fontSize: 15,
                                             fontWeight: FontWeight.w500,
                                           ),
-                                        )
-                                      : const SizedBox(),
-                                  ReadMoreText(
-                                    statesaved.posts[index].postId.description,
-                                    trimMode: TrimMode.Line,
-                                    trimLines: 2,
-                                    colorClickableText: Colors.pink,
-                                    trimCollapsedText: 'more',
-                                    trimExpandedText: 'less',
-                                    moreStyle: const TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w500),
-                                  )
+                                        ),
+                                  Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 8.0, right: 10),
+                                      child: ReadMoreText(
+                                        statesaved
+                                            .posts[index].postId.description,
+                                        trimMode: TrimMode.Line,
+                                        trimLines: 2,
+                                        colorClickableText: blue,
+                                        trimCollapsedText: 'more.',
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.w500),
+                                        lessStyle: const TextStyle(
+                                            fontSize: 14,
+                                            color: grey,
+                                            fontWeight: FontWeight.bold),
+                                        trimExpandedText: 'show less',
+                                        moreStyle: const TextStyle(
+                                            fontSize: 14,
+                                            color: grey,
+                                            fontWeight: FontWeight.bold),
+                                      ))
                                 ],
                               );
                             },
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 8.0),
-                            child: RichText(
-                              text: TextSpan(
-                                  text: 'Liked by',
-                                  style: GoogleFonts.inter(
-                                      fontSize: 13,
-                                      color: Theme.of(context).brightness ==
-                                              Brightness.light
-                                          ? black
-                                          : white),
-                                  children: <TextSpan>[
-                                    TextSpan(
-                                      text:
-                                          ' ${statesaved.posts[index].postId.likes.length} ',
-                                      style: GoogleFonts.inter(
-                                        fontSize: 13,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                                  ]),
-                            ),
-                          ),
-                          h10,
-                          Padding(
-                            padding: const EdgeInsets.only(left: 8.0, right: 8),
-                            child: Text(
-                              statesaved.posts[index].postId.description
-                                  .toString(),
-                              maxLines: 3,
-                              style: const TextStyle(
-                                  overflow: TextOverflow.ellipsis),
-                            ),
                           ),
                           Padding(
                             padding: const EdgeInsets.only(left: 8.0),

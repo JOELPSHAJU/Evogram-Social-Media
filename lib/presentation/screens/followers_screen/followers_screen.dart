@@ -11,14 +11,14 @@ import 'package:flutter/material.dart';
 class FollowersScreen extends StatelessWidget {
   final List<Follower> followers;
   FollowersScreen({super.key, required this.followers});
-  final profilepic =
-      'https://i.redd.it/rate-actress-michelle-rodriguez-had-roles-in-avatar-fast-v0-5ajp4kyc4iva1.jpg?width=2527&format=pjpg&auto=webp&s=e0e15527167cf143508acc91e2d25d021e6e24f8';
   final searchPersonController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
+        shadowColor: grey,
+        elevation: 1,
         leading: IconButton(
             onPressed: () {
               Navigator.of(context).pop();
@@ -26,21 +26,21 @@ class FollowersScreen extends StatelessWidget {
             icon: const Icon(Icons.arrow_back)),
         automaticallyImplyLeading: false,
         title: appbarTitle(title: 'Followers'),
-        bottom: PreferredSize(
-          preferredSize: Size(size.width, 50),
-          child: Padding(
-            padding: const EdgeInsets.only(left: 15.0, right: 15),
-            child: Column(
-              children: [
-                TextFormFieldChatPage(
-                    controller: searchPersonController,
-                    hintText: 'Search..',
-                    keyboard: TextInputType.name),
-                h10,
-              ],
-            ),
-          ),
-        ),
+        // bottom: PreferredSize(
+        //   preferredSize: Size(size.width, 50),
+        //   child: Padding(
+        //     padding: const EdgeInsets.only(left: 15.0, right: 15),
+        //     child: Column(
+        //       children: [
+        //         TextFormFieldChatPage(
+        //             controller: searchPersonController,
+        //             hintText: 'Search..',
+        //             keyboard: TextInputType.name),
+        //         h10,
+        //       ],
+        //     ),
+        //   ),
+        // ),
       ),
       body: SizedBox(
         width: size.width,
@@ -96,18 +96,18 @@ class FollowersScreen extends StatelessWidget {
                         style: const TextStyle(
                             fontSize: 13, fontWeight: FontWeight.bold),
                       ),
-                      trailing: MaterialButton(
-                          minWidth: 80,
-                          height: 27,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5),
-                              side: const BorderSide(color: blueaccent2)),
-                          onPressed: () {},
-                          child: const Text('Follow back',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: blueaccent2,
-                                  fontSize: 13))),
+                      // trailing: MaterialButton(
+                      //     minWidth: 80,
+                      //     height: 27,
+                      //     shape: RoundedRectangleBorder(
+                      //         borderRadius: BorderRadius.circular(5),
+                      //         side: const BorderSide(color: blueaccent2)),
+                      //     onPressed: () {},
+                      //     child: const Text('Follow back',
+                      //         style: TextStyle(
+                      //             fontWeight: FontWeight.bold,
+                      //             color: blueaccent2,
+                      //             fontSize: 13))),
                     ),
                   ));
             },

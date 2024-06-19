@@ -1,37 +1,35 @@
-
-// ignore_for_file: file_names
-
-class UserPostModel {
+class UserIdSearchModel {
   String id;
   String userName;
   String email;
   String? password;
   String profilePic;
-  String backGroundImage;
-  String phone;
+  String? phone;
   bool online;
   bool blocked;
   bool verified;
   String role;
   bool isPrivate;
+  String backGroundImage;
   DateTime createdAt;
   DateTime updatedAt;
   int v;
   String? bio;
   String? name;
-  UserPostModel({
+
+  UserIdSearchModel({
     required this.id,
     required this.userName,
     required this.email,
     this.password,
     required this.profilePic,
-    required this.backGroundImage,
-    required this.phone,
+     this.phone,
     required this.online,
     required this.blocked,
     required this.verified,
     required this.role,
     required this.isPrivate,
+    required this.backGroundImage,
     required this.createdAt,
     required this.updatedAt,
     required this.v,
@@ -39,19 +37,19 @@ class UserPostModel {
     this.name,
   });
 
-  factory UserPostModel.fromJson(Map<String, dynamic> json) => UserPostModel(
+  factory UserIdSearchModel.fromJson(Map<String, dynamic> json) => UserIdSearchModel(
         id: json["_id"],
         userName: json["userName"],
         email: json["email"],
         password: json["password"],
         profilePic: json["profilePic"],
-        backGroundImage: json["backGroundImage"],
         phone: json["phone"],
         online: json["online"],
         blocked: json["blocked"],
         verified: json["verified"],
         role: json["role"],
         isPrivate: json["isPrivate"],
+        backGroundImage: json["backGroundImage"],
         createdAt: DateTime.parse(json["createdAt"]),
         updatedAt: DateTime.parse(json["updatedAt"]),
         v: json["__v"],
@@ -65,13 +63,13 @@ class UserPostModel {
         "email": email,
         "password": password,
         "profilePic": profilePic,
-        "backGroundImage": backGroundImage,
         "phone": phone,
         "online": online,
         "blocked": blocked,
         "verified": verified,
         "role": role,
         "isPrivate": isPrivate,
+        "backGroundImage": backGroundImage,
         "createdAt": createdAt.toIso8601String(),
         "updatedAt": updatedAt.toIso8601String(),
         "__v": v,

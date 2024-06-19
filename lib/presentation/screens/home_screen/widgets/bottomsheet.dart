@@ -9,12 +9,13 @@ import 'package:evogram/presentation/bloc/get_comments_bloc/get_comments_bloc.da
 import 'package:evogram/presentation/screens/home_screen/widgets/alert_dialouge.dart';
 import 'package:evogram/presentation/screens/home_screen/widgets/comments_loading.dart';
 import 'package:evogram/presentation/screens/userprofile/profile_screen/profile_screen.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:multi_bloc_builder/builders/multi_bloc_builder.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
+dynamic commentlength;
 User? loggedinuser;
 UserMain? user;
 Future<dynamic> commentBottomSheet(
@@ -88,7 +89,9 @@ Future<dynamic> commentBottomSheet(
                                   ),
                                 );
                           } else {
-                            print('Error: logginedUser is null');
+                            if (kDebugMode) {
+                              print('Error: logginedUser is null');
+                            }
                           }
                         },
                         child: Text(

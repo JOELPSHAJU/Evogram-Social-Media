@@ -5,7 +5,7 @@ import 'package:evogram/application/core/functions.dart';
 import 'package:evogram/application/core/sharedpreferences.dart';
 import 'package:evogram/application/core/urls.dart';
 import 'package:evogram/presentation/screens/widgets/cloudinary.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 
@@ -64,7 +64,9 @@ class LoginUserRepo {
       debugPrint(response.body);
       return response;
     } catch (e) {
-      print(e.toString());
+      if (kDebugMode) {
+        print(e.toString());
+      }
     }
     return null;
   }
@@ -88,6 +90,21 @@ class LoginUserRepo {
       return 'failed';
     }
   }
+
+
+  //search users
+  static Future searchAllUsers({required String query}) async {
+    try {
+      final token = await getUsertoken();
+      var response = await client.get(
+          Uri.parse('$baseurl$searchAllUsersurl$query'),
+          headers: {'Authorization': 'Bearer $token'});
+      return response;
+    } catch (e) {
+      log(e.toString());
+    }
+  }
+
 
   //getfollowers count
   static Future getconnectioncount({required String userId}) async {

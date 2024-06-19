@@ -1,9 +1,10 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'dart:async';
 import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
 import 'package:evogram/application/core/sharedpreferences.dart';
-import 'package:evogram/application/core/urls.dart';
 import 'package:evogram/domain/models/conversation_model.dart';
 import 'package:evogram/domain/models/get_user_model.dart';
 import 'package:evogram/domain/repository/chat_repository.dart';

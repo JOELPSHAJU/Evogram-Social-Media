@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:evogram/application/core/functions.dart';
 import 'package:evogram/application/core/sharedpreferences.dart';

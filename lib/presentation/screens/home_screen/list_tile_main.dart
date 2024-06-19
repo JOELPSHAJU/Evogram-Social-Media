@@ -1,29 +1,24 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:evogram/application/core/urls.dart';
-import 'package:evogram/domain/models/followers_post.dart';
 import 'package:evogram/domain/models/get_followers_post_model.dart';
 import 'package:evogram/domain/models/postuser_model%20copy.dart';
 import 'package:evogram/domain/models/saved_post_model.dart';
 import 'package:evogram/domain/models/suggession_user_model.dart';
 import 'package:evogram/presentation/bloc/fetch_saved_posts/fetch_saved_posts_bloc.dart';
 import 'package:evogram/presentation/bloc/like_unlike_post_bloc/like_post_bloc.dart';
-import 'package:evogram/presentation/bloc/login_bloc/login_bloc.dart';
 import 'package:evogram/presentation/bloc/saved_post_bloc/saved_post_bloc.dart';
-import 'package:evogram/presentation/screens/home_screen/home_screen.dart';
 import 'package:evogram/presentation/screens/home_screen/widgets/bottomsheet.dart';
 import 'package:evogram/presentation/screens/userprofile/profile_screen/profile_screen.dart';
-import 'package:iconsax/iconsax.dart';
-import 'package:line_icons/line_icons.dart';
-import 'package:multi_bloc_builder/builders/multi_bloc_builder.dart';
-import 'package:timeago/timeago.dart' as timeago;
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:intl/intl.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:multi_bloc_builder/builders/multi_bloc_builder.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 import '../../../application/core/constants.dart';
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-
 import '../../../domain/models/comment_model.dart';
 import '../../../domain/models/get_followers_userid_model.dart';
 import '../../bloc/all_followers_posts_bloc/all_followers_posts_bloc.dart';
@@ -286,10 +281,15 @@ class _ListTileMainScreenState extends State<ListTileMainScreen> {
                                           createdAt: DateTime.now(),
                                           updatedAt: DateTime.now(),
                                           v: post.v));
-                                      print(posts);
+                                      if (kDebugMode) {
+                                        print(posts);
+                                      }
                                       context.read<SavedPostBloc>().add(
                                           SavePostButtonClickEvent(
                                               postId: post.id.toString()));
+                                      context
+                                          .read<FetchSavedPostsBloc>()
+                                          .add(SavedPostsInitialFetchEvent());
                                     }
                                   },
                                   icon: Icon(
