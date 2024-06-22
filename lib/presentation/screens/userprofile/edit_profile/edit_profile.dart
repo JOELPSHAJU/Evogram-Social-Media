@@ -58,6 +58,11 @@ class EditProfileScreen extends StatelessWidget {
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
+            leading: IconButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                icon: Icon(Icons.arrow_back)),
             backgroundColor: Theme.of(context).brightness == Brightness.light
                 ? white
                 : black,

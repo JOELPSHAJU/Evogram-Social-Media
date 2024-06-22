@@ -2,6 +2,7 @@
 
 import 'dart:async';
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:bloc/bloc.dart';
 import 'package:evogram/domain/models/get_followers_post_model.dart';
@@ -32,12 +33,14 @@ class AllFollowersPostsBloc
     page = 1;
     final Response result = await MainPostRepo.getFollowersPost(page: page);
     final responseBody = jsonDecode(result.body);
+    print(responseBody);
     final List data = responseBody;
     debugPrint(result.statusCode.toString());
     debugPrint('get follwers post-${result.body}');
     if (result.statusCode == 200) {
       List<FollwersPostModel> posts =
           data.map((e) => FollwersPostModel.fromJson(e)).toList();
+
       return emit(AllFollowersPostsSuccesfulState(posts: posts));
     } else if (responseBody['status'] == 500) {
       return emit(const AllFollowersPostsServerErrorState(null));

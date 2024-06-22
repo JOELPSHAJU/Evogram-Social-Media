@@ -5,7 +5,9 @@ import 'package:evogram/domain/models/fetch_explore_post_model.dart';
 import 'package:evogram/presentation/bloc/fetch_explore_post_bloc/fetch_explore_post_bloc.dart';
 import 'package:evogram/presentation/bloc/search_all_users_bloc/search_all_users_bloc.dart';
 import 'package:evogram/presentation/screens/discover_screen/widgets/explore_page_list_view_shimmer.dart';
-import 'package:evogram/presentation/screens/userprofile/profile_screen/widgets/my_post/widgets/gridshimmer.dart';
+import 'package:evogram/presentation/screens/discover_screen/widgets/post_details/post_details.dart';
+import 'package:evogram/presentation/screens/discover_screen/widgets/post_details/userprofile/user_profile_screen.dart';
+import 'package:evogram/presentation/screens/widgets/custom_navigators.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -123,42 +125,39 @@ class _SearchScreenState extends State<SearchScreen> {
           if (state is FetchExplorePostSuccesfulState) {
             if (onchangevalue.isEmpty) {
               return Center(
-                child: Container(
-                  constraints: const BoxConstraints(maxWidth: 500),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: MasonryGridView.builder(
-                        gridDelegate:
-                            const SliverSimpleGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2),
-                        itemCount: state.posts.length,
-                        itemBuilder: (context, index) {
-                          final ExplorePostModel post = state.posts[index];
-                          return Center(
-                            child: Container(
-                              constraints: const BoxConstraints(maxWidth: 500),
-                              child: GestureDetector(
-                                onTap: () {},
-                                child: Padding(
-                                  padding: const EdgeInsets.all(2),
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(5),
-                                    child: CachedNetworkImage(
-                                      imageUrl: post.image,
-                                      placeholder: (context, url) {
-                                        return LoadingAnimationWidget
-                                            .stretchedDots(
-                                                color: blue, size: 30);
-                                      },
-                                    ),
-                                  ),
+                child: MasonryGridView.builder(
+                    semanticChildCount: 3,
+                    gridDelegate:
+                        const SliverSimpleGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2),
+                    itemCount: state.posts.length,
+                    itemBuilder: (context, index) {
+                      final ExplorePostModel post = state.posts[index];
+                      return Center(
+                        child: Container(
+                          constraints: const BoxConstraints(maxWidth: 500),
+                          child: GestureDetector(
+                            onTap: () {
+                              navigatePushAnimaterbottomtotop(context,
+                                  UsersPostDetailsList(initialindex: index));
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.all(2),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(5),
+                                child: CachedNetworkImage(
+                                  imageUrl: post.image,
+                                  placeholder: (context, url) {
+                                    return LoadingAnimationWidget.stretchedDots(
+                                        color: blue, size: 30);
+                                  },
                                 ),
                               ),
                             ),
-                          );
-                        }),
-                  ),
-                ),
+                          ),
+                        ),
+                      );
+                    }),
               );
             } else {
               return BlocBuilder<SearchAllUsersBloc, SearchAllUsersState>(
@@ -180,7 +179,14 @@ class _SearchScreenState extends State<SearchScreen> {
                                   constraints:
                                       const BoxConstraints(maxWidth: 500),
                                   child: GestureDetector(
-                                      onTap: () {},
+                                      onTap: () {
+                                        navigatePushAnimaterbottomtotop(
+                                            context,
+                                            UserProfileScreen(
+                                              userId: user.id,
+                                              user: user,
+                                            ));
+                                      },
                                       child: ListTile(
                                         leading: CircleAvatar(
                                           backgroundColor: white,
@@ -209,7 +215,7 @@ class _SearchScreenState extends State<SearchScreen> {
                               );
                             });
                   } else if (state is SearchAllUsersLoadingState) {
-                    return explorePageLoading();
+                    return explorePageLoading(context);
                   } else {
                     print(state);
                     return Center(
@@ -222,7 +228,7 @@ class _SearchScreenState extends State<SearchScreen> {
               );
             }
           } else if (state is FetchExplorePostLoadingState) {
-            return explorePageLoading();
+            return explorePageLoading(context);
           } else {
             return Center(
               child: Text('error'),

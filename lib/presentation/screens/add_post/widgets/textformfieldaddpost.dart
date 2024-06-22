@@ -18,7 +18,7 @@ class TextFormFieldAddPost extends StatelessWidget {
     return TextFormField(
         minLines: 3,
         maxLines: 5,
-        maxLength: 150,
+        maxLength: 400,
         validator: validator,
         cursorWidth: 2,
         controller: controller,

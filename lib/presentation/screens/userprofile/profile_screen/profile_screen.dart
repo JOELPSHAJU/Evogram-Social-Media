@@ -1,4 +1,5 @@
 import 'package:evogram/domain/models/login_user.dart';
+import 'package:evogram/domain/models/model_user.dart';
 import 'package:evogram/presentation/bloc/fetch_followers/fetch_followers_bloc.dart';
 import 'package:evogram/presentation/bloc/fetch_followings_bloc/fetch_followings_bloc.dart';
 import 'package:evogram/presentation/bloc/fetch_saved_posts/fetch_saved_posts_bloc.dart';
@@ -23,6 +24,7 @@ late String useridprofilescreen;
 late String profilepic;
 late String usernameprofile;
 late LoginUserModel loginuserinfo;
+late UserModelPost userinfopost;
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -65,6 +67,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
           usernameprofile = state.users.userName.toString();
           profilepic = state.users.profilePic.toString();
           loginuserinfo = state.users;
+          userinfopost = UserModelPost(
+              id: state.users.id,
+              userName: state.users.userName,
+              email: state.users.email,
+              profilePic: state.users.profilePic,
+              backGroundImage: state.users.backGroundImage,
+              phone: state.users.phone,
+              online: state.users.online,
+              blocked: state.users.blocked,
+              verified: state.users.verified,
+              role: state.users.role,
+              isPrivate: state.users.isPrivate,
+              createdAt: state.users.createdAt,
+              updatedAt: state.users.updatedAt,
+              v: 1);
           return Scaffold(
               backgroundColor: Theme.of(context).brightness == Brightness.light
                   ? Colors.grey[300]
@@ -239,10 +256,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 style: TextStyle(
                     fontWeight: FontWeight.bold, color: grey, fontSize: 14),
               ),
-              h10,
-              Image.asset(
-                logo2,
-                width: size.width * .2,
+              h40,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    logo2,
+                    width: size.width * .2,
+                  ),
+                  w10,
+                  Image.asset(
+                    logoletters,
+                    width: size.width * .3,
+                  ),
+                ],
               )
             ],
           ),

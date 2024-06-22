@@ -10,6 +10,7 @@ class ExplorePostModel {
   List<TaggedUser> taggedUsers;
   DateTime date;
   DateTime createdAt;
+  DateTime editedAt;
   DateTime updatedAt;
   int v;
 
@@ -17,6 +18,7 @@ class ExplorePostModel {
     required this.id,
     required this.userId,
     required this.image,
+    required this.editedAt,
     required this.description,
     required this.likes,
     required this.hidden,
@@ -29,8 +31,10 @@ class ExplorePostModel {
     required this.v,
   });
 
-  factory ExplorePostModel.fromJson(Map<String, dynamic> json) => ExplorePostModel(
+  factory ExplorePostModel.fromJson(Map<String, dynamic> json) =>
+      ExplorePostModel(
         id: json["_id"],
+        editedAt: DateTime.parse(json["edited"]),
         userId: ExplorePostUserId.fromJson(json["userId"]),
         image: json["image"],
         description: json["description"],
@@ -50,6 +54,7 @@ class ExplorePostModel {
         "_id": id,
         "userId": userId.toJson(),
         "image": image,
+        "edited":editedAt.toIso8601String(),
         "description": description,
         "likes": List<dynamic>.from(likes.map((x) => x)),
         "hidden": hidden,
@@ -107,7 +112,7 @@ class ExplorePostUserId {
     required this.userName,
     required this.email,
     required this.password,
-     this.phone,
+    this.phone,
     required this.online,
     required this.blocked,
     required this.verified,
@@ -122,7 +127,8 @@ class ExplorePostUserId {
     required this.backGroundImage,
   });
 
-  factory ExplorePostUserId.fromJson(Map<String, dynamic> json) => ExplorePostUserId(
+  factory ExplorePostUserId.fromJson(Map<String, dynamic> json) =>
+      ExplorePostUserId(
         id: json["_id"],
         userName: json["userName"],
         email: json["email"],

@@ -42,7 +42,7 @@ class TextFormFieldAuthRegister extends StatelessWidget {
           focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(
                   color: Theme.of(context).brightness == Brightness.light
-                      ? blue
+                      ? buttonclr
                       : white)),
           enabledBorder:
               const OutlineInputBorder(borderSide: BorderSide(color: grey))),
@@ -103,7 +103,7 @@ class _TextFormFieldPasswordRegisterState
           focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(
                   color: Theme.of(context).brightness == Brightness.light
-                      ? blue
+                      ? buttonclr
                       : white)),
           enabledBorder:
               const OutlineInputBorder(borderSide: BorderSide(color: grey)),

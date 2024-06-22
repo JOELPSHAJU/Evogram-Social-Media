@@ -119,7 +119,7 @@ class UserIdSavedPost {
     required this.email,
     this.password,
     required this.profilePic,
-     this.phone,
+    this.phone,
     required this.online,
     required this.blocked,
     required this.verified,
@@ -133,7 +133,8 @@ class UserIdSavedPost {
     this.name,
   });
 
-  factory UserIdSavedPost.fromJson(Map<String, dynamic> json) => UserIdSavedPost(
+  factory UserIdSavedPost.fromJson(Map<String, dynamic> json) =>
+      UserIdSavedPost(
         id: json["_id"],
         userName: json["userName"],
         email: json["email"],

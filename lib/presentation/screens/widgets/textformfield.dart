@@ -35,7 +35,7 @@ class TextformfieldCustom extends StatelessWidget {
           border: const OutlineInputBorder(
               borderSide: BorderSide(color: lightgrey)),
           focusedBorder: const OutlineInputBorder(
-              borderSide: BorderSide(color: blue, width: 1.5)),
+              borderSide: BorderSide(color: buttonclr, width: 1.5)),
           enabledBorder:
               const OutlineInputBorder(borderSide: BorderSide(color: grey))),
     );
@@ -75,8 +75,8 @@ class _TextFormFieldPasswordState extends State<TextFormFieldPassword> {
           hintText: widget.hintText,
           border: const OutlineInputBorder(
               borderSide: BorderSide(color: lightgrey)),
-          focusedBorder:
-              const OutlineInputBorder(borderSide: BorderSide(color: blue)),
+          focusedBorder: const OutlineInputBorder(
+              borderSide: BorderSide(color: buttonclr)),
           enabledBorder:
               const OutlineInputBorder(borderSide: BorderSide(color: grey)),
           suffixIcon: IconButton(

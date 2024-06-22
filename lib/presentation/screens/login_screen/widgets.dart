@@ -42,7 +42,7 @@ class TextFormFieldAuth extends StatelessWidget {
           focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(
             color:
-                Theme.of(context).brightness == Brightness.light ? blue : white,
+                Theme.of(context).brightness == Brightness.light ? buttonclr : white,
           )),
           enabledBorder:
               const OutlineInputBorder(borderSide: BorderSide(color: grey))),
@@ -97,7 +97,7 @@ class _TextFormFieldPasswordState extends State<TextFormFieldPassword> {
           focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(
                   color: Theme.of(context).brightness == Brightness.light
-                      ? blue
+                      ? buttonclr
                       : white)),
           enabledBorder:
               const OutlineInputBorder(borderSide: BorderSide(color: grey)),

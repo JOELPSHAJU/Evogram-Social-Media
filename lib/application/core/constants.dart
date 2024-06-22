@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+const h5 = SizedBox(
+  height: 5,
+);
 const h10 = SizedBox(
   height: 10,
 );
@@ -65,7 +68,7 @@ const googlelogo = 'assets/google_logo.png';
 
 const addperson = 'assets/add_person.png';
 const profile = 'assets/profilepic.jpg';
-const otpsent = 'assets/otpsent.jpg';
+const otpsent = 'assets/otpsent.png';
 
 const nopostblack = 'assets/nopostfoundblk.png';
 const nopostwht = 'assets/nopostfoundwht.png';

@@ -73,6 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: [
           GestureDetector(
               onTap: () {
+                
                 Navigator.of(context).push(PageRouteBuilder(
                   pageBuilder: (context, animation, secondaryAnimation) =>
                       const SuggessionScreen(),
@@ -94,11 +95,13 @@ class _HomeScreenState extends State<HomeScreen> {
                   },
                 ));
               },
-              child: const Padding(
+              child: Padding(
                 padding: EdgeInsets.only(right: 8.0),
                 child: Icon(
                   Iconsax.user_add,
-                  color: black,
+                  color: Theme.of(context).brightness == Brightness.light
+                      ? black
+                      : white,
                   size: 30,
                 ),
               ))

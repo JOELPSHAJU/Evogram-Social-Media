@@ -11,6 +11,7 @@ import 'package:evogram/presentation/screens/userprofile/edit_profile/edit_profi
 import 'package:evogram/presentation/screens/userprofile/profile_screen/widgets/my_post/specific_uploadedpost.dart';
 import 'package:evogram/presentation/screens/userprofile/profile_screen/widgets/profile_styles.dart';
 import 'package:evogram/presentation/screens/widgets/custom_navigators.dart';
+import 'package:evogram/presentation/screens/widgets/custom_profile_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -211,53 +212,18 @@ Widget profileHeaderWidgets(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           GestureDetector(
-            onTap: () {
-              navigatePushAnimaterbottomtotop(
-                  context,
-                  EditProfileScreen(
-                    loginuser: state.users,
-                  ));
-            },
-            child: Container(
-                decoration: BoxDecoration(
-                  color: Theme.of(context).brightness == Brightness.light
-                      ? Colors.grey[300]
-                      : darkgreymain,
-                  borderRadius: BorderRadius.circular(10.0),
-                  boxShadow: [
-                    BoxShadow(
-                      blurStyle: BlurStyle.normal,
-                      color: Theme.of(context).brightness == Brightness.light
-                          ? Colors.grey.shade500
-                          : const Color.fromARGB(255, 0, 0, 0),
-                      offset: const Offset(6.0, 6.0),
-                      blurRadius: 20.0,
-                      spreadRadius: 5.0,
-                    ),
-                    BoxShadow(
-                      blurStyle: BlurStyle.normal,
-                      color: Theme.of(context).brightness == Brightness.light
-                          ? Colors.white
-                          : const Color.fromARGB(255, 0, 0, 0),
-                      offset: const Offset(-6.0, -6.0),
-                      blurRadius: 20.0,
-                      spreadRadius: 5.0,
-                    ),
-                  ],
-                ),
-                width: size.width * .5,
-                height: 45,
-                child: Center(
-                  child: Text('Edit Profile',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color:
-                              Theme.of(context).brightness == Brightness.light
-                                  ? black
-                                  : white,
-                          fontSize: 16)),
-                )),
-          ),
+              onTap: () {
+                navigatePushAnimaterbottomtotop(
+                    context,
+                    EditProfileScreen(
+                      loginuser: state.users,
+                    ));
+              },
+              child: CustomProfileButton(
+                size: size,
+                text: 'Edit Profile',
+                width: .5,
+              )),
         ],
       ),
       h20,

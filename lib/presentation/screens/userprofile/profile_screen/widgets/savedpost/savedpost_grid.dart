@@ -36,7 +36,7 @@ class SavedPostGrid extends StatelessWidget {
                 children: List.generate(saveddata.length, (index) {
                   return GestureDetector(
                     onTap: () {
-                      navigatePush(
+                      navigatePushAnimaterbottomtotop(
                           context,
                           SavedPostsDetailsScreen(
                             initialindex: index,

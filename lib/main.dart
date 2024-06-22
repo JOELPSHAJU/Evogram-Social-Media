@@ -19,6 +19,7 @@ import 'package:evogram/presentation/bloc/login_bloc/login_bloc.dart';
 import 'package:evogram/presentation/bloc/login_user_bloc/login_user_bloc.dart';
 import 'package:evogram/presentation/bloc/otp_bloc/bloc/otp_bloc.dart';
 import 'package:evogram/presentation/bloc/profile_details_bloc/profile_details_bloc.dart';
+import 'package:evogram/presentation/bloc/profile_posts_bloc/profile_bloc.dart';
 import 'package:evogram/presentation/bloc/saved_post_bloc/saved_post_bloc.dart';
 import 'package:evogram/presentation/bloc/search_all_users_bloc/search_all_users_bloc.dart';
 import 'package:evogram/presentation/bloc/signup_bloc/signup_bloc.dart';
@@ -114,6 +115,9 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => SearchAllUsersBloc(),
         ),
+        BlocProvider(
+          create: (context) => ProfileBloc(),
+        ),
       ],
       child: MaterialApp(
         navigatorKey: NavigationService.navigatorKey,
@@ -136,10 +140,10 @@ class MyApp extends StatelessWidget {
             ),
             primaryColor: blueaccent3,
             fontFamily: GoogleFonts.inter().fontFamily,
-            textTheme: const TextTheme(
-                bodyLarge: TextStyle(),
-                bodyMedium: TextStyle(),
-                bodySmall: TextStyle())),
+            textTheme: TextTheme(
+                bodyLarge: GoogleFonts.roboto(),
+                bodyMedium: GoogleFonts.roboto(),
+                bodySmall: GoogleFonts.roboto())),
         darkTheme: ThemeData.dark(),
         /* dark theme settings */
 

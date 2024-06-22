@@ -25,15 +25,15 @@ class User {
     String? password;
     String?profilePic;
     String?phone;
-    bool? online;
-    bool? blocked;
-    bool? verified;
+    bool online;
+    bool blocked;
+    bool verified;
     DateTime createdAt;
     DateTime updatedAt;
     int v;
     String?role;
     String?backGroundImage;
-    bool? isPrivate;
+    bool isPrivate;
     String? bio;
     String? name;
 

@@ -1,6 +1,9 @@
 import 'package:evogram/domain/models/followings_model.dart';
+import 'package:evogram/domain/models/searchusermodel.dart';
 import 'package:evogram/presentation/bloc/fetch_followers/fetch_followers_bloc.dart';
 import 'package:evogram/presentation/bloc/follow_unfollow_user_bloc/follow_unfollow_user_bloc.dart';
+import 'package:evogram/presentation/screens/discover_screen/widgets/post_details/userprofile/user_profile_screen.dart';
+import 'package:evogram/presentation/screens/widgets/custom_navigators.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../application/core/constants.dart';
@@ -41,21 +44,6 @@ class _FollowingPersonScreenState extends State<FollowingPersonScreen> {
         ),
         automaticallyImplyLeading: false,
         title: appbarTitle(title: 'Following'),
-        // bottom: PreferredSize(
-        //   preferredSize: Size(size.width, 50),
-        //   child: Padding(
-        //     padding: const EdgeInsets.only(left: 15.0, right: 15),
-        //     child: Column(
-        //       children: [
-        //         TextFormFieldChatPage(
-        //             controller: searchPersonController,
-        //             hintText: 'Search..',
-        //             keyboard: TextInputType.name),
-        //         h10
-        //       ],
-        //     ),
-        //   ),
-        // ),
       ),
       body: SizedBox(
         width: size.width,
@@ -67,75 +55,78 @@ class _FollowingPersonScreenState extends State<FollowingPersonScreen> {
             itemBuilder: (context, index) {
               return Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          PageRouteBuilder(
-                            pageBuilder:
-                                (context, animation, secondaryAnimation) =>
-                                    const ChatScreen(),
-                            transitionsBuilder: (context, animation,
-                                secondaryAnimation, child) {
-                              const begin = Offset(0.0, 1.0);
-                              const end = Offset.zero;
-                              const curve = Curves.ease;
-                              var tween = Tween(begin: begin, end: end)
-                                  .chain(CurveTween(curve: curve));
-
-                              return SlideTransition(
-                                position: animation.drive(tween),
-                                child: child,
-                              );
-                            },
-                          ));
-                    },
-                    child: ListTile(
-                      leading: Container(
-                        height: 60,
-                        width: 60,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(100),
-                            image: DecorationImage(
-                                image: NetworkImage(widget
-                                    .following[index].profilePic
-                                    .toString()),
-                                fit: BoxFit.cover)),
-                      ),
-                      title: Text(
+                  child: ListTile(
+                    leading: Container(
+                      height: 60,
+                      width: 60,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(100),
+                          image: DecorationImage(
+                              image: NetworkImage(widget
+                                  .following[index].profilePic
+                                  .toString()),
+                              fit: BoxFit.cover)),
+                    ),
+                    title: GestureDetector(
+                      onTap: () {
+                        final user = UserIdSearchModel(
+                            id: widget.following[index].id.toString(),
+                            userName:
+                                widget.following[index].userName.toString(),
+                            email: widget.following[index].email.toString(),
+                            profilePic:
+                                widget.following[index].profilePic.toString(),
+                            online: widget.following[index].online,
+                            blocked: widget.following[index].blocked,
+                            verified: widget.following[index].verified,
+                            role: widget.following[index].role.toString(),
+                            isPrivate: widget.following[index].isPrivate,
+                            backGroundImage: widget
+                                .following[index].backGroundImage
+                                .toString(),
+                            createdAt: widget.following[index].createdAt,
+                            updatedAt: widget.following[index].updatedAt,
+                            v: widget.following[index].v);
+                        navigatePushAnimaterighttoleft(
+                            context,
+                            UserProfileScreen(
+                                userId: widget.following[index].id.toString(),
+                                user: user));
+                      },
+                      child: Text(
                         widget.following[index].userName.toString(),
                         style: const TextStyle(
                             fontSize: 15, fontWeight: FontWeight.bold),
                       ),
-                      subtitle: Text(
-                        widget.following[index].name.toString(),
-                        style: const TextStyle(
-                            fontSize: 13, fontWeight: FontWeight.bold),
-                      ),
-                      trailing: MaterialButton(
-                          minWidth: 80,
-                          height: 27,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5),
-                              side: const BorderSide(color: buttonclr)),
-                          onPressed: () {
-                            context.read<FollowUnfollowUserBloc>().add(
-                                UnFollowUserButtonClickEvent(
-                                    followeesId:
-                                        widget.following[index].id.toString()));
-                            setState(() {
-                              widget.following.removeWhere((element) =>
-                                  element.id == widget.following[index].id);
-                            });
-                            widget.model.totalCount--;
-                            context.read<FetchFollowersBloc>();
-                          },
-                          child: const Text('Unfollow',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: buttonclr,
-                                  fontSize: 13))),
                     ),
+                    subtitle: Text(
+                      widget.following[index].name.toString(),
+                      style: const TextStyle(
+                          fontSize: 13, fontWeight: FontWeight.bold),
+                    ),
+                    trailing: MaterialButton(
+                        minWidth: 80,
+                        height: 27,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5),
+                            side: const BorderSide(color: buttonclr)),
+                        onPressed: () {
+                          context.read<FollowUnfollowUserBloc>().add(
+                              UnFollowUserButtonClickEvent(
+                                  followeesId:
+                                      widget.following[index].id.toString()));
+                          setState(() {
+                            widget.following.removeWhere((element) =>
+                                element.id == widget.following[index].id);
+                          });
+                          widget.model.totalCount--;
+                          context.read<FetchFollowersBloc>();
+                        },
+                        child: const Text('Unfollow',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: buttonclr,
+                                fontSize: 13))),
                   ));
             },
           ),

@@ -1,4 +1,7 @@
 import 'package:evogram/domain/models/followers_model.dart';
+import 'package:evogram/domain/models/searchusermodel.dart';
+import 'package:evogram/presentation/screens/discover_screen/widgets/post_details/userprofile/user_profile_screen.dart';
+import 'package:evogram/presentation/screens/widgets/custom_navigators.dart';
 
 import '../../../application/core/constants.dart';
 import '../chat_screen/chat_screen.dart';
@@ -52,63 +55,62 @@ class FollowersScreen extends StatelessWidget {
             itemBuilder: (context, index) {
               return Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          PageRouteBuilder(
-                            pageBuilder:
-                                (context, animation, secondaryAnimation) =>
-                                    const ChatScreen(),
-                            transitionsBuilder: (context, animation,
-                                secondaryAnimation, child) {
-                              const begin = Offset(0.0, 1.0);
-                              const end = Offset.zero;
-                              const curve = Curves.ease;
-                              var tween = Tween(begin: begin, end: end)
-                                  .chain(CurveTween(curve: curve));
-
-                              return SlideTransition(
-                                position: animation.drive(tween),
-                                child: child,
-                              );
-                            },
-                          ));
-                    },
-                    child: ListTile(
-                      leading: Container(
-                        height: 60,
-                        width: 60,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(100),
-                            image: DecorationImage(
-                                image:
-                                    NetworkImage(followers[index].profilePic),
-                                fit: BoxFit.cover)),
-                      ),
-                      title: Text(
+                  child: ListTile(
+                    leading: Container(
+                      height: 60,
+                      width: 60,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(100),
+                          image: DecorationImage(
+                              image: NetworkImage(followers[index].profilePic),
+                              fit: BoxFit.cover)),
+                    ),
+                    title: GestureDetector(
+                      onTap: () {
+                        final user = UserIdSearchModel(
+                            id: followers[index].id.toString(),
+                            userName: followers[index].userName.toString(),
+                            email: followers[index].email.toString(),
+                            profilePic: followers[index].profilePic.toString(),
+                            online: followers[index].online,
+                            blocked: followers[index].blocked,
+                            verified: followers[index].verified,
+                            role: followers[index].role.toString(),
+                            isPrivate: followers[index].isPrivate,
+                            backGroundImage:
+                                followers[index].backGroundImage.toString(),
+                            createdAt: followers[index].createdAt,
+                            updatedAt: followers[index].updatedAt,
+                            v: followers[index].v);
+                        navigatePushAnimaterighttoleft(
+                            context,
+                            UserProfileScreen(
+                                userId: followers[index].id.toString(),
+                                user: user));
+                      },
+                      child: Text(
                         followers[index].userName.toString(),
                         style: const TextStyle(
                             fontSize: 15, fontWeight: FontWeight.bold),
                       ),
-                      subtitle: Text(
-                        followers[index].name.toString(),
-                        style: const TextStyle(
-                            fontSize: 13, fontWeight: FontWeight.bold),
-                      ),
-                      // trailing: MaterialButton(
-                      //     minWidth: 80,
-                      //     height: 27,
-                      //     shape: RoundedRectangleBorder(
-                      //         borderRadius: BorderRadius.circular(5),
-                      //         side: const BorderSide(color: blueaccent2)),
-                      //     onPressed: () {},
-                      //     child: const Text('Follow back',
-                      //         style: TextStyle(
-                      //             fontWeight: FontWeight.bold,
-                      //             color: blueaccent2,
-                      //             fontSize: 13))),
                     ),
+                    subtitle: Text(
+                      followers[index].name.toString(),
+                      style: const TextStyle(
+                          fontSize: 13, fontWeight: FontWeight.bold),
+                    ),
+                    // trailing: MaterialButton(
+                    //     minWidth: 80,
+                    //     height: 27,
+                    //     shape: RoundedRectangleBorder(
+                    //         borderRadius: BorderRadius.circular(5),
+                    //         side: const BorderSide(color: blueaccent2)),
+                    //     onPressed: () {},
+                    //     child: const Text('Follow back',
+                    //         style: TextStyle(
+                    //             fontWeight: FontWeight.bold,
+                    //             color: blueaccent2,
+                    //             fontSize: 13))),
                   ));
             },
           ),

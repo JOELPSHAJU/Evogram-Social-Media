@@ -2,10 +2,14 @@ import 'package:evogram/application/core/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
-Shimmer explorePageLoading() {
+Shimmer explorePageLoading(context) {
   return Shimmer.fromColors(
-    highlightColor: Colors.grey.shade100,
-    baseColor: Colors.grey.shade300,
+    highlightColor: Theme.of(context).brightness == Brightness.light
+        ? Colors.grey.shade100
+        : Colors.black,
+    baseColor: Theme.of(context).brightness == Brightness.light
+        ? Colors.grey.shade300
+        : Colors.black,
     child: ListView.builder(
       itemCount: 10,
       itemBuilder: (context, index) {

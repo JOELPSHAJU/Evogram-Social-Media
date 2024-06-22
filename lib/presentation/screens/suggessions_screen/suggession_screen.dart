@@ -1,8 +1,13 @@
 import 'package:evogram/application/core/constants.dart';
+import 'package:evogram/domain/models/searchusermodel.dart';
+import 'package:evogram/domain/models/suggession_user_model.dart';
 import 'package:evogram/presentation/bloc/fetch_followings_bloc/fetch_followings_bloc.dart';
 import 'package:evogram/presentation/bloc/fetch_suggession_user_bloc/fetch_suggession_user_bloc.dart';
 import 'package:evogram/presentation/bloc/follow_unfollow_user_bloc/follow_unfollow_user_bloc.dart';
+import 'package:evogram/presentation/screens/discover_screen/widgets/post_details/userprofile/user_profile_screen.dart';
+import 'package:evogram/presentation/screens/home_screen/widgets/bottomsheet.dart';
 import 'package:evogram/presentation/screens/suggessions_screen/followers_loading.dart';
+import 'package:evogram/presentation/screens/widgets/custom_navigators.dart';
 import 'package:evogram/presentation/screens/widgets/text_styles.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -86,7 +91,7 @@ class _SuggessionScreenState extends State<SuggessionScreen> {
                         if (kDebugMode) {
                           print(state.suggessionUserModel.data);
                         }
-                        var suggession = state.suggessionUserModel.data[index];
+                        User suggession = state.suggessionUserModel.data[index];
 
                         return BlocBuilder<FollowUnfollowUserBloc,
                             FollowUnfollowUserState>(
@@ -108,10 +113,36 @@ class _SuggessionScreenState extends State<SuggessionScreen> {
                                             suggession.profilePic.toString()),
                                         fit: BoxFit.cover)),
                               ),
-                              title: Text(
-                                suggession.userName.toString(),
-                                style: const TextStyle(
-                                    fontSize: 15, fontWeight: FontWeight.bold),
+                              title: GestureDetector(
+                                onTap: () {
+                                  final user = UserIdSearchModel(
+                                      id: suggession.id.toString(),
+                                      userName: suggession.userName.toString(),
+                                      email: suggession.email.toString(),
+                                      profilePic:
+                                          suggession.profilePic.toString(),
+                                      online: suggession.online,
+                                      blocked: suggession.blocked,
+                                      verified: suggession.verified,
+                                      role: suggession.role.toString(),
+                                      isPrivate: suggession.isPrivate,
+                                      backGroundImage:
+                                          suggession.backGroundImage.toString(),
+                                      createdAt: suggession.createdAt,
+                                      updatedAt: suggession.updatedAt,
+                                      v: suggession.v);
+                                  navigatePushAnimaterbottomtotop(
+                                      context,
+                                      UserProfileScreen(
+                                          userId: suggession.id.toString(),
+                                          user: user));
+                                },
+                                child: Text(
+                                  suggession.userName.toString(),
+                                  style: const TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold),
+                                ),
                               ),
                               subtitle: Text(
                                 suggession.name != null

@@ -4,13 +4,16 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:evogram/application/core/constants.dart';
 import 'package:evogram/domain/models/comment_model.dart';
 import 'package:evogram/domain/models/saved_post_model.dart';
+import 'package:evogram/domain/models/searchusermodel.dart';
 
 import 'package:evogram/presentation/bloc/fetch_saved_posts/fetch_saved_posts_bloc.dart';
 import 'package:evogram/presentation/bloc/get_comments_bloc/get_comments_bloc.dart';
 import 'package:evogram/presentation/bloc/saved_post_bloc/saved_post_bloc.dart';
+import 'package:evogram/presentation/screens/discover_screen/widgets/post_details/userprofile/user_profile_screen.dart';
 import 'package:evogram/presentation/screens/home_screen/widgets/bottomsheet.dart';
 import 'package:evogram/presentation/screens/userprofile/profile_screen/profile_screen.dart';
 import 'package:evogram/presentation/screens/userprofile/profile_screen/widgets/shimmer.dart';
+import 'package:evogram/presentation/screens/widgets/custom_navigators.dart';
 import 'package:evogram/presentation/screens/widgets/text_styles.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -132,12 +135,53 @@ class _SavedPostsDetailsScreenState extends State<SavedPostsDetailsScreen> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Text(
-                                        statesaved.posts[index].postId.userId
-                                            .userName,
-                                        style: const TextStyle(
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 14),
+                                      GestureDetector(
+                                        onTap: () {
+                                          final user = UserIdSearchModel(
+                                              id: statesaved
+                                                  .posts[index].postId.userId.id
+                                                  .toString(),
+                                              userName: statesaved.posts[index]
+                                                  .postId.userId.userName
+                                                  .toString(),
+                                              email: statesaved.posts[index]
+                                                  .postId.userId.email
+                                                  .toString(),
+                                              profilePic: statesaved
+                                                  .posts[index]
+                                                  .postId
+                                                  .userId
+                                                  .profilePic
+                                                  .toString(),
+                                              online: statesaved.posts[index]
+                                                  .postId.userId.online,
+                                              blocked: statesaved.posts[index]
+                                                  .postId.userId.blocked,
+                                              verified: statesaved.posts[index].postId.userId.verified,
+                                              role: statesaved.posts[index].postId.userId.role,
+                                              isPrivate: statesaved.posts[index].postId.userId.isPrivate,
+                                              backGroundImage: statesaved.posts[index].postId.userId.backGroundImage.toString(),
+                                              createdAt: statesaved.posts[index].postId.userId.createdAt,
+                                              updatedAt: statesaved.posts[index].postId.userId.updatedAt,
+                                              v: statesaved.posts[index].postId.userId.v);
+                                          navigatePushAnimaterbottomtotop(
+                                              context,
+                                              UserProfileScreen(
+                                                  userId: statesaved
+                                                      .posts[index]
+                                                      .postId
+                                                      .userId
+                                                      .id
+                                                      .toString(),
+                                                  user: user));
+                                        },
+                                        child: Text(
+                                          statesaved.posts[index].postId.userId
+                                              .userName,
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 14),
+                                        ),
                                       ),
                                       Text(
                                         statesaved.posts[index].createdAt !=
@@ -183,8 +227,8 @@ class _SavedPostsDetailsScreenState extends State<SavedPostsDetailsScreen> {
                                 children: [
                                   Row(
                                     children: [
-                                      GestureDetector(
-                                        onTap: () {
+                                      IconButton(
+                                        onPressed: () {
                                           if (!statesaved
                                               .posts[index].postId.likes
                                               .contains(useridprofilescreen)) {
@@ -209,21 +253,16 @@ class _SavedPostsDetailsScreenState extends State<SavedPostsDetailsScreen> {
                                                 );
                                           }
                                         },
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Icon(
-                                            statesaved.posts[index].postId.likes
-                                                    .contains(
-                                                        useridprofilescreen)
-                                                ? Iconsax.heart5
-                                                : Iconsax.heart4,
-                                            color: statesaved
-                                                    .posts[index].postId.likes
-                                                    .contains(
-                                                        useridprofilescreen)
-                                                ? red
-                                                : null,
-                                          ),
+                                        icon: Icon(
+                                          statesaved.posts[index].postId.likes
+                                                  .contains(useridprofilescreen)
+                                              ? Iconsax.heart5
+                                              : Iconsax.heart4,
+                                          color: statesaved
+                                                  .posts[index].postId.likes
+                                                  .contains(useridprofilescreen)
+                                              ? red
+                                              : null,
                                         ),
                                       ),
                                       h10,

@@ -27,7 +27,7 @@ class TextFormFieldEditProfile extends StatelessWidget {
       maxLengthEnforcement: MaxLengthEnforcement.none,
       validator: validator,
       cursorWidth: 2,
-      maxLength: maxlen == true ? 100 : null,
+      maxLength: maxlen == true ? 120 : null,
       minLines: minlines,
       maxLines: maxlines,
       controller: controller,

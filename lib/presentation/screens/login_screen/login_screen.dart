@@ -119,7 +119,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       'Forget Password?',
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
-                                          color: blue,
+                                          color: buttonclr,
                                           fontSize: 15),
                                     ))
                               ],
@@ -130,10 +130,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                   return loadingButton(
                                       media: size,
                                       onPressed: () {},
-                                      color: blue);
+                                      color: buttonclr);
                                 }
                                 return MaterialButton(
-                                    color: blue,
+                                    color: buttonclr,
                                     minWidth: size.width,
                                     height: 55,
                                     shape: RoundedRectangleBorder(
@@ -237,7 +237,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     style: TextStyle(
                                         fontSize: 15,
                                         fontWeight: FontWeight.w700,
-                                        color: blue),
+                                        color: buttonclr),
                                   ),
                                 )
                               ],

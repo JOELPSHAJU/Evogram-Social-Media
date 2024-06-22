@@ -136,10 +136,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       builder: (context, state) {
                         if (state is SignupLoadingState) {
                           return loadingButton(
-                              media: size, onPressed: () {}, color: blue);
+                              media: size, onPressed: () {}, color: buttonclr);
                         }
                         return MaterialButton(
-                            color: blue,
+                            color: buttonclr,
                             minWidth: size.width,
                             height: 55,
                             shape: RoundedRectangleBorder(
@@ -204,7 +204,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               style: TextStyle(
                                   fontSize: 15,
                                   fontWeight: FontWeight.w700,
-                                  color: blue),
+                                  color: buttonclr),
                             ),
                           )
                         ],

@@ -10,6 +10,7 @@ String addposturl = '/posts/addPost';
 String fetchposturl = '/posts/getpost';
 String fetchuserposturl = '/posts/getuserpost';
 String deleteposturln = '/posts/delete-post';
+ String getPostByUserId = '/posts/getuserpost';
 String editposturl = '/posts/update-post';
 String followersposturl = '/posts/allfollowingsPost';
 String postlikeurl = '/posts/like-post';
@@ -64,8 +65,9 @@ class PostUrls {
   static const String getallPost = '/posts/getpost';
   static const String deletePost = '/posts/delete-post';
   static const String updatePost = '/posts/update-post';
-  static const String getPostByUserId = '/posts/getuserpost';
+  static const String getPostByUserIdurl = '/posts/getuserpost/';
   static const String likePost = '/posts/like-post';
+  
   static const String unlikePost = '/posts/unlike-post';
   static const String commentPost = '/posts/add-comment';
   static const String getAllComments = '/posts/fetch-comments';

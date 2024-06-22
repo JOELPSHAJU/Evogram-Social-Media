@@ -90,7 +90,7 @@ class OtpForgetpassword extends StatelessWidget {
                       builder: (context, state) {
                         if (state is ForgetpasswordLoadingState) {
                           return loadingButton(
-                              media: size, onPressed: () {}, color: blue);
+                              media: size, onPressed: () {}, color: buttonclr);
                         }
                         return BlocBuilder<ForgetpasswordBloc,
                             ForgetpasswordState>(
@@ -99,10 +99,10 @@ class OtpForgetpassword extends StatelessWidget {
                               return loadingButton(
                                   media: size,
                                   onPressed: () {},
-                                  color: redlogout);
+                                  color: buttonclr);
                             }
                             return MaterialButton(
-                                color: blue,
+                                color: buttonclr,
                                 minWidth: size.width,
                                 height: 55,
                                 shape: RoundedRectangleBorder(
@@ -165,7 +165,7 @@ class OtpForgetpassword extends StatelessWidget {
                     fieldHeight: 70,
                     numberOfFields: 4,
                     borderColor: grey,
-                    enabledBorderColor: blue,
+                    enabledBorderColor: buttonclr,
                     showFieldAsBox: true,
                     onCodeChanged: (String code) {},
                     onSubmit: (String verificationCode) {
@@ -203,10 +203,10 @@ class OtpForgetpassword extends StatelessWidget {
                             loadingButton(
                                 media: size,
                                 onPressed: () {},
-                                color: redlogout);
+                                color: buttonclr);
                           }
                           return MaterialButton(
-                              color: blue,
+                              color: buttonclr,
                               minWidth: size.width * .4,
                               height: 55,
                               shape: RoundedRectangleBorder(

@@ -76,14 +76,14 @@ class EditPostScreen extends StatelessWidget {
                       height: 40,
                       width: 100,
                       child: loadingButton(
-                          media: size, onPressed: () {}, color: blue),
+                          media: size, onPressed: () {}, color: buttonclr),
                     ),
                   );
                 }
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: MaterialButton(
-                      color: blue,
+                      color: buttonclr,
                       minWidth: 100,
                       height: 40,
                       shape: RoundedRectangleBorder(

@@ -81,10 +81,10 @@ class ForgetPasswordScreen extends StatelessWidget {
                       builder: (context, state) {
                         if (state is ForgetpasswordLoadingState) {
                           return loadingButton(
-                              media: size, onPressed: () {}, color: blue);
+                              media: size, onPressed: () {}, color: buttonclr);
                         }
                         return MaterialButton(
-                            color: blue,
+                            color: buttonclr,
                             minWidth: size.width,
                             height: 55,
                             shape: RoundedRectangleBorder(
@@ -116,9 +116,9 @@ class ForgetPasswordScreen extends StatelessWidget {
                           style: TextStyle(
                               fontSize: 17,
                               decoration: TextDecoration.underline,
-                              decorationColor: blue,
+                              decorationColor: buttonclr,
                               fontWeight: FontWeight.w600,
-                              color: blue),
+                              color: buttonclr),
                         ))
                   ]),
             ),

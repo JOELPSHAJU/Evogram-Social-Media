@@ -2,12 +2,15 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:evogram/domain/models/get_followers_post_model.dart';
 import 'package:evogram/domain/models/postuser_model%20copy.dart';
 import 'package:evogram/domain/models/saved_post_model.dart';
+import 'package:evogram/domain/models/searchusermodel.dart';
 import 'package:evogram/domain/models/suggession_user_model.dart';
 import 'package:evogram/presentation/bloc/fetch_saved_posts/fetch_saved_posts_bloc.dart';
 import 'package:evogram/presentation/bloc/like_unlike_post_bloc/like_post_bloc.dart';
 import 'package:evogram/presentation/bloc/saved_post_bloc/saved_post_bloc.dart';
+import 'package:evogram/presentation/screens/discover_screen/widgets/post_details/userprofile/user_profile_screen.dart';
 import 'package:evogram/presentation/screens/home_screen/widgets/bottomsheet.dart';
 import 'package:evogram/presentation/screens/userprofile/profile_screen/profile_screen.dart';
+import 'package:evogram/presentation/screens/widgets/custom_navigators.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,6 +19,7 @@ import 'package:iconsax/iconsax.dart';
 import 'package:intl/intl.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:multi_bloc_builder/builders/multi_bloc_builder.dart';
+import 'package:readmore/readmore.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 import '../../../application/core/constants.dart';
@@ -71,6 +75,9 @@ class _ListTileMainScreenState extends State<ListTileMainScreen> {
                 return formatter.format(dateTime);
               }
 
+              if (post.createdAt == post.editedAt) {
+                print("success same date found");
+              }
               String formattedDate = formatDate('${post.date}');
 
               return Padding(
@@ -95,20 +102,47 @@ class _ListTileMainScreenState extends State<ListTileMainScreen> {
                                   borderRadius: BorderRadius.circular(100)),
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(left: 10.0),
+                              padding: EdgeInsets.only(left: 10.0),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    post.userId.userName.toString(),
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 14),
+                                  GestureDetector(
+                                    onTap: () {
+                                      final user = UserIdSearchModel(
+                                          id: post.userId.id.toString(),
+                                          userName:
+                                              post.userId.userName.toString(),
+                                          email: post.userId.email.toString(),
+                                          profilePic:
+                                              post.userId.profilePic.toString(),
+                                          online: post.userId.online,
+                                          blocked: post.userId.blocked,
+                                          verified: post.userId.verified,
+                                          role: post.userId.role,
+                                          isPrivate: post.userId.isPrivate,
+                                          backGroundImage: post
+                                              .userId.backGroundImage
+                                              .toString(),
+                                          createdAt: post.userId.createdAt,
+                                          updatedAt: post.userId.updatedAt,
+                                          v: post.userId.v);
+                                      navigatePushAnimaterbottomtotop(
+                                          context,
+                                          UserProfileScreen(
+                                              userId: post.userId.id.toString(),
+                                              user: user));
+                                    },
+                                    child: Text(
+                                      post.userId.userName.toString(),
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 14),
+                                    ),
                                   ),
                                   RichText(
                                       text: TextSpan(
-                                          text: post.createdAt != post.updatedAt
-                                              ? '${timeago.format(post.updatedAt)} '
+                                          text: post.createdAt != post.editedAt
+                                              ? '${timeago.format(post.editedAt)} '
                                               : timeago.format(post.createdAt),
                                           style: GoogleFonts.inter(
                                               fontSize: 13,
@@ -119,7 +153,7 @@ class _ListTileMainScreenState extends State<ListTileMainScreen> {
                                                   : white),
                                           children: <TextSpan>[
                                         TextSpan(
-                                          text: post.createdAt != post.updatedAt
+                                          text: post.createdAt != post.editedAt
                                               ? '(Edited)'
                                               : '',
                                           style: GoogleFonts.inter(
@@ -304,28 +338,43 @@ class _ListTileMainScreenState extends State<ListTileMainScreen> {
                         },
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 8.0),
+                        padding: EdgeInsets.only(left: 8.0),
                         child: RichText(
                           text: TextSpan(
-                              text: 'Liked by',
+                              text: post.CommentCount.toString(),
                               style: GoogleFonts.inter(
                                   fontSize: 13,
+                                  fontWeight: FontWeight.bold,
                                   color: Theme.of(context).brightness ==
                                           Brightness.light
                                       ? black
                                       : white),
                               children: <TextSpan>[
                                 TextSpan(
-                                  text: ' Guest.dfjsdf ',
-                                  style: GoogleFonts.inter(
-                                    fontSize: 13,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                                TextSpan(
-                                  text: 'and others',
+                                  text: ' Comments ',
                                   style: GoogleFonts.inter(
                                       fontSize: 13,
+                                      fontWeight: FontWeight.w400,
+                                      color: Theme.of(context).brightness ==
+                                              Brightness.light
+                                          ? black
+                                          : white),
+                                ),
+                                TextSpan(
+                                  text: post.likes.length.toString(),
+                                  style: GoogleFonts.inter(
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.bold,
+                                      color: Theme.of(context).brightness ==
+                                              Brightness.light
+                                          ? black
+                                          : white),
+                                ),
+                                TextSpan(
+                                  text: ' likes',
+                                  style: GoogleFonts.inter(
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w400,
                                       color: Theme.of(context).brightness ==
                                               Brightness.light
                                           ? black
@@ -334,16 +383,27 @@ class _ListTileMainScreenState extends State<ListTileMainScreen> {
                               ]),
                         ),
                       ),
-                      h10,
+                      h5,
                       Padding(
-                        padding: const EdgeInsets.only(left: 8.0),
-                        child: Text(
-                          post.description.toString(),
-                          maxLines: 3,
-                          style:
-                              const TextStyle(overflow: TextOverflow.ellipsis),
-                        ),
-                      ),
+                          padding: const EdgeInsets.only(left: 8.0, right: 10),
+                          child: ReadMoreText(
+                            post.description.toString(),
+                            trimMode: TrimMode.Line,
+                            trimLines: 2,
+                            colorClickableText: blue,
+                            trimCollapsedText: 'more.',
+                            style: const TextStyle(fontWeight: FontWeight.w500),
+                            lessStyle: const TextStyle(
+                                fontSize: 14,
+                                color: grey,
+                                fontWeight: FontWeight.bold),
+                            trimExpandedText: ' show less',
+                            moreStyle: const TextStyle(
+                                fontSize: 14,
+                                color: grey,
+                                fontWeight: FontWeight.bold),
+                          )),
+                      h5,
                       Padding(
                         padding: const EdgeInsets.only(left: 8.0),
                         child: Text(
