@@ -4,8 +4,6 @@ import 'package:evogram/presentation/screens/discover_screen/widgets/post_detail
 import 'package:evogram/presentation/screens/widgets/custom_navigators.dart';
 
 import '../../../application/core/constants.dart';
-import '../chat_screen/chat_screen.dart';
-import '../chat_list/widgets.dart';
 
 import '../widgets/text_styles.dart';
 

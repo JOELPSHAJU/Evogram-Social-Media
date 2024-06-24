@@ -14,7 +14,7 @@ class FollowersUserIdModel {
   int v;
   String role;
   String? bio;
-  String name;
+  String? name;
   bool isPrivate;
 
   FollowersUserIdModel({

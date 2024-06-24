@@ -148,7 +148,7 @@ class _SavedPostsDetailsScreenState extends State<SavedPostsDetailsScreen> {
                                                   .postId.userId.email
                                                   .toString(),
                                               profilePic: statesaved
-                                                  .posts[index]
+                                                  .posts[index]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
                                                   .postId
                                                   .userId
                                                   .profilePic

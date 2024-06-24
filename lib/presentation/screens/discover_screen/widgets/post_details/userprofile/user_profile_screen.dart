@@ -1,34 +1,47 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:evogram/application/core/constants.dart';
+import 'package:evogram/domain/models/followings_model.dart';
 import 'package:evogram/domain/models/searchusermodel.dart';
 import 'package:evogram/presentation/bloc/fetch_followings_bloc/fetch_followings_bloc.dart';
+import 'package:evogram/presentation/bloc/follow_unfollow_user_bloc/follow_unfollow_user_bloc.dart';
+import 'package:evogram/presentation/bloc/get_connections_bloc/get_connections_bloc.dart';
 import 'package:evogram/presentation/bloc/profile_posts_bloc/profile_bloc.dart';
+import 'package:evogram/presentation/screens/discover_screen/post_details/post_details.dart';
 import 'package:evogram/presentation/screens/discover_screen/widgets/post_details/userprofile/posts_loading.dart';
+import 'package:evogram/presentation/screens/userprofile/profile_screen/widgets/my_post/specific_uploadedpost.dart';
 import 'package:evogram/presentation/screens/userprofile/profile_screen/widgets/profile_styles.dart';
+import 'package:evogram/presentation/screens/widgets/custom_navigators.dart';
 import 'package:evogram/presentation/screens/widgets/custom_profile_button.dart';
 import 'package:evogram/presentation/screens/widgets/text_styles.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+String postcount = '';
+
 class UserProfileScreen extends StatefulWidget {
   final String userId;
   // ignore: prefer_typing_uninitialized_variables
   final UserIdSearchModel user;
-  const UserProfileScreen(
-      {super.key, required this.userId, required this.user});
+
+  UserProfileScreen({super.key, required this.userId, required this.user});
 
   @override
   State<UserProfileScreen> createState() => _UserProfileScreenState();
 }
 
 class _UserProfileScreenState extends State<UserProfileScreen> {
+  List<Following> followings = [];
   @override
   void initState() {
-    context.read<FetchFollowingsBloc>().add(FollowingsInitialFetchEvent());
     context
         .read<ProfileBloc>()
         .add(ProfileInitialPostFetchEvent(userId: widget.userId));
+    context.read<FetchFollowingsBloc>().add(FollowingsInitialFetchEvent());
+    context
+        .read<GetConnectionsBloc>()
+        .add(ConnectionsInitilFetchEvent(userId: widget.userId));
+
     super.initState();
   }
 
@@ -37,12 +50,10 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Theme.of(context).brightness == Brightness.light
-              ? Colors.grey.shade300
-              : black,
-          surfaceTintColor: Theme.of(context).brightness == Brightness.light
-              ? Colors.grey.shade300
-              : black,
+          backgroundColor:
+              Theme.of(context).brightness == Brightness.light ? white : black,
+          surfaceTintColor:
+              Theme.of(context).brightness == Brightness.light ? white : black,
           title: appbarTitle(title: widget.user.userName),
         ),
         backgroundColor: Theme.of(context).brightness == Brightness.light
@@ -54,17 +65,6 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
           child: SingleChildScrollView(
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              // MultiBlocBuilder(
-              //   blocs: [
-              //     context.watch<FollowUnfollowUserBloc>(),
-              //     context.watch<ProfileDetailsBloc>(),
-              //     context.watch<ProfileBloc>(),
-              //     context.watch<FetchFollowingsBloc>(),
-              //   ],
-              //   builder: (p0, p1) {
-
-              //   },
-              // ),
               Container(
                 height: 210,
                 width: size.width,
@@ -128,48 +128,164 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                 ),
               ),
               h20,
-              const Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Column(
-                      children: [
-                        Text(
-                          '1',
-                          style: profilestyle,
-                        ),
-                        Text('Posts', style: profilestyle2)
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        Text(
-                          '30',
-                          style: profilestyle,
-                        ),
-                        Text('Followers', style: profilestyle2),
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        Text(
-                          '0',
-                          style: profilestyle,
-                        ),
-                        Text('Following', style: profilestyle2)
-                      ],
-                    )
-                  ]),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  BlocConsumer<ProfileBloc, ProfileState>(
+                    listener: (context, state) {},
+                    builder: (context, state) {
+                      if (state is ProfilePostFetchSuccesfulState) {
+                        return Column(
+                          children: [
+                            Text(
+                              state.posts.length.toString(),
+                              style: profilestyle,
+                            ),
+                            Text(state.posts.length < 2 ? 'Post' : 'Posts',
+                                style: profilestyle2)
+                          ],
+                        );
+                      }
+                      return const Column(
+                        children: [
+                          Text(
+                            '0',
+                            style: profilestyle,
+                          ),
+                          Text('Post', style: profilestyle2)
+                        ],
+                      );
+                    },
+                  ),
+                  BlocConsumer<GetConnectionsBloc, GetConnectionsState>(
+                    listener: (context, state) {},
+                    builder: (context, state) {
+                      if (state is GetConnectionsSuccesfulState) {
+                        return Column(
+                          children: [
+                            Text(
+                              state.followersCount.toString(),
+                              style: profilestyle,
+                            ),
+                            Text(
+                                state.followersCount < 2
+                                    ? 'Follower'
+                                    : 'Followers',
+                                style: profilestyle2),
+                          ],
+                        );
+                      }
+                      return const Column(
+                        children: [
+                          Text(
+                            '0',
+                            style: profilestyle,
+                          ),
+                          Text('Followers', style: profilestyle2),
+                        ],
+                      );
+                    },
+                  ),
+                  BlocConsumer<GetConnectionsBloc, GetConnectionsState>(
+                    listener: (context, state) {},
+                    builder: (context, state) {
+                      if (state is GetConnectionsSuccesfulState) {
+                        return Column(
+                          children: [
+                            Text(
+                              state.followingsCount.toString(),
+                              style: profilestyle,
+                            ),
+                            Text(
+                                state.followingsCount < 2
+                                    ? 'Following'
+                                    : 'Followings',
+                                style: profilestyle2)
+                          ],
+                        );
+                      }
+                      return const Column(
+                        children: [
+                          Text(
+                            '0',
+                            style: profilestyle,
+                          ),
+                          Text('Following', style: profilestyle2),
+                        ],
+                      );
+                    },
+                  ),
+                ],
+              ),
               h30,
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  GestureDetector(
-                      onTap: () {},
-                      child: CustomProfileButton(
-                        size: size,
-                        text: 'Follow',
-                        width: .4,
-                      )),
+                  BlocConsumer<FetchFollowingsBloc, FetchFollowingsState>(
+                    listener: (context, state) {
+                      // TODO: implement listener
+                    },
+                    builder: (context, state) {
+                      if (state is FetchFollowingsSuccesfulState) {
+                        final FollowingModel followingsModel =
+                            state.followingsModel;
+                        followings = followingsModel.following;
+                      }
+                      return GestureDetector(
+                          onTap: () {
+                            bool isFollowing = followings.any(
+                                (following) => following.id == widget.userId);
+                            if (isFollowing) {
+                              followings.removeWhere(
+                                  (element) => element.id == widget.userId);
+                              context.read<FollowUnfollowUserBloc>().add(
+                                  UnFollowUserButtonClickEvent(
+                                      followeesId: widget.userId));
+                              context
+                                  .read<FetchFollowingsBloc>()
+                                  .add(FollowingsInitialFetchEvent());
+                              context.read<GetConnectionsBloc>().add(
+                                  ConnectionsInitilFetchEvent(
+                                      userId: widget.userId));
+                            } else {
+                              followings.add(Following(
+                                  id: widget.userId,
+                                  userName: widget.user.userName,
+                                  email: widget.user.email,
+                                  password: widget.user.password ?? '',
+                                  phone: widget.user.phone,
+                                  online: widget.user.online,
+                                  blocked: widget.user.blocked,
+                                  verified: widget.user.verified,
+                                  role: widget.user.role,
+                                  isPrivate: widget.user.isPrivate,
+                                  createdAt: widget.user.createdAt,
+                                  updatedAt: widget.user.updatedAt,
+                                  v: widget.user.v,
+                                  profilePic: widget.user.profilePic,
+                                  backGroundImage:
+                                      widget.user.backGroundImage));
+                              context.read<FollowUnfollowUserBloc>().add(
+                                  FollowUserButtonClickEvent(
+                                      followeesId: widget.userId));
+                              context
+                                  .read<FetchFollowingsBloc>()
+                                  .add(FollowingsInitialFetchEvent());
+                              context.read<GetConnectionsBloc>().add(
+                                  ConnectionsInitilFetchEvent(
+                                      userId: widget.userId));
+                            }
+                          },
+                          child: CustomProfileButton(
+                            size: size,
+                            text: followings.any((following) =>
+                                    following.id == widget.userId)
+                                ? 'Unfollow'
+                                : 'Follow',
+                            width: .4,
+                          ));
+                    },
+                  ),
                   GestureDetector(
                     onTap: () {},
                     child: CustomProfileButton(
@@ -205,12 +321,11 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
               Flexible(
                 flex: 0,
                 child: BlocConsumer<ProfileBloc, ProfileState>(
-                  listener: (context, state) {
-                    // TODO: implement listener
-                  },
+                  listener: (context, state) {},
                   builder: (context, state) {
                     if (state is ProfilePostFetchSuccesfulState) {
                       final posts = state.posts;
+
                       return posts.isEmpty
                           ? Center(
                               child: Theme.of(context).brightness ==
@@ -228,21 +343,30 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                               shrinkWrap: true,
                               gridDelegate:
                                   const SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount: 2),
+                                      crossAxisCount: 3),
                               itemCount: posts.length,
                               itemBuilder: (context, index) {
-                                return Card(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8.0),
-                                  ),
-                                  elevation: 5,
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(8.0),
-                                    child: Image.network(
-                                      state.posts[index].image,
-                                      fit: BoxFit.cover,
-                                      width: 300,
-                                      height: 200,
+                                return GestureDetector(
+                                  onTap: () {
+                                    navigatePushAnimaterbottomtotop(
+                                        context,
+                                        PostDetailsUserPage(
+                                            posts: state.posts,
+                                            initialindex: index));
+                                  },
+                                  child: Card(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(2.0),
+                                    ),
+                                    elevation: 5,
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(2.0),
+                                      child: Image.network(
+                                        state.posts[index].image,
+                                        fit: BoxFit.cover,
+                                        width: 300,
+                                        height: 200,
+                                      ),
                                     ),
                                   ),
                                 );

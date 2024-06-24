@@ -1,5 +1,4 @@
 import 'package:evogram/application/core/constants.dart';
-import 'package:evogram/application/core/urls.dart';
 import 'package:evogram/domain/models/comment_model.dart';
 import 'package:evogram/domain/models/postuser_model.dart';
 import 'package:evogram/domain/models/suggession_user_model.dart';
@@ -9,15 +8,11 @@ import 'package:evogram/presentation/bloc/get_comments_bloc/get_comments_bloc.da
 import 'package:evogram/presentation/screens/home_screen/widgets/alert_dialouge.dart';
 import 'package:evogram/presentation/screens/home_screen/widgets/comments_loading.dart';
 import 'package:evogram/presentation/screens/userprofile/profile_screen/profile_screen.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:multi_bloc_builder/builders/multi_bloc_builder.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
-dynamic commentlength;
-User? loggedinuser;
-UserMain? user;
 Future<dynamic> commentBottomSheet(
     BuildContext context, post, TextEditingController commentController,
     {required GlobalKey<FormState> formkey,
@@ -26,8 +21,7 @@ Future<dynamic> commentBottomSheet(
     required List<Comment> comments,
     required String id}) {
   return showModalBottomSheet(
-    backgroundColor:
-        Theme.of(context).brightness == Brightness.light ? white : darkgreymain,
+    backgroundColor: white,
     context: context,
     builder: (context) => Padding(
       padding: const EdgeInsets.all(10.0),
@@ -36,8 +30,8 @@ Future<dynamic> commentBottomSheet(
           Row(
             children: [
               CircleAvatar(
-                backgroundImage: NetworkImage(profilepic),
-                backgroundColor: lightgreyauth,
+                backgroundImage: NetworkImage(profiePic),
+                backgroundColor: blueaccent,
                 radius: 25,
               ),
               w10,
@@ -62,9 +56,9 @@ Future<dynamic> commentBottomSheet(
                             content: commentController.text,
                             createdAt: DateTime.now(),
                             user: CommentUser(
-                              id: useridprofilescreen,
-                              userName: userName,
-                              profilePic: profilepic,
+                              id: loginuserinfo.id,
+                              userName: loginuserinfo.userName,
+                              profilePic: loginuserinfo.profilePic,
                             ),
                           );
                           comments.add(newComment);
@@ -80,29 +74,21 @@ Future<dynamic> commentBottomSheet(
                       hintText: 'write a comment....',
                       suffix: TextButton(
                         onPressed: () {
-                          if (logginedUser.isNotEmpty) {
+                          if (formkey.currentState!.validate()) {
                             context.read<CommentPostBloc>().add(
                                   CommentPostButtonClickEvent(
-                                    userName: userName,
-                                    postId: id,
-                                    content: commentController.text,
-                                  ),
+                                      userName: loginuserinfo.userName,
+                                      postId: id,
+                                      content: commentController.text),
                                 );
-                          } else {
-                            if (kDebugMode) {
-                              print('Error: logginedUser is null');
-                            }
                           }
                         },
-                        child: Text(
+                        child: const Text(
                           'Post',
                           style: TextStyle(
                               fontWeight: FontWeight.w500,
                               fontSize: 16,
-                              color: Theme.of(context).brightness ==
-                                      Brightness.light
-                                  ? black
-                                  : white),
+                              color: black),
                         ),
                       ),
                     ),
@@ -144,7 +130,7 @@ Future<dynamic> commentBottomSheet(
                                   CircleAvatar(
                                     radius: 18,
                                     backgroundImage:
-                                        NetworkImage(comment.user.profilePic),
+                                        NetworkImage(loginuserinfo.profilePic),
                                   ),
                                   w10,
                                   Expanded(
@@ -177,7 +163,7 @@ Future<dynamic> commentBottomSheet(
                                     ),
                                   ),
                                   w10,
-                                  if (useridprofilescreen == comment.user.id)
+                                  if (loginuserinfo.id == comment.user.id)
                                     GestureDetector(
                                       onTap: () {
                                         confirmationDialog(context,
@@ -191,13 +177,10 @@ Future<dynamic> commentBottomSheet(
                                                   commentId: comment.id));
                                         });
                                       },
-                                      child: Icon(
-                                        Icons.delete_outline_rounded,
-                                        color: Theme.of(context).brightness ==
-                                                Brightness.light
-                                            ? red
-                                            : red,
-                                        size: 24,
+                                      child: const Icon(
+                                        Icons.delete_rounded,
+                                        color: red,
+                                        size: 22,
                                       ),
                                     )
                                 ],

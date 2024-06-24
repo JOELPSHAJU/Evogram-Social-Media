@@ -272,8 +272,8 @@ class _ListTileMainScreenState extends State<ListTileMainScreen> {
                                         commentBottomSheet(
                                             context, post, commentController,
                                             formkey: _formkey,
-                                            userName: usernameprofile,
-                                            profiePic: post.userId.profilePic
+                                            userName: loginuserinfo.userName,
+                                            profiePic: loginuserinfo.profilePic
                                                 .toString(),
                                             comments: _comments,
                                             id: post.id.toString());

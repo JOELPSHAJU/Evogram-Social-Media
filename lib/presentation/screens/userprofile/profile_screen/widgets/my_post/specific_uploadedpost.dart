@@ -2,12 +2,19 @@
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:evogram/application/core/constants.dart';
+import 'package:evogram/domain/models/comment_model.dart';
 import 'package:evogram/infrastructure/fetchuserpost/fetching_user_post_bloc.dart';
+import 'package:evogram/presentation/bloc/get_comments_bloc/get_comments_bloc.dart';
+import 'package:evogram/presentation/bloc/like_unlike_post_bloc/like_post_bloc.dart';
+import 'package:evogram/presentation/screens/home_screen/home_screen.dart';
+import 'package:evogram/presentation/screens/home_screen/widgets/bottomsheet.dart';
+import 'package:evogram/presentation/screens/userprofile/profile_screen/profile_screen.dart';
 import 'package:evogram/presentation/screens/userprofile/profile_screen/widgets/debouncer.dart';
 import 'package:evogram/presentation/screens/userprofile/profile_screen/widgets/my_post/widgets/popupbutton.dart';
 import 'package:evogram/presentation/screens/userprofile/profile_screen/widgets/shimmer.dart';
 import 'package:evogram/presentation/screens/widgets/text_styles.dart';
 import 'package:flutter/material.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:intl/intl.dart';
 import 'package:readmore/readmore.dart';
 import 'package:timeago/timeago.dart' as timeago;
@@ -29,6 +36,10 @@ class UserPosts extends StatefulWidget {
 }
 
 class _UserPostsState extends State<UserPosts> {
+  TextEditingController commentControllerprofile = TextEditingController();
+  final _formkeyprofile = GlobalKey<FormState>();
+  final List<Comment> _comments = [];
+
   @override
   void initState() {
     context.read<FetchingUserPostBloc>().add(FetchingUserpostInitialEvent());
@@ -101,7 +112,8 @@ class _UserPostsState extends State<UserPosts> {
                                             BorderRadius.circular(100)),
                                     child: ClipOval(
                                       child: CachedNetworkImage(
-                                        imageUrl: state.userposts[index].image
+                                        imageUrl: state
+                                            .userposts[index].userId.profilePic
                                             .toString(),
                                         fit: BoxFit.cover,
                                         placeholder: (context, url) {
@@ -162,23 +174,103 @@ class _UserPostsState extends State<UserPosts> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    IconButton(
-                                        onPressed: () {},
-                                        icon: const Icon(
-                                          Icons.favorite_outline,
-                                          size: 25,
-                                        )),
-                                    IconButton(
-                                        onPressed: () {},
-                                        icon: const Icon(
-                                          Icons.chat_bubble_outline_rounded,
-                                          size: 25,
-                                        )),
-                                  ],
-                                ),
+                                Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Row(children: [
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(left: 8.0),
+                                          child: BlocConsumer<LikePostBloc,
+                                              LikePostState>(
+                                            listener: (context, statelike) {},
+                                            builder: (context, statelike) {
+                                              return GestureDetector(
+                                                onTap: () {
+                                                  if (!state
+                                                      .userposts[index].likes
+                                                      .contains(
+                                                          logginedUserId)) {
+                                                    state.userposts[index].likes
+                                                        .add(logginedUserId);
+                                                    context
+                                                        .read<LikePostBloc>()
+                                                        .add(
+                                                          LikePostButtonClickEvent(
+                                                              postId: state
+                                                                  .userposts[
+                                                                      index]
+                                                                  .id
+                                                                  .toString()),
+                                                        );
+                                                  } else {
+                                                    state.userposts[index].likes
+                                                        .remove(logginedUserId);
+                                                    context
+                                                        .read<LikePostBloc>()
+                                                        .add(
+                                                          UnlikePostButtonClickEvent(
+                                                              postId: state
+                                                                  .userposts[
+                                                                      index]
+                                                                  .id
+                                                                  .toString()),
+                                                        );
+                                                  }
+                                                },
+                                                child: Icon(
+                                                  state.userposts[index].likes
+                                                          .contains(
+                                                              logginedUserId)
+                                                      ? Iconsax.heart5
+                                                      : Iconsax.heart4,
+                                                  color: state.userposts[index]
+                                                          .likes
+                                                          .contains(
+                                                              logginedUserId)
+                                                      ? red
+                                                      : null,
+                                                ),
+                                              );
+                                            },
+                                          ),
+                                        ),
+                                        h10,
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: GestureDetector(
+                                            onTap: () {
+                                              context
+                                                  .read<GetCommentsBloc>()
+                                                  .add(CommentsFetchEvent(
+                                                      postId: state
+                                                          .userposts[index].id
+                                                          .toString()));
+                                              commentBottomSheet(
+                                                  context,
+                                                  state.userposts[index],
+                                                  commentControllerprofile,
+                                                  formkey: _formkeyprofile,
+                                                  comments: _comments,
+                                                  profiePic: state
+                                                      .userposts[index]
+                                                      .userId
+                                                      .profilePic,
+                                                  userName: state
+                                                      .userposts[index]
+                                                      .userId
+                                                      .userName,
+                                                  id: state.userposts[index].id
+                                                      .toString());
+                                            },
+                                            child: const Icon(
+                                              Iconsax.message,
+                                            ),
+                                          ),
+                                        ),
+                                      ])
+                                    ]),
                               ],
                             ),
                           ),
@@ -215,7 +307,8 @@ class _UserPostsState extends State<UserPosts> {
                                 trimLines: 2,
                                 colorClickableText: blue,
                                 trimCollapsedText: 'more.',
-                                style: const TextStyle(fontWeight: FontWeight.w500),
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.w500),
                                 lessStyle: const TextStyle(
                                     fontSize: 14,
                                     color: grey,

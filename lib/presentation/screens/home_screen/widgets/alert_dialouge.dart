@@ -10,44 +10,50 @@ void confirmationDialog(BuildContext context,
     context: context,
     barrierDismissible: false,
     builder: (BuildContext context) {
-      return AlertDialog(
-        backgroundColor: Theme.of(context).brightness == Brightness.light
-            ? white
-            : darkgreymain,
-        title: Center(
-            child: Text(title,
+      return Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: SizedBox(
+          height: 140,
+          child: AlertDialog(
+            backgroundColor: Theme.of(context).brightness == Brightness.light
+                ? white
+                : darkgreymain,
+            title: Center(
+                child: Text(title,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                        fontWeight: FontWeight.w600, fontSize: 16))),
+            content: Text(
                 textAlign: TextAlign.center,
-                style: const TextStyle(
-                    fontWeight: FontWeight.w600, fontSize: 16))),
-        content: Text(
-            textAlign: TextAlign.center,
-            content,
-            style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w500,
-                color: Theme.of(context).brightness == Brightness.light
-                    ? grey
-                    : grey)),
-        actions: <Widget>[
-          TextButton(
-            child: Text('Cancel',
+                content,
                 style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
                     color: Theme.of(context).brightness == Brightness.light
                         ? grey
                         : grey)),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
+            actions: <Widget>[
+              TextButton(
+                child: Text('Cancel',
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                        color: Theme.of(context).brightness == Brightness.light
+                            ? grey
+                            : grey)),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              TextButton(
+                onPressed: onpressed,
+                child: const Text('Delete',
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 16, color: red)),
+              )
+            ],
           ),
-          TextButton(
-            onPressed: onpressed,
-            child: const Text('Delete',
-                style: TextStyle(
-                    fontWeight: FontWeight.bold, fontSize: 16, color: red)),
-          )
-        ],
+        ),
       );
     },
   );

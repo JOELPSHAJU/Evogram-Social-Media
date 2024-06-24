@@ -1,11 +1,14 @@
 import 'package:evogram/application/core/constants.dart';
 import 'package:evogram/firebase_options.dart';
+import 'package:evogram/presentation/bloc/add_message/add_message_bloc.dart';
 import 'package:evogram/presentation/bloc/add_post_bloc/addpost_bloc.dart';
 import 'package:evogram/presentation/bloc/all_followers_posts_bloc/all_followers_posts_bloc.dart';
 import 'package:evogram/presentation/bloc/comment_post_bloc/comment_post_bloc.dart';
+import 'package:evogram/presentation/bloc/conversation_bloc/conversation_bloc.dart';
 import 'package:evogram/presentation/bloc/delete_comment_bloc/delete_comment_bloc.dart';
 import 'package:evogram/presentation/bloc/edit_post_bloc/edit_post_bloc.dart';
 import 'package:evogram/presentation/bloc/edit_profile_bloc/edit_profile_bloc.dart';
+import 'package:evogram/presentation/bloc/fetch_all_conversations_bloc.dart/fetch_all_conversations_bloc.dart';
 import 'package:evogram/presentation/bloc/fetch_explore_post_bloc/fetch_explore_post_bloc.dart';
 import 'package:evogram/presentation/bloc/fetch_followers/fetch_followers_bloc.dart';
 import 'package:evogram/presentation/bloc/fetch_followings_bloc/fetch_followings_bloc.dart';
@@ -14,6 +17,7 @@ import 'package:evogram/presentation/bloc/fetch_suggession_user_bloc/fetch_sugge
 import 'package:evogram/presentation/bloc/follow_unfollow_user_bloc/follow_unfollow_user_bloc.dart';
 import 'package:evogram/presentation/bloc/forget_password_bloc/forgetpassword_bloc.dart';
 import 'package:evogram/presentation/bloc/get_comments_bloc/get_comments_bloc.dart';
+import 'package:evogram/presentation/bloc/get_connections_bloc/get_connections_bloc.dart';
 import 'package:evogram/presentation/bloc/like_unlike_post_bloc/like_post_bloc.dart';
 import 'package:evogram/presentation/bloc/login_bloc/login_bloc.dart';
 import 'package:evogram/presentation/bloc/login_user_bloc/login_user_bloc.dart';
@@ -109,6 +113,9 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => SavedPostBloc(),
         ),
+         BlocProvider(
+          create: (context) => FetchAllConversationsBloc(),
+        ),
         BlocProvider(
           create: (context) => FetchExplorePostBloc(),
         ),
@@ -118,6 +125,16 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => ProfileBloc(),
         ),
+         BlocProvider(
+          create: (context) => GetConnectionsBloc(),
+        ),
+         BlocProvider(
+          create: (context) => AddMessageBloc(),
+        ),
+        BlocProvider(
+          create: (context) => ConversationBloc(),
+        ),
+      
       ],
       child: MaterialApp(
         navigatorKey: NavigationService.navigatorKey,

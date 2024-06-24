@@ -112,6 +112,7 @@ class PostRepo {
         'Authorization': 'Bearer $token',
       });
       debugPrint('statuscode:${response.statusCode}');
+      debugPrint(response.body);
       return response;
     } catch (e) {
       debugPrint(e.toString());

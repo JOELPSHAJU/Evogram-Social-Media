@@ -44,7 +44,7 @@ String followUser = '/users/follow';
 String unfollowUser = '/users/unfollow';
 String suggessions = '/users/fetch-users';
 String getSingleUser = '/users/get-single-user';
-String getConnections = '/users/get-count';
+String getConnectionsurl = '/users/get-count';
 String searchAllUsersurl = '/users/searchallusers?searchQuery=';
 //chats
 //chat urls

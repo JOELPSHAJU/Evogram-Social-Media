@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 
 import 'package:evogram/domain/models/post_models.dart';
@@ -16,6 +15,7 @@ class FetchingUserPostBloc
     on<FetchingUserpostInitialEvent>(
       (event, emit) async {
         final Response response = await PostRepo.fetchPost();
+        
         List<Postmodel> posts = [];
 
         if (response.statusCode == 200) {
@@ -38,14 +38,12 @@ class FetchingUserPostBloc
       var response = await PostRepo.deletePost(event.postId);
       if (response != null && response.statusCode == 200) {
         add(FetchingUserpostInitialEvent());
-       
+
         return emit(DeleteSucessState());
       } else if (response != null) {
-     
         var responseBody = jsonDecode(response.body);
         return emit(DeleteErrorState(error: responseBody["message"]));
       } else {
-        
         return emit(DeleteErrorState(error: 'Something went wrong'));
       }
     });

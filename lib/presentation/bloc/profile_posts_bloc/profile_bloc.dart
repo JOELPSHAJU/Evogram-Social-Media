@@ -21,7 +21,8 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       ProfileInitialPostFetchEvent event, Emitter<ProfileState> emit) async {
     emit(ProfilePostFetchLoadingState());
     debugPrint('event user id is -${event.userId}');
-    final Response result = await UserRepo.fetchUserPosts(userId: event.userId);
+    final Response result =
+        await UserRepo.fetchUserPostsExplore(userId: event.userId);
     final responseBody = jsonDecode(result.body);
     final List<Post> posts = parsePosts(result.body);
     debugPrint('user posts:-$responseBody');
