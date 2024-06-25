@@ -17,7 +17,7 @@ class OwnMessageCard extends StatelessWidget {
         child: Card(
           elevation: 1,
           margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-          color: green50,
+          color: blueaccent3,
           child: Stack(
             children: [
               Padding(

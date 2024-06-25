@@ -20,45 +20,46 @@ class FollowersModel {
 }
 
 class Follower {
+  String backGroundImage;
   String id;
   String userName;
   String email;
-  String? password;
+  String password;
   String profilePic;
-  String phone;
+  String? phone;
   bool online;
   bool blocked;
   bool verified;
+  String role;
+  bool isPrivate;
   DateTime createdAt;
   DateTime updatedAt;
   int v;
-  String role;
   String? bio;
   String? name;
-  bool isPrivate;
-  String backGroundImage;
 
   Follower({
+    required this.backGroundImage,
     required this.id,
     required this.userName,
     required this.email,
-    this.password,
+    required this.password,
     required this.profilePic,
     required this.phone,
     required this.online,
     required this.blocked,
     required this.verified,
+    required this.role,
+    required this.isPrivate,
     required this.createdAt,
     required this.updatedAt,
     required this.v,
-    required this.role,
     this.bio,
     this.name,
-    required this.isPrivate,
-    required this.backGroundImage,
   });
 
   factory Follower.fromJson(Map<String, dynamic> json) => Follower(
+        backGroundImage: json["backGroundImage"],
         id: json["_id"],
         userName: json["userName"],
         email: json["email"],
@@ -68,17 +69,17 @@ class Follower {
         online: json["online"],
         blocked: json["blocked"],
         verified: json["verified"],
+        role: json["role"],
+        isPrivate: json["isPrivate"],
         createdAt: DateTime.parse(json["createdAt"]),
         updatedAt: DateTime.parse(json["updatedAt"]),
         v: json["__v"],
-        role: json["role"],
         bio: json["bio"],
         name: json["name"],
-        isPrivate: json["isPrivate"],
-        backGroundImage: json["backGroundImage"],
       );
 
   Map<String, dynamic> toJson() => {
+        "backGroundImage": backGroundImage,
         "_id": id,
         "userName": userName,
         "email": email,
@@ -88,13 +89,12 @@ class Follower {
         "online": online,
         "blocked": blocked,
         "verified": verified,
+        "role": role,
+        "isPrivate": isPrivate,
         "createdAt": createdAt.toIso8601String(),
         "updatedAt": updatedAt.toIso8601String(),
         "__v": v,
-        "role": role,
         "bio": bio,
         "name": name,
-        "isPrivate": isPrivate,
-        "backGroundImage": backGroundImage,
       };
 }

@@ -33,13 +33,14 @@ Shimmer followersLoading(context) {
                     height: 20,
                     width: 150,
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5), color: white),
+                        borderRadius: BorderRadius.circular(8), color: white),
                   ),
                   const Spacer(),
                   Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8), color: white),
                     height: 28,
                     width: 70,
-                    color: white,
                   )
                 ],
               ),

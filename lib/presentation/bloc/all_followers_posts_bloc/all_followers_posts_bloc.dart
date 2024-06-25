@@ -23,43 +23,62 @@ class AllFollowersPostsBloc
     });
     on<AllFollowersPostsEvent>((event, emit) {});
     on<AllFollowersPostsInitialFetchEvent>(allFollowersPostsInitialFetchEvent);
-    on<LoadMoreEvent>(loadMoreEvent);
+    on<LoadMoreFollowersPostsEvent>(
+        (event, emit) => loadMoreEvent(event, emit));
   }
 
   FutureOr<void> allFollowersPostsInitialFetchEvent(
       AllFollowersPostsInitialFetchEvent event,
       Emitter<AllFollowersPostsState> emit) async {
     emit(const AllFollowersPostsLoadingState(null));
-    page = 1;
+  
     final Response result = await MainPostRepo.getFollowersPost(page: page);
+    List<FollwersPostModel> followersposts = [];
     final responseBody = jsonDecode(result.body);
-    print(responseBody);
+
     final List data = responseBody;
     debugPrint(result.statusCode.toString());
     debugPrint('get follwers post-${result.body}');
     if (result.statusCode == 200) {
-      List<FollwersPostModel> posts =
-          data.map((e) => FollwersPostModel.fromJson(e)).toList();
+      for (int i = 0; i < data.length; i++) {
+        FollwersPostModel followerspost =
+            FollwersPostModel.fromJson(data[i] as Map<String, dynamic>);
+        followersposts.add(followerspost);
+      }
 
-      return emit(AllFollowersPostsSuccesfulState(posts: posts));
+      return emit(AllFollowersPostsSuccesfulState(posts: followersposts));
     } else if (responseBody['status'] == 500) {
       return emit(const AllFollowersPostsServerErrorState(null));
     }
   }
 
   FutureOr<void> loadMoreEvent(
-      LoadMoreEvent event, Emitter<AllFollowersPostsState> emit) async {
-    if (scrollController.position.pixels ==
-        scrollController.position.maxScrollExtent) {
-      isLoadingMore = true;
-      page++;
-      final Response result = await MainPostRepo.getFollowersPost(page: page);
-      final responseBody = jsonDecode(result.body);
-      final List data = responseBody;
-      List<FollwersPostModel> posts =
-          data.map((e) => FollwersPostModel.fromJson(e)).toList();
-      emit(AllFollowersPostsSuccesfulState(posts: [...state.posts, ...posts]));
-      isLoadingMore = false;
+    LoadMoreFollowersPostsEvent event,
+    Emitter<AllFollowersPostsState> emit,
+  ) async {
+    if (state is AllFollowersPostsSuccesfulState) {
+      final currentState = state as AllFollowersPostsSuccesfulState;
+      final int currentPage = currentState.posts.length ~/ 5 + 1;
+
+      final Response response =
+          await MainPostRepo.fetchfollowespost(n: currentPage);
+
+      if (response.statusCode == 200) {
+        final List<dynamic> responseData = jsonDecode(response.body);
+        List<FollwersPostModel> newPosts = [];
+
+        for (int i = 0; i < responseData.length; i++) {
+          FollwersPostModel followersPost = FollwersPostModel.fromJson(
+              responseData[i] as Map<String, dynamic>);
+          newPosts.add(followersPost);
+        }
+
+        List<FollwersPostModel> updatedPosts = List.of(currentState.posts)
+          ..addAll(newPosts);
+        emit(AllFollowersPostsSuccesfulState(posts: updatedPosts));
+      } else {
+        emit(AllFollowersPostsServerErrorState(null));
+      }
     }
   }
 }

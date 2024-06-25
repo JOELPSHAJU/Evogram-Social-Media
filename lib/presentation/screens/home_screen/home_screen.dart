@@ -3,9 +3,13 @@
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:evogram/application/core/functions.dart';
 import 'package:evogram/application/core/sharedpreferences.dart';
+import 'package:evogram/application/socket/socket.dart';
 import 'package:evogram/presentation/bloc/all_followers_posts_bloc/all_followers_posts_bloc.dart';
 import 'package:evogram/presentation/bloc/profile_details_bloc/profile_details_bloc.dart';
 import 'package:evogram/presentation/screens/home_screen/widgets/home_page_loading.dart';
+import 'package:evogram/presentation/screens/userprofile/profile_screen/widgets/debouncer.dart';
+import 'package:evogram/presentation/screens/widgets/custom_navigators.dart';
+import 'package:evogram/presentation/screens/widgets/custom_profile_button.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -27,24 +31,40 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  int currentPage = 1;
+ 
   @override
   void initState() {
     context
         .read<AllFollowersPostsBloc>()
-        .add(AllFollowersPostsInitialFetchEvent());
+        .add(AllFollowersPostsInitialFetchEvent(n: currentPage));
     context.read<ProfileDetailsBloc>().add(ProfileInitialDetailsFetchEvent());
     getToken();
+    SocketService().connectSocket(context: context);
     super.initState();
   }
 
   Future<void> refresh() async {
     await Future.delayed(const Duration(seconds: 2));
-    context.read<AllFollowersPostsBloc>().add(LoadMoreEvent());
+    context.read<AllFollowersPostsBloc>().add(LoadMoreFollowersPostsEvent());
   }
 
   getToken() async {
     logginedUserToken = (await getUsertoken())!;
     logginedUserId = (await getUserId())!;
+  }
+  void _loadMore(context) {
+    context.read<AllFollowersPostsBloc>().add(LoadMoreFollowersPostsEvent());
+  }
+  final Debouncer debouncer = Debouncer(milliseconds: 500);
+
+  Future<void> fetchDataWithDebounce() async {
+    await debouncer.run(() async {
+      context
+          .read<AllFollowersPostsBloc>()
+          .add(AllFollowersPostsInitialFetchEvent(n: currentPage));
+      context.read<ProfileDetailsBloc>().add(ProfileInitialDetailsFetchEvent());
+    });
   }
 
   @override
@@ -73,38 +93,14 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: [
           GestureDetector(
               onTap: () {
-                
-                Navigator.of(context).push(PageRouteBuilder(
-                  pageBuilder: (context, animation, secondaryAnimation) =>
-                      const SuggessionScreen(),
-                  transitionsBuilder:
-                      (context, animation, secondaryAnimation, child) {
-                    const begin = Offset(0.0, 1.0);
-                    const end = Offset.zero;
-                    const curve = Curves.ease;
-
-                    var tween = Tween(begin: begin, end: end)
-                        .chain(CurveTween(curve: curve));
-
-                    var offsetAnimation = animation.drive(tween);
-
-                    return SlideTransition(
-                      position: offsetAnimation,
-                      child: child,
-                    );
-                  },
-                ));
+                navigatePushAnimaterighttoleft(context, SuggessionScreen());
               },
               child: Padding(
-                padding: EdgeInsets.only(right: 8.0),
-                child: Icon(
-                  Iconsax.user_add,
-                  color: Theme.of(context).brightness == Brightness.light
-                      ? black
-                      : white,
-                  size: 30,
-                ),
-              ))
+                  padding: const EdgeInsets.only(right: 8.0),
+                  child: Image.asset(
+                    addperson,
+                    width: 35,
+                  )))
         ],
       ),
       body: CustomMaterialIndicator(
@@ -114,23 +110,55 @@ class _HomeScreenState extends State<HomeScreen> {
             size: 30,
           );
         },
-        onRefresh: refresh,
+        onRefresh: fetchDataWithDebounce,
         child: BlocConsumer<AllFollowersPostsBloc, AllFollowersPostsState>(
           listener: (context, state) {},
           builder: (context, state) {
             if (state is AllFollowersPostsSuccesfulState) {
               var posts = state.posts;
               return posts.isEmpty
-                  ? const Center(
+                  ? Container(
+                      color: Theme.of(context).brightness == Brightness.light
+                          ? Colors.grey.shade300
+                          : black,
+                      width: size.width,
+                      height: size.height,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(
-                            'No posts',
-                            style: TextStyle(
-                                fontSize: 14, fontWeight: FontWeight.w600),
+                          Image.asset(
+                            'assets/no data found.jpg',
+                            width: size.width * .5,
                           ),
                           h10,
+                          const Text(
+                            'Looks a little quiet around here!',
+                            style: TextStyle(
+                                fontSize: 17, fontWeight: FontWeight.bold),
+                          ),
+                          h10,
+                          const Text(
+                            textAlign: TextAlign.center,
+                            'Follow some awesome people to see their posts.',
+                            style: TextStyle(
+                                fontSize: 14, fontWeight: FontWeight.w500),
+                          ),
+                          h20,
+                          SizedBox(
+                            width: size.width * .55,
+                            child: GestureDetector(
+                              onTap: () {
+                                navigatePushAnimaterighttoleft(
+                                    context, const SuggessionScreen());
+                              },
+                              child: CustomProfileButton(
+                                  size: size,
+                                  text: 'See some suggession?',
+                                  width: size.width * .5),
+                            ),
+                          ),
+                          h40,
+                          h10
                         ],
                       ),
                     )
@@ -144,7 +172,7 @@ class _HomeScreenState extends State<HomeScreen> {
             } else if (state is AllFollowersPostsLoadingState) {
               return homepageloading(context);
             } else {
-              return const Text('');
+              return Text('');
             }
           },
         ),

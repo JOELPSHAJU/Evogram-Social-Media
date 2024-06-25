@@ -8,7 +8,6 @@ import 'package:evogram/presentation/bloc/get_comments_bloc/get_comments_bloc.da
 import 'package:evogram/presentation/bloc/like_unlike_post_bloc/like_post_bloc.dart';
 import 'package:evogram/presentation/screens/home_screen/home_screen.dart';
 import 'package:evogram/presentation/screens/home_screen/widgets/bottomsheet.dart';
-import 'package:evogram/presentation/screens/userprofile/profile_screen/profile_screen.dart';
 import 'package:evogram/presentation/screens/userprofile/profile_screen/widgets/debouncer.dart';
 import 'package:evogram/presentation/screens/userprofile/profile_screen/widgets/my_post/widgets/popupbutton.dart';
 import 'package:evogram/presentation/screens/userprofile/profile_screen/widgets/shimmer.dart';
@@ -319,6 +318,7 @@ class _UserPostsState extends State<UserPosts> {
                                     color: grey,
                                     fontWeight: FontWeight.bold),
                               )),
+                          h10,
                           Padding(
                             padding: const EdgeInsets.only(left: 8.0),
                             child: Text(

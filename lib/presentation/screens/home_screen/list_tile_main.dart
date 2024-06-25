@@ -43,30 +43,32 @@ class ListTileMainScreen extends StatefulWidget {
 UserPostModel? logginedUserdetails;
 
 class _ListTileMainScreenState extends State<ListTileMainScreen> {
+  void _loadMore() {
+    context.read<AllFollowersPostsBloc>().add(LoadMoreFollowersPostsEvent());
+  }
+
   TextEditingController commentController = TextEditingController();
   final _formkey = GlobalKey<FormState>();
   final List<Comment> _comments = [];
   List<SavedPostModel> posts = [];
+
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     return Expanded(
       child: ListView.builder(
           shrinkWrap: false,
-          itemCount: context.read<AllFollowersPostsBloc>().isLoadingMore
-              ? widget.posts.length + 1
-              : widget.posts.length,
+          itemCount: widget.posts.length + 1,
           controller: context.read<AllFollowersPostsBloc>().scrollController,
           itemBuilder: (BuildContext context, int index) {
             if (index == widget.posts.length) {
-              return context.read<AllFollowersPostsBloc>().isLoadingMore
-                  ? Center(
-                      child: LoadingAnimationWidget.staggeredDotsWave(
-                        color: Colors.black,
-                        size: 200,
-                      ),
-                    )
-                  : Container();
+              return Visibility(
+                visible: widget.posts.length % 5 == 0,
+                child: TextButton(
+                  onPressed: _loadMore,
+                  child: const Text('Load More'),
+                ),
+              );
             } else {
               final FollwersPostModel post = widget.posts[index];
               String formatDate(String dateStr) {
@@ -331,6 +333,10 @@ class _ListTileMainScreenState extends State<ListTileMainScreen> {
                                             element.postId.id == post.id)
                                         ? Icons.bookmark
                                         : Icons.bookmark_border,
+                                    color: posts.any((element) =>
+                                            element.postId.id == post.id)
+                                        ? buttonclr
+                                        : grey,
                                     size: 25,
                                   ))
                             ],

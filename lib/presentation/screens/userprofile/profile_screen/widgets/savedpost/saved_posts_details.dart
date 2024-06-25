@@ -89,9 +89,6 @@ class _SavedPostsDetailsScreenState extends State<SavedPostsDetailsScreen> {
                       initialScrollOffset: widget.initialindex * 550),
                   itemCount: statesaved.posts.length,
                   itemBuilder: (BuildContext context, int index) {
-                    context.read<GetCommentsBloc>().add(CommentsFetchEvent(
-                        postId: statesaved.posts[index].postId.id));
-
                     String formatDate(String dateStr) {
                       DateTime dateTime = DateTime.parse(dateStr);
                       DateFormat formatter = DateFormat('d MMMM yyyy');
@@ -148,7 +145,7 @@ class _SavedPostsDetailsScreenState extends State<SavedPostsDetailsScreen> {
                                                   .postId.userId.email
                                                   .toString(),
                                               profilePic: statesaved
-                                                  .posts[index]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+                                                  .posts[index]
                                                   .postId
                                                   .userId
                                                   .profilePic
@@ -268,6 +265,10 @@ class _SavedPostsDetailsScreenState extends State<SavedPostsDetailsScreen> {
                                       h10,
                                       GestureDetector(
                                         onTap: () {
+                                          context.read<GetCommentsBloc>().add(
+                                              CommentsFetchEvent(
+                                                  postId: statesaved
+                                                      .posts[index].postId.id));
                                           commentBottomSheet(
                                               context,
                                               statesaved.posts[index].postId,
@@ -340,6 +341,14 @@ class _SavedPostsDetailsScreenState extends State<SavedPostsDetailsScreen> {
                                                               .id)
                                                       ? Icons.bookmark
                                                       : Icons.bookmark_border,
+                                                  color: posts!.any((element) =>
+                                                          element.postId.id ==
+                                                          statesaved
+                                                              .posts[index]
+                                                              .postId
+                                                              .id)
+                                                      ? buttonclr
+                                                      : grey,
                                                 ),
                                               ),
                                             )

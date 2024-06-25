@@ -47,6 +47,7 @@ class EditProfileScreen extends StatelessWidget {
         if (state is EditProfileSuccessState) {
           customSnackbar(context, 'Post added successfully', green50);
           context.read<LoginUserBloc>().add(LoginUserInitialFetchingEvent());
+          FocusScope.of(context).unfocus;
           Navigator.of(context).pop();
         } else if (state is EditProfileErrorState) {
           customSnackbar(context, 'something went wrong', red);
@@ -61,6 +62,7 @@ class EditProfileScreen extends StatelessWidget {
             leading: IconButton(
                 onPressed: () {
                   Navigator.of(context).pop();
+                  FocusScope.of(context).unfocus;
                 },
                 icon: Icon(Icons.arrow_back)),
             backgroundColor: Theme.of(context).brightness == Brightness.light

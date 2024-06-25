@@ -6,7 +6,7 @@ class GetUserModel {
   String? bio;
   bool isPrivate;
   String profilePic;
-  String phone;
+  String? phone;
   bool online;
   bool access;
   // bool following;

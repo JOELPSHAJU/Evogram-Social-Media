@@ -1,3 +1,4 @@
+import 'package:evogram/application/core/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -15,6 +16,9 @@ class ReplayCard extends StatelessWidget {
             BoxConstraints(maxWidth: MediaQuery.of(context).size.width - 45),
         child: Card(
           elevation: 1,
+          color: Theme.of(context).brightness == Brightness.light
+              ? white
+              : Color.fromARGB(255, 48, 47, 47),
           margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
           // color: kBlue,
           child: Stack(

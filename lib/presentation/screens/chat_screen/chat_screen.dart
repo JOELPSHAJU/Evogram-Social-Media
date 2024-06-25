@@ -15,13 +15,15 @@ class ChatScreen extends StatefulWidget {
   final String conversationId;
   final String recieverid;
   final String name;
+  final String username;
   final String profilepic;
   ChatScreen(
       {super.key,
       required this.conversationId,
       required this.recieverid,
       required this.name,
-      required this.profilepic});
+      required this.profilepic,
+      required this.username});
 
   @override
   State<ChatScreen> createState() => _ChatScreenState();
@@ -47,6 +49,13 @@ class _ChatScreenState extends State<ChatScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
+        toolbarHeight: 70,
+        backgroundColor: Theme.of(context).brightness == Brightness.light
+            ? white
+            : darkgreymain,
+        surfaceTintColor: Theme.of(context).brightness == Brightness.light
+            ? white
+            : darkgreymain,
         leading: IconButton(
             onPressed: () {
               Navigator.of(context).pop();
@@ -54,10 +63,12 @@ class _ChatScreenState extends State<ChatScreen> {
             icon: const Icon(
               Icons.arrow_back,
             )),
-        automaticallyImplyLeading: false,
-        shape: const Border(
+        shape: Border(
             bottom: BorderSide(
-                color: Color.fromARGB(255, 211, 210, 210), width: 1.5)),
+                color: Theme.of(context).brightness == Brightness.light
+                    ? Color.fromARGB(255, 211, 210, 210)
+                    : black,
+                width: 1.5)),
         title: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
@@ -71,17 +82,18 @@ class _ChatScreenState extends State<ChatScreen> {
                       fit: BoxFit.cover)),
             ),
             Padding(
-              padding: EdgeInsets.only(left: 10.0),
+              padding: const EdgeInsets.only(left: 10.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Text(
-                    widget.name,
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                    widget.username,
+                    style: const TextStyle(
+                        fontSize: 14, fontWeight: FontWeight.bold),
                   ),
-                  Text('vin_diesel',
-                      style: TextStyle(
+                  Text(widget.name.isEmpty ? 'Guest User' : widget.name,
+                      style: const TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.bold,
                           color: grey))
@@ -98,6 +110,17 @@ class _ChatScreenState extends State<ChatScreen> {
             constraints: const BoxConstraints(maxWidth: 500),
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage(
+                      Theme.of(context).brightness == Brightness.light
+                          ? chatbg
+                          : chatbgdark,
+                    ),
+                    fit: BoxFit.cover,
+                    opacity: Theme.of(context).brightness == Brightness.light
+                        ? .9
+                        : .4)),
             child: Column(
               children: [
                 Expanded(
@@ -156,6 +179,7 @@ class _ChatScreenState extends State<ChatScreen> {
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(25)),
                           child: TextFormField(
+                            style: TextStyle(fontWeight: FontWeight.w600),
                             controller: _messageController,
                             keyboardType: TextInputType.multiline,
                             maxLines: 5,
@@ -202,7 +226,7 @@ class _ChatScreenState extends State<ChatScreen> {
                       child: const Padding(
                         padding: EdgeInsets.only(bottom: 8, right: 2),
                         child: CircleAvatar(
-                          backgroundColor: Colors.blue,
+                          backgroundColor: buttonclr,
                           radius: 25,
                           child: Icon(
                             Icons.send,

@@ -2,12 +2,16 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:evogram/application/core/constants.dart';
 import 'package:evogram/domain/models/followings_model.dart';
 import 'package:evogram/domain/models/searchusermodel.dart';
+import 'package:evogram/presentation/bloc/conversation_bloc/conversation_bloc.dart';
+import 'package:evogram/presentation/bloc/fetch_all_conversations_bloc.dart/fetch_all_conversations_bloc.dart';
 import 'package:evogram/presentation/bloc/fetch_followings_bloc/fetch_followings_bloc.dart';
 import 'package:evogram/presentation/bloc/follow_unfollow_user_bloc/follow_unfollow_user_bloc.dart';
 import 'package:evogram/presentation/bloc/get_connections_bloc/get_connections_bloc.dart';
 import 'package:evogram/presentation/bloc/profile_posts_bloc/profile_bloc.dart';
+import 'package:evogram/presentation/screens/chat_screen/chat_screen.dart';
 import 'package:evogram/presentation/screens/discover_screen/post_details/post_details.dart';
 import 'package:evogram/presentation/screens/discover_screen/widgets/post_details/userprofile/posts_loading.dart';
+import 'package:evogram/presentation/screens/userprofile/profile_screen/profile_screen.dart';
 import 'package:evogram/presentation/screens/userprofile/profile_screen/widgets/my_post/specific_uploadedpost.dart';
 import 'package:evogram/presentation/screens/userprofile/profile_screen/widgets/profile_styles.dart';
 import 'package:evogram/presentation/screens/widgets/custom_navigators.dart';
@@ -286,13 +290,37 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                           ));
                     },
                   ),
-                  GestureDetector(
-                    onTap: () {},
-                    child: CustomProfileButton(
-                      size: size,
-                      text: 'Message',
-                      width: .4,
-                    ),
+                  BlocConsumer<ConversationBloc, ConversationState>(
+                    listener: (context, state) {
+                      if (state is ConversationSuccesfulState) {
+                        context
+                            .read<FetchAllConversationsBloc>()
+                            .add(AllConversationsInitialFetchEvent());
+                        navigatePushAnimaterbottomtotop(
+                            context,
+                            ChatScreen(
+                              username: widget.user.userName,
+                              recieverid: widget.userId,
+                              name: widget.user.name.toString(),
+                              profilepic: widget.user.profilePic,
+                              conversationId: state.conversationId,
+                            ));
+                      }
+                    },
+                    builder: (context, state) {
+                      return GestureDetector(
+                        onTap: () {
+                          context.read<ConversationBloc>().add(
+                              CreateConversationButtonClickEvent(
+                                  members: [loginuserinfo.id, widget.user.id]));
+                        },
+                        child: CustomProfileButton(
+                          size: size,
+                          text: 'Message',
+                          width: .4,
+                        ),
+                      );
+                    },
                   ),
                 ],
               ),

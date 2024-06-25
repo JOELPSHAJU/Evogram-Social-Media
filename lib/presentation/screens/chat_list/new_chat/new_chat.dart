@@ -32,7 +32,16 @@ class _NewChatScreenState extends State<NewChatScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: white,
+        shape: Border(
+            bottom: BorderSide(
+                color: Theme.of(context).brightness == Brightness.light
+                    ? Color.fromARGB(255, 211, 210, 210)
+                    : black,
+                width: 1.5)),
+        backgroundColor:
+            Theme.of(context).brightness == Brightness.light ? white : black,
+        surfaceTintColor:
+            Theme.of(context).brightness == Brightness.light ? white : black,
         leading: IconButton(
             onPressed: () {
               Navigator.pop(context);
@@ -62,31 +71,34 @@ class _NewChatScreenState extends State<NewChatScreen> {
                           child: Container(
                             constraints: const BoxConstraints(maxWidth: 500),
                             child: GestureDetector(
-                              onTap: () {
-                                context.read<ConversationBloc>().add(
-                                        CreateConversationButtonClickEvent(
-                                            members: [
-                                          loginuserinfo.id,
-                                          following.id.toString()
-                                        ]));
-                                if (state[1] is ConversationSuccesfulState) {
-                                  context
-                                      .read<FetchAllConversationsBloc>()
-                                      .add(AllConversationsInitialFetchEvent());
-                                  navigatePushAnimaterighttoleft(
-                                      context,
-                                      ChatScreen(
-                                        recieverid: following.id.toString(),
-                                        name: following.userName.toString(),
-                                        profilepic:
-                                            following.profilePic.toString(),
-                                        conversationId: state[1].conversationId,
-                                      ));
-                                }
-                              },
-                              child: Row(
-                                children: [
-                                  CircleAvatar(
+                                onTap: () {
+                                  context.read<ConversationBloc>().add(
+                                          CreateConversationButtonClickEvent(
+                                              members: [
+                                            loginuserinfo.id,
+                                            following.id.toString()
+                                          ]));
+                                  if (state[1] is ConversationSuccesfulState) {
+                                    context
+                                        .read<FetchAllConversationsBloc>()
+                                        .add(
+                                            AllConversationsInitialFetchEvent());
+                                    navigatePushAnimaterighttoleft(
+                                        context,
+                                        ChatScreen(
+                                          username:
+                                              following.userName.toString(),
+                                          recieverid: following.id.toString(),
+                                          name: following.userName.toString(),
+                                          profilepic:
+                                              following.profilePic.toString(),
+                                          conversationId:
+                                              state[1].conversationId,
+                                        ));
+                                  }
+                                },
+                                child: ListTile(
+                                  leading: CircleAvatar(
                                     backgroundColor: white,
                                     radius: 28,
                                     child: CircleAvatar(
@@ -95,16 +107,21 @@ class _NewChatScreenState extends State<NewChatScreen> {
                                       radius: 26,
                                     ),
                                   ),
-                                  w10,
-                                  Text(
+                                  title: Text(
                                     following.userName.toString(),
                                     style: const TextStyle(
-                                        fontWeight: FontWeight.w500,
+                                        fontWeight: FontWeight.bold,
                                         fontSize: 16),
                                   ),
-                                ],
-                              ),
-                            ),
+                                  subtitle: Text(
+                                    following.name == null
+                                        ? 'Guest User'
+                                        : following.name.toString(),
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 15),
+                                  ),
+                                )),
                           ),
                         ),
                       );

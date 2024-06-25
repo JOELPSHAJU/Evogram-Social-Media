@@ -277,7 +277,7 @@ class PostView extends StatelessWidget {
                                       TextSpan(
                                         text: likes.length > 1
                                             ? ' likes'
-                                            : 'like',
+                                            : ' like',
                                         style: GoogleFonts.inter(
                                             fontSize: 14,
                                             fontWeight: FontWeight.w500,
@@ -290,11 +290,32 @@ class PostView extends StatelessWidget {
                                     ]),
                               ),
                             )
-                          : const Text(
-                              '0 Likes',
-                              style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.w500,
+                          : Padding(
+                              padding: const EdgeInsets.only(left: 8.0),
+                              child: RichText(
+                                text: TextSpan(
+                                    text: '0 ',
+                                    style: GoogleFonts.inter(
+                                      fontSize: 14,
+                                      color: Theme.of(context).brightness ==
+                                              Brightness.light
+                                          ? black
+                                          : white,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    children: <TextSpan>[
+                                      TextSpan(
+                                        text: 'likes',
+                                        style: GoogleFonts.inter(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w500,
+                                            color:
+                                                Theme.of(context).brightness ==
+                                                        Brightness.light
+                                                    ? black
+                                                    : white),
+                                      ),
+                                    ]),
                               ),
                             ),
                       Padding(
@@ -304,13 +325,13 @@ class PostView extends StatelessWidget {
                             trimMode: TrimMode.Line,
                             trimLines: 2,
                             colorClickableText: blue,
-                            trimCollapsedText: 'more.',
+                            trimCollapsedText: ' more.',
                             style: const TextStyle(fontWeight: FontWeight.w500),
                             lessStyle: const TextStyle(
                                 fontSize: 14,
                                 color: grey,
                                 fontWeight: FontWeight.bold),
-                            trimExpandedText: 'show less',
+                            trimExpandedText: ' show less',
                             moreStyle: const TextStyle(
                                 fontSize: 14,
                                 color: grey,

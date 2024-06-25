@@ -12,6 +12,25 @@ import 'package:photo_manager/photo_manager.dart';
 
 class MainPostRepo {
   static var client = http.Client();
+  //fetch followers post
+  static Future fetchfollowespost({required int n}) async {
+    var client = http.Client();
+    final token = await getUserToken();
+    try {
+      var respose = await client.get(
+          Uri.parse('$baseurl$followersposturl?page=$n&pageSize=10'),
+          headers: {
+            'content_Type': 'application/json',
+            'Authorization': 'Bearer $token'
+          });
+      debugPrint('statuscode:${respose.statusCode}');
+      return respose;
+    } catch (e) {
+      debugPrint(e.toString());
+      log(e.toString());
+      return 'failed';
+    }
+  }
 
   //Add post
   static Future<String> addPost(String description, AssetEntity image) async {

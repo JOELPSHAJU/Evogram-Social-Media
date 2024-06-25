@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 class TextFormFieldChatPage extends StatelessWidget {
   final TextEditingController controller;
   final String hintText;
+  final onchanged;
   final TextInputType keyboard;
   final String? Function(String?)? validator;
   const TextFormFieldChatPage(
@@ -11,7 +12,7 @@ class TextFormFieldChatPage extends StatelessWidget {
       required this.controller,
       required this.hintText,
       required this.keyboard,
-      this.validator});
+      this.validator, this.onchanged});
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +21,7 @@ class TextFormFieldChatPage extends StatelessWidget {
       cursorWidth: 2,
       controller: controller,
       keyboardType: keyboard,
+      onChanged: onchanged,
       cursorColor:
           Theme.of(context).brightness == Brightness.light ? black : white,
       style: const TextStyle(fontWeight: FontWeight.w600),

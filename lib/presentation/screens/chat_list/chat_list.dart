@@ -6,6 +6,7 @@ import 'package:evogram/presentation/bloc/fetch_all_conversations_bloc.dart/fetc
 import 'package:evogram/presentation/screens/chat_list/custom_card.dart';
 import 'package:evogram/presentation/screens/chat_list/message_screen_loading.dart';
 import 'package:evogram/presentation/screens/widgets/custom_navigators.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:multi_bloc_builder/builders/multi_bloc_builder.dart';
@@ -30,7 +31,7 @@ class _FindChatPersonScreenState extends State<FindChatPersonScreen> {
       'https://yt3.googleusercontent.com/0P0WUIUvlJ2KfaoTeDy5Xm-14u7m-7NJLy_2wa1pjBoxjHFuMqt7tMWWuZ93lETK-CYKTt4O=s900-c-k-c0x00ffffff-no-rj';
 
   final searchPersonController = TextEditingController();
-List<ConversationModel> conversations = [];
+  List<ConversationModel> conversations = [];
   List<GetUserModel> users = [];
   List<GetUserModel> filteredUsers = [];
   String? onchanged;
@@ -51,6 +52,7 @@ List<ConversationModel> conversations = [];
         .read<FetchAllConversationsBloc>()
         .add(AllConversationsInitialFetchEvent());
   }
+
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
@@ -64,17 +66,27 @@ List<ConversationModel> conversations = [];
             padding: const EdgeInsets.only(left: 15.0, right: 15),
             child: Column(
               children: [
-                TextFormFieldChatPage(
-                    controller: searchPersonController,
-                    hintText: 'Search..',
-                    keyboard: TextInputType.name),
+                SearchBar(
+                  textStyle: const WidgetStatePropertyAll(TextStyle(
+                      fontWeight: FontWeight.bold,
+                      decoration: TextDecoration.none)),
+                  shadowColor: const WidgetStatePropertyAll(grey80),
+                  backgroundColor: WidgetStatePropertyAll(Colors.grey.shade300),
+                  leading: const Icon(Icons.search),
+                  onChanged: (value) {
+                    onchanged = value;
+                    setState(() {});
+                  },
+                  controller: searchController,
+                  hintText: 'Search...',
+                ),
                 h10
               ],
             ),
           ),
         ),
       ),
-      body:  CustomMaterialIndicator(
+      body: CustomMaterialIndicator(
         indicatorBuilder: (context, controller) {
           return LoadingAnimationWidget.inkDrop(
             color: black,
@@ -118,6 +130,7 @@ List<ConversationModel> conversations = [];
                                 navigatePushAnimaterbottomtotop(
                                     context,
                                     ChatScreen(
+                                      username: user.userName,
                                       recieverid: user.id,
                                       name: user.userName,
                                       profilepic: user.profilePic,
@@ -152,7 +165,7 @@ List<ConversationModel> conversations = [];
                 const begin = Offset(
                   1.0,
                   0.0,
-                ); // Changed from 1.0 to -1.0 for left to right slide
+                );
                 const end = Offset.zero;
                 const curve = Curves.ease;
 
