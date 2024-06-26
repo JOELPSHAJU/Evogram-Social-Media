@@ -38,11 +38,9 @@ class SocketService {
           v: 0,
         );
 
-        if (ctx != null) {
-          ctx
-              .read<ConversationBloc>()
-              .add(AddNewMessageEvent(message: message));
-        }
+        context
+            .read<ConversationBloc>()
+            .add(AddNewMessageEvent(message: message));
       });
     }
 

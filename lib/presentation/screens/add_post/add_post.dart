@@ -39,12 +39,12 @@ class AddPostScreen extends StatelessWidget {
               .read<FetchingUserPostBloc>()
               .add(FetchingUserpostInitialEvent());
           currentPage.value = 4;
-          customSnackbar(context, 'Post added successfully', green50);
+          successSnakbar(context, 'Post added successfully', green50);
           pickImage.value = '';
 
           description.clear();
         } else if (state is AddPostErrorState) {
-          customSnackbar(context, state.error, redlogout);
+          failedSnakbar(context, state.error, redlogout);
         }
       },
       builder: (context, state) {
@@ -103,7 +103,7 @@ class AddPostScreen extends StatelessWidget {
                                     ),
                                   );
                             } else {
-                              customSnackbar(context,
+                              warningSnakbar(context,
                                   'Select an image and Add Description', red);
                             }
                           }

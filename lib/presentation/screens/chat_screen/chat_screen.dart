@@ -17,7 +17,7 @@ class ChatScreen extends StatefulWidget {
   final String name;
   final String username;
   final String profilepic;
-  ChatScreen(
+  const ChatScreen(
       {super.key,
       required this.conversationId,
       required this.recieverid,
@@ -50,12 +50,10 @@ class _ChatScreenState extends State<ChatScreen> {
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
         toolbarHeight: 70,
-        backgroundColor: Theme.of(context).brightness == Brightness.light
-            ? white
-            : darkgreymain,
-        surfaceTintColor: Theme.of(context).brightness == Brightness.light
-            ? white
-            : darkgreymain,
+        backgroundColor:
+            Theme.of(context).brightness == Brightness.light ? white : black,
+        surfaceTintColor:
+            Theme.of(context).brightness == Brightness.light ? white : black,
         leading: IconButton(
             onPressed: () {
               Navigator.of(context).pop();
@@ -66,7 +64,7 @@ class _ChatScreenState extends State<ChatScreen> {
         shape: Border(
             bottom: BorderSide(
                 color: Theme.of(context).brightness == Brightness.light
-                    ? Color.fromARGB(255, 211, 210, 210)
+                    ? const Color.fromARGB(255, 211, 210, 210)
                     : black,
                 width: 1.5)),
         title: Row(

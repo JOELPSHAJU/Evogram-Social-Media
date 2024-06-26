@@ -7,7 +7,6 @@ import 'package:evogram/application/socket/socket.dart';
 import 'package:evogram/presentation/bloc/all_followers_posts_bloc/all_followers_posts_bloc.dart';
 import 'package:evogram/presentation/bloc/profile_details_bloc/profile_details_bloc.dart';
 import 'package:evogram/presentation/screens/home_screen/widgets/home_page_loading.dart';
-import 'package:evogram/presentation/screens/userprofile/profile_screen/widgets/debouncer.dart';
 import 'package:evogram/presentation/screens/widgets/custom_navigators.dart';
 import 'package:evogram/presentation/screens/widgets/custom_profile_button.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -32,7 +31,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int currentPage = 1;
- 
+
   @override
   void initState() {
     context
@@ -52,19 +51,6 @@ class _HomeScreenState extends State<HomeScreen> {
   getToken() async {
     logginedUserToken = (await getUsertoken())!;
     logginedUserId = (await getUserId())!;
-  }
-  void _loadMore(context) {
-    context.read<AllFollowersPostsBloc>().add(LoadMoreFollowersPostsEvent());
-  }
-  final Debouncer debouncer = Debouncer(milliseconds: 500);
-
-  Future<void> fetchDataWithDebounce() async {
-    await debouncer.run(() async {
-      context
-          .read<AllFollowersPostsBloc>()
-          .add(AllFollowersPostsInitialFetchEvent(n: currentPage));
-      context.read<ProfileDetailsBloc>().add(ProfileInitialDetailsFetchEvent());
-    });
   }
 
   @override
@@ -110,7 +96,7 @@ class _HomeScreenState extends State<HomeScreen> {
             size: 30,
           );
         },
-        onRefresh: fetchDataWithDebounce,
+        onRefresh: refresh,
         child: BlocConsumer<AllFollowersPostsBloc, AllFollowersPostsState>(
           listener: (context, state) {},
           builder: (context, state) {

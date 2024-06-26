@@ -58,6 +58,14 @@ class _FindChatPersonScreenState extends State<FindChatPersonScreen> {
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
+        backgroundColor:
+            Theme.of(context).brightness == Brightness.light ? white : black,
+        surfaceTintColor:
+            Theme.of(context).brightness == Brightness.light ? white : black,
+        elevation: 1,
+        shadowColor: Theme.of(context).brightness == Brightness.light
+            ? lightgrey
+            : darkgrey,
         automaticallyImplyLeading: false,
         title: appbarTitle(title: 'Messages'),
         bottom: PreferredSize(
@@ -71,7 +79,11 @@ class _FindChatPersonScreenState extends State<FindChatPersonScreen> {
                       fontWeight: FontWeight.bold,
                       decoration: TextDecoration.none)),
                   shadowColor: const WidgetStatePropertyAll(grey80),
-                  backgroundColor: WidgetStatePropertyAll(Colors.grey.shade300),
+                  backgroundColor: WidgetStatePropertyAll(
+                    Theme.of(context).brightness == Brightness.light
+                        ? grey300
+                        : darkbg,
+                  ),
                   leading: const Icon(Icons.search),
                   onChanged: (value) {
                     onchanged = value;

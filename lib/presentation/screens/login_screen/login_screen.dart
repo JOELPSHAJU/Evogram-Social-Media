@@ -42,7 +42,7 @@ class _LoginScreenState extends State<LoginScreen> {
       body: BlocConsumer<LoginBloc, LoginState>(
         listener: (context, state) {
           if (state is LoginSuccessState) {
-            customSnackbar(context, 'welcome back', green50);
+            successSnakbar(context, 'welcome back', green50);
             Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(builder: (context) {
@@ -51,7 +51,7 @@ class _LoginScreenState extends State<LoginScreen> {
               (Route<dynamic> route) => false,
             );
           } else if (state is LoginErrorState) {
-            customSnackbar(context, state.error, red);
+            failedSnakbar(context, state.error, red);
           }
         },
         builder: (context, state) {
@@ -144,7 +144,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                             email: usernameController.text,
                                             password: passwordController.text));
                                       } else {
-                                        customSnackbar(
+                                        warningSnakbar(
                                             context, 'Fill All Fields', red);
                                       }
                                     },

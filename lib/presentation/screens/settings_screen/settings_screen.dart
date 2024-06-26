@@ -2,9 +2,9 @@ import 'package:evogram/presentation/screens/settings_screen/widgets.dart';
 import 'package:evogram/presentation/screens/widgets/custom_navigators.dart';
 
 import '../../../application/core/constants.dart';
-import '../about_us_screen/about_us_screen.dart';
-import '../privacy_policies/privacy_policy_screen.dart';
-import '../terms_and_conditions_screen/terms_and_conditions_screen.dart';
+import 'about_us_screen/about_us_screen.dart';
+import 'privacy_policies/privacy_policy_screen.dart';
+import 'terms_and_conditions_screen/terms_and_conditions_screen.dart';
 import '../widgets/text_styles.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

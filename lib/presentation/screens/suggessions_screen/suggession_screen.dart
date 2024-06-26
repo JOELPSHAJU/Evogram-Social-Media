@@ -1,6 +1,7 @@
 import 'package:evogram/application/core/constants.dart';
 import 'package:evogram/domain/models/searchusermodel.dart';
 import 'package:evogram/domain/models/suggession_user_model.dart';
+import 'package:evogram/presentation/bloc/all_followers_posts_bloc/all_followers_posts_bloc.dart';
 import 'package:evogram/presentation/bloc/fetch_followings_bloc/fetch_followings_bloc.dart';
 import 'package:evogram/presentation/bloc/fetch_suggession_user_bloc/fetch_suggession_user_bloc.dart';
 import 'package:evogram/presentation/bloc/follow_unfollow_user_bloc/follow_unfollow_user_bloc.dart';
@@ -159,6 +160,9 @@ class _SuggessionScreenState extends State<SuggessionScreen> {
                                       side:
                                           const BorderSide(color: blueaccent2)),
                                   onPressed: () {
+                                    context.read<AllFollowersPostsBloc>().add(
+                                        AllFollowersPostsInitialFetchEvent(
+                                            n: 1));
                                     return context
                                         .read<FollowUnfollowUserBloc>()
                                         .add(FollowUserButtonClickEvent(

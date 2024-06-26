@@ -38,6 +38,7 @@ const nointernetimage = "assets/nointernet.png";
 class _ProfileScreenState extends State<ProfileScreen> {
   @override
   void initState() {
+    
     context.read<FetchingUserPostBloc>().add(FetchingUserpostInitialEvent());
     context.read<LoginUserBloc>().add(LoginUserInitialFetchingEvent());
     context.read<FetchFollowingsBloc>().add(FollowingsInitialFetchEvent());
@@ -182,7 +183,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 if (state is FetchUserPostLoadingState) {
                                   return Center(
                                       child: LoadingAnimationWidget
-                                          .fourRotatingDots(
+                                          .fourRotatingDots( 
                                               color: blueaccent2, size: 40));
                                 } else if (state is FetchUserPostSuccessState) {
                                   return GridviewProfile(

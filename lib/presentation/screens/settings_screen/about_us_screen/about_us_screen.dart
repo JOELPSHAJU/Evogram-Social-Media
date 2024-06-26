@@ -1,7 +1,7 @@
 import 'package:evogram/application/core/constants.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../widgets/text_styles.dart';
+import '../../widgets/text_styles.dart';
 import 'package:flutter/material.dart';
 
 class AboutUsScreen extends StatelessWidget {
@@ -12,8 +12,8 @@ class AboutUsScreen extends StatelessWidget {
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
         appBar: AppBar(
-         elevation: 1,
-        shadowColor: lightgrey,
+          elevation: 1,
+          shadowColor: lightgrey,
           backgroundColor:
               Theme.of(context).brightness == Brightness.light ? white : black,
           surfaceTintColor:
@@ -58,7 +58,7 @@ class AboutUsScreen extends StatelessWidget {
                           fontWeight: FontWeight.w400,
                           color:
                               Theme.of(context).brightness == Brightness.light
-                                  ? grey
+                                  ? grey80
                                   : grey),
                     ),
                   ),
@@ -94,7 +94,10 @@ class AboutUsScreen extends StatelessWidget {
                             style: GoogleFonts.inter(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w400,
-                                color: grey),
+                                color: Theme.of(context).brightness ==
+                                        Brightness.light
+                                    ? grey80
+                                    : grey),
                           ),
                         ]),
                   ),
@@ -117,7 +120,7 @@ class AboutUsScreen extends StatelessWidget {
                               fontSize: 14,
                               color: Theme.of(context).brightness ==
                                       Brightness.light
-                                  ? grey
+                                  ? grey80
                                   : grey,
                               fontWeight: FontWeight.w400,
                             ),
@@ -140,9 +143,13 @@ class AboutUsScreen extends StatelessWidget {
                             text:
                                 ' Dive into a seamless experience where you can post your thoughts, share your moments, and express yourself freely. Whether it’s a photo, video, or text, Evogram lets you share your world effortlessly',
                             style: GoogleFonts.inter(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400,
-                                color: grey),
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400,
+                              color: Theme.of(context).brightness ==
+                                      Brightness.light
+                                  ? grey80
+                                  : grey,
+                            ),
                           ),
                         ]),
                   ),
@@ -162,9 +169,13 @@ class AboutUsScreen extends StatelessWidget {
                             text:
                                 'Show your appreciation by liking and commenting on posts. Engage in lively discussions, share your opinions, and connect with others in a meaningful way.',
                             style: GoogleFonts.inter(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400,
-                                color: grey),
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400,
+                              color: Theme.of(context).brightness ==
+                                      Brightness.light
+                                  ? grey80
+                                  : grey,
+                            ),
                           ),
                         ]),
                   ),
@@ -184,9 +195,13 @@ class AboutUsScreen extends StatelessWidget {
                             text:
                                 'Build your network by following friends, family, and influencers. Customize your feed by choosing whom to follow while also having the flexibility to unfollow at any time.',
                             style: GoogleFonts.inter(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400,
-                                color: grey),
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400,
+                              color: Theme.of(context).brightness ==
+                                      Brightness.light
+                                  ? grey80
+                                  : grey,
+                            ),
                           ),
                         ]),
                   ),
@@ -206,9 +221,13 @@ class AboutUsScreen extends StatelessWidget {
                             text:
                                 "Stay connected with friends and family through our robust private messaging feature. Whether it's a quick chat or an in-depth conversation, Evogram ensures you stay close to your loved ones no matter the distance.",
                             style: GoogleFonts.inter(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400,
-                                color: grey),
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400,
+                              color: Theme.of(context).brightness ==
+                                      Brightness.light
+                                  ? grey80
+                                  : grey,
+                            ),
                           ),
                         ]),
                   ),
@@ -228,9 +247,13 @@ class AboutUsScreen extends StatelessWidget {
                             text:
                                 ' : Personalize your profile with a variety of customization options. Show off your unique personality and make your profile stand out.',
                             style: GoogleFonts.inter(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400,
-                                color: grey),
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400,
+                              color: Theme.of(context).brightness ==
+                                      Brightness.light
+                                  ? grey80
+                                  : grey,
+                            ),
                           ),
                         ]),
                   ),
@@ -250,9 +273,13 @@ class AboutUsScreen extends StatelessWidget {
                             text:
                                 ' : Manage your privacy with ease. Control who sees your content, who can contact you, and who can follow you with our comprehensive privacy settings.',
                             style: GoogleFonts.inter(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400,
-                                color: grey),
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400,
+                              color: Theme.of(context).brightness ==
+                                      Brightness.light
+                                  ? grey80
+                                  : grey,
+                            ),
                           ),
                         ]),
                   ),
@@ -263,7 +290,7 @@ class AboutUsScreen extends StatelessWidget {
                         fontSize: 15,
                         fontWeight: FontWeight.w400,
                         color: Theme.of(context).brightness == Brightness.light
-                            ? grey
+                            ? grey80
                             : grey),
                   ),
                   h30,

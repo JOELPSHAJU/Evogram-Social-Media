@@ -24,7 +24,8 @@ class CustomCard extends StatelessWidget {
         style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
       ),
       subtitle: Text(
-        conversation.lastMessage ?? "",
+        conversation.lastMessage ??
+            "${user.name == null ? "Guest User" : user.name}",
         style: const TextStyle(fontSize: 15),
         overflow: TextOverflow.ellipsis,
         maxLines: 1,

@@ -66,6 +66,7 @@ class _OtpScreenState extends State<OtpScreen> {
   void debounceResendOtp() {
     if (_debounceTimer?.isActive ?? false) _debounceTimer!.cancel();
     _debounceTimer = Timer(const Duration(seconds: 1), () {
+      context.read<SignupBloc>().add(SignupButtenClickEvent(user: widget.user));
       startTimer();
     });
   }
@@ -81,10 +82,11 @@ class _OtpScreenState extends State<OtpScreen> {
           Navigator.of(context).pushAndRemoveUntil(
               MaterialPageRoute(builder: (context) => const LoginScreen()),
               (route) => false);
+          successSnakbar(context, 'Account Created Successfully', grey300);
         } else if (state is OtpErrorStateInvalidOtp) {
-          customSnackbar(context, 'Invalid otp', red);
+          failedSnakbar(context, 'Invalid otp', white);
         } else if (state is OtpErrorStateInternalServerError) {
-          customSnackbar(context, 'Internal server error', red);
+          failedSnakbar(context, 'Internal server error', white);
         }
       },
       builder: (context, state) {
@@ -134,9 +136,10 @@ class _OtpScreenState extends State<OtpScreen> {
                   OtpTextField(
                     fieldWidth: 60,
                     fieldHeight: 70,
+                    focusedBorderColor: buttonclr,
                     numberOfFields: 4,
                     borderColor: grey,
-                    enabledBorderColor: blue,
+                    enabledBorderColor: blueaccent2,
                     showFieldAsBox: true,
                     onCodeChanged: (String code) {},
                     onSubmit: (String verificationCode) {
@@ -156,17 +159,15 @@ class _OtpScreenState extends State<OtpScreen> {
                       _isResendVisible
                           ? TextButton(
                               onPressed: () {
-                                debounceResendOtp;
-                                signupbloc.add(
-                                    SignupButtenClickEvent(user: widget.user));
+                                debounceResendOtp();
                               },
                               child: const Text("Click to resent.",
                                   style: TextStyle(
                                       decoration: TextDecoration.underline,
-                                      decorationColor: blue,
+                                      decorationColor: buttonclr,
                                       fontSize: 17,
                                       fontWeight: FontWeight.w500,
-                                      color: blue)),
+                                      color: buttonclr)),
                             )
                           : RichText(
                               text: TextSpan(
@@ -178,7 +179,7 @@ class _OtpScreenState extends State<OtpScreen> {
                                       text: ' $_start ',
                                       style: GoogleFonts.inter(
                                         fontSize: 16,
-                                        color: blue,
+                                        color: buttonclr,
                                         fontWeight: FontWeight.w600,
                                       ),
                                     ),
@@ -199,7 +200,7 @@ class _OtpScreenState extends State<OtpScreen> {
                           color:
                               Theme.of(context).brightness == Brightness.light
                                   ? white
-                                  : grey,
+                                  : darkgrey,
                           minWidth: size.width * .4,
                           height: 55,
                           shape: RoundedRectangleBorder(
@@ -220,7 +221,7 @@ class _OtpScreenState extends State<OtpScreen> {
                                       : white,
                                   fontSize: 17))),
                       MaterialButton(
-                          color: blue,
+                          color: buttonclr,
                           minWidth: size.width * .4,
                           height: 55,
                           shape: RoundedRectangleBorder(
@@ -230,7 +231,8 @@ class _OtpScreenState extends State<OtpScreen> {
                               otpbloc.add(OtpverifyClickevent(
                                   email: widget.email, otp: otp));
                             } else {
-                              customSnackbar(context, 'please enter otp', red);
+                              warningSnakbar(
+                                  context, 'please enter otp', grey300);
                             }
                           },
                           child: const Text('Verify',

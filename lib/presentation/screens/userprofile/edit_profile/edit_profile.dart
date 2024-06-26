@@ -45,15 +45,16 @@ class EditProfileScreen extends StatelessWidget {
     return BlocConsumer<EditProfileBloc, EditProfileState>(
       listener: (context, state) {
         if (state is EditProfileSuccessState) {
-          customSnackbar(context, 'Post added successfully', green50);
-          context.read<LoginUserBloc>().add(LoginUserInitialFetchingEvent());
+          successSnakbar(
+              context, 'Profile has been updated\nsuccessfully', grey300);
+
           FocusScope.of(context).unfocus;
           Navigator.of(context).pop();
         } else if (state is EditProfileErrorState) {
-          customSnackbar(context, 'something went wrong', red);
+          failedSnakbar(context, 'something went wrong', grey300);
         } else if (state is EditProfileErrorState) {
-          customSnackbar(
-              context, 'something went wrong try after sometime', red);
+          failedSnakbar(
+              context, 'something went wrong try after sometime', grey300);
         }
       },
       builder: (context, state) {
@@ -61,8 +62,8 @@ class EditProfileScreen extends StatelessWidget {
           appBar: AppBar(
             leading: IconButton(
                 onPressed: () {
+                  FocusScope.of(context).unfocus();
                   Navigator.of(context).pop();
-                  FocusScope.of(context).unfocus;
                 },
                 icon: Icon(Icons.arrow_back)),
             backgroundColor: Theme.of(context).brightness == Brightness.light
@@ -283,9 +284,12 @@ class EditProfileScreen extends StatelessWidget {
                                     bgImage: Coverpicfile ?? coverpic,
                                     bgImageUrl:
                                         Coverpicfile == null ? coverpic : ''));
+                                context
+                                    .read<LoginUserBloc>()
+                                    .add(LoginUserInitialFetchingEvent());
                               } else {
-                                customSnackbar(
-                                    context, 'Fill all the fields', red);
+                                warningSnakbar(
+                                    context, 'Fill all the fields', grey300);
                               }
                             }
                           },

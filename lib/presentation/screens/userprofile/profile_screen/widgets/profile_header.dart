@@ -97,7 +97,7 @@ Widget profileHeaderWidgets(
               } else if (state is FetchUserPostSuccessState) {
                 return GestureDetector(
                   onTap: () {
-                    navigatePushAnimaterbottomtotop(
+                    navigatePushAnimaterighttoleft(
                         context,
                         UserPosts(
                           userId: state.userposts[0].userId.id,

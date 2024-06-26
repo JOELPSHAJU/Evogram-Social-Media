@@ -30,6 +30,7 @@ class AllFollowersPostsBloc
   FutureOr<void> allFollowersPostsInitialFetchEvent(
       AllFollowersPostsInitialFetchEvent event,
       Emitter<AllFollowersPostsState> emit) async {
+        
     emit(const AllFollowersPostsLoadingState(null));
   
     final Response result = await MainPostRepo.getFollowersPost(page: page);

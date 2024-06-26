@@ -16,6 +16,7 @@ void navigatePush(BuildContext context, Widget screenMainPage) {
 }
 
 void navigatePushAnimaterighttoleft(BuildContext context, Widget Nextscreen) {
+
   Navigator.push(
       context,
       PageRouteBuilder(

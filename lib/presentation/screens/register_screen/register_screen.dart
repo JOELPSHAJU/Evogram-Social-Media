@@ -52,15 +52,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 user: userdetails!,
               ),
             );
-            customSnackbar(context, 'Otp send Successfully', green50);
+            successSnakbar(context, 'Otp send Successfully', grey300);
           } else if (state is SignupErrorStateAlreadyAccount) {
-            customSnackbar(context, 'Already have an Account', red);
+            warningSnakbar(context,
+                'Already have an Account, Use another account.', grey300);
           } else if (state is SignupErrorStateUsernamealreadyUsed) {
-            customSnackbar(context, 'Already have an Same Username', red);
+            warningSnakbar(context,
+                'Already have an same Username, Try another.', grey300);
           } else if (state is SignupErrorStateOtpalreadySent) {
-            customSnackbar(context, 'Already otp sent', red);
+            warningSnakbar(context, 'Otp already sent', grey300);
           } else if (state is SignupErrorStateInternalServerError) {
-            customSnackbar(context, 'Internal server error', red);
+            failedSnakbar(context, 'Internal server error', grey300);
           }
         },
         builder: (context, state) {
@@ -156,7 +158,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 signupbloc
                                     .add(SignupButtenClickEvent(user: user));
                               } else {
-                                customSnackbar(context, 'fill all fields', red);
+                                warningSnakbar(
+                                    context, 'fill all fields', grey300);
                               }
                             },
                             child: const Text('Register',
