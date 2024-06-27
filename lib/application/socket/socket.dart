@@ -16,6 +16,7 @@ class SocketService {
   );
 
   void connectSocket({required BuildContext context}) async {
+    // ignore: unused_local_variable
     final BuildContext? ctx = NavigationService.navigatorKey.currentContext;
 
     if (socket.disconnected) {

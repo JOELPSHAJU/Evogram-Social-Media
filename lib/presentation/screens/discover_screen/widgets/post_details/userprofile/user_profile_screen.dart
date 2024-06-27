@@ -12,12 +12,10 @@ import 'package:evogram/presentation/screens/chat_screen/chat_screen.dart';
 import 'package:evogram/presentation/screens/discover_screen/post_details/post_details.dart';
 import 'package:evogram/presentation/screens/discover_screen/widgets/post_details/userprofile/posts_loading.dart';
 import 'package:evogram/presentation/screens/userprofile/profile_screen/profile_screen.dart';
-import 'package:evogram/presentation/screens/userprofile/profile_screen/widgets/my_post/specific_uploadedpost.dart';
 import 'package:evogram/presentation/screens/userprofile/profile_screen/widgets/profile_styles.dart';
 import 'package:evogram/presentation/screens/widgets/custom_navigators.dart';
 import 'package:evogram/presentation/screens/widgets/custom_profile_button.dart';
 import 'package:evogram/presentation/screens/widgets/text_styles.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -28,7 +26,7 @@ class UserProfileScreen extends StatefulWidget {
   // ignore: prefer_typing_uninitialized_variables
   final UserIdSearchModel user;
 
-  UserProfileScreen({super.key, required this.userId, required this.user});
+  const UserProfileScreen({super.key, required this.userId, required this.user});
 
   @override
   State<UserProfileScreen> createState() => _UserProfileScreenState();
@@ -227,7 +225,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                 children: [
                   BlocConsumer<FetchFollowingsBloc, FetchFollowingsState>(
                     listener: (context, state) {
-                      // TODO: implement listener
+                
                     },
                     builder: (context, state) {
                       if (state is FetchFollowingsSuccesfulState) {

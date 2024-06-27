@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:evogram/domain/models/conversation_model.dart';
 import 'package:evogram/domain/models/get_user_model.dart';
@@ -6,21 +8,19 @@ import 'package:evogram/presentation/bloc/fetch_all_conversations_bloc.dart/fetc
 import 'package:evogram/presentation/screens/chat_list/custom_card.dart';
 import 'package:evogram/presentation/screens/chat_list/message_screen_loading.dart';
 import 'package:evogram/presentation/screens/widgets/custom_navigators.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:multi_bloc_builder/builders/multi_bloc_builder.dart';
 
 import '../../../application/core/constants.dart';
 import '../chat_screen/chat_screen.dart';
-import 'widgets.dart';
-import 'new_chat/new_chat.dart';
 import '../widgets/text_styles.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+import 'new_chat/new_chat.dart';
 
 class FindChatPersonScreen extends StatefulWidget {
-  FindChatPersonScreen({super.key});
+  const FindChatPersonScreen({super.key});
 
   @override
   State<FindChatPersonScreen> createState() => _FindChatPersonScreenState();
@@ -101,7 +101,7 @@ class _FindChatPersonScreenState extends State<FindChatPersonScreen> {
       body: CustomMaterialIndicator(
         indicatorBuilder: (context, controller) {
           return LoadingAnimationWidget.inkDrop(
-            color: black,
+            color: buttonclr,
             size: 30,
           );
         },
@@ -115,7 +115,7 @@ class _FindChatPersonScreenState extends State<FindChatPersonScreen> {
             var state1 = state[0];
             if (state1 is FetchAllConversationsLoadingState) {
               return Center(
-                child: messageScreenShimmerLoading(),
+                child: messageScreenShimmerLoading(context),
               );
             } else if (state1 is FetchAllConversationsSuccesfulState) {
               conversations = state1.conversations;

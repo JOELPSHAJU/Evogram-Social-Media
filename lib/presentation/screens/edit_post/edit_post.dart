@@ -6,7 +6,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:evogram/application/core/constants.dart';
 import 'package:evogram/domain/models/post_models.dart';
 import 'package:evogram/presentation/bloc/edit_post_bloc/edit_post_bloc.dart';
-import 'package:evogram/infrastructure/fetchuserpost/fetching_user_post_bloc.dart';
+import 'package:evogram/presentation/bloc/fetchuserpost/fetching_user_post_bloc.dart';
 import 'package:evogram/presentation/screens/add_post/widgets/textformfieldaddpost.dart';
 import 'package:evogram/presentation/screens/widgets/custom_button.dart';
 import 'package:evogram/presentation/screens/widgets/snakbars.dart';

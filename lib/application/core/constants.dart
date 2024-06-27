@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
-
-//sizedboxes 
+//sizedboxes
 
 //heights
 const h5 = SizedBox(
@@ -118,7 +117,15 @@ const addperson2 = 'assets/add_person2.png';
 
 const fialedimg = "assets/failed.png";
 
+const deleteicon = "assets/deleteicon_prev_ui.png";
+
+const nouserfounddark = "assets/nouserfounddark.png";
+
+const nouserfoundlight = "assets/nouserfoundlight.jpg";
+
 const successimg = "assets/success.png";
+
+const loadingshimmer = "assets/loading.jpg";
 
 const warningimg = "assets/warning.png";
 

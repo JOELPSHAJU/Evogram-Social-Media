@@ -2,7 +2,7 @@
 
 import 'package:evogram/application/core/constants.dart';
 import 'package:evogram/domain/models/post_models.dart';
-import 'package:evogram/infrastructure/fetchuserpost/fetching_user_post_bloc.dart';
+import 'package:evogram/presentation/bloc/fetchuserpost/fetching_user_post_bloc.dart';
 import 'package:evogram/presentation/screens/edit_post/edit_post.dart';
 import 'package:evogram/presentation/screens/widgets/custom_navigators.dart';
 

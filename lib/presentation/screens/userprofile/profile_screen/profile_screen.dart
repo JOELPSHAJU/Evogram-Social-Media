@@ -4,7 +4,7 @@ import 'package:evogram/presentation/bloc/fetch_followers/fetch_followers_bloc.d
 import 'package:evogram/presentation/bloc/fetch_followings_bloc/fetch_followings_bloc.dart';
 import 'package:evogram/presentation/bloc/fetch_saved_posts/fetch_saved_posts_bloc.dart';
 import 'package:evogram/presentation/bloc/login_user_bloc/login_user_bloc.dart';
-import 'package:evogram/infrastructure/fetchuserpost/fetching_user_post_bloc.dart';
+import 'package:evogram/presentation/bloc/fetchuserpost/fetching_user_post_bloc.dart';
 
 import 'package:evogram/presentation/screens/settings_screen/settings_screen.dart';
 import 'package:evogram/presentation/screens/userprofile/profile_screen/widgets/debouncer.dart';
@@ -20,11 +20,42 @@ import '../../../../application/core/constants.dart';
 
 import 'package:flutter/material.dart';
 
-late String useridprofilescreen;
-late String profilepic;
-late String usernameprofile;
-late LoginUserModel loginuserinfo;
-late UserModelPost userinfopost;
+String useridprofilescreen = '';
+String profilepic = '';
+String usernameprofile = '';
+LoginUserModel loginuserinfo = LoginUserModel(
+    id: 'id',
+    userName: 'userName',
+    email: 'email',
+    phone: 'phone',
+    online: false,
+    blocked: false,
+    verified: false,
+    role: 'role',
+    isPrivate: false,
+    createdAt: DateTime(20242024 - 06 - 24),
+    updatedAt: DateTime(20242024 - 06 - 24),
+    profilePic:
+        'https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG-Image.png',
+    backGroundImage:
+        'https://img.freepik.com/free-vector/copy-space-bokeh-spring-lights-background_52683-55649.jpg');
+UserModelPost userinfopost = UserModelPost(
+    id: 'id',
+    userName: 'userName',
+    email: 'email',
+    profilePic:
+        'https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG-Image.png',
+    backGroundImage:
+        'https://img.freepik.com/free-vector/copy-space-bokeh-spring-lights-background_52683-55649.jpg',
+    phone: 'phone',
+    online: false,
+    blocked: false,
+    verified: false,
+    role: 'role',
+    isPrivate: false,
+    createdAt: DateTime(20242024 - 06 - 24),
+    updatedAt: DateTime(20242024 - 06 - 24),
+    v: 1);
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -38,7 +69,6 @@ const nointernetimage = "assets/nointernet.png";
 class _ProfileScreenState extends State<ProfileScreen> {
   @override
   void initState() {
-    
     context.read<FetchingUserPostBloc>().add(FetchingUserpostInitialEvent());
     context.read<LoginUserBloc>().add(LoginUserInitialFetchingEvent());
     context.read<FetchFollowingsBloc>().add(FollowingsInitialFetchEvent());
@@ -183,7 +213,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 if (state is FetchUserPostLoadingState) {
                                   return Center(
                                       child: LoadingAnimationWidget
-                                          .fourRotatingDots( 
+                                          .fourRotatingDots(
                                               color: blueaccent2, size: 40));
                                 } else if (state is FetchUserPostSuccessState) {
                                   return GridviewProfile(
@@ -247,8 +277,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
               const Text(
                 'No Internet Connection',
-                style: TextStyle(
-                    fontWeight: FontWeight.bold, color: black, fontSize: 24),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
               ),
               h10,
               const Text(
@@ -267,7 +296,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                   w10,
                   Image.asset(
-                    logoletters,
+                    Theme.of(context).brightness == Brightness.light
+                        ? logoletters
+                        : logoletterswhite,
                     width: size.width * .3,
                   ),
                 ],

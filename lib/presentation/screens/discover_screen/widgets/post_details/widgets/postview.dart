@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:evogram/application/core/constants.dart';
-import 'package:evogram/application/core/urls.dart';
 import 'package:evogram/domain/models/comment_model.dart';
 import 'package:evogram/domain/models/saved_post_model.dart';
 import 'package:evogram/domain/models/searchusermodel.dart';
@@ -10,7 +9,9 @@ import 'package:evogram/presentation/bloc/saved_post_bloc/saved_post_bloc.dart';
 import 'package:evogram/presentation/screens/discover_screen/widgets/post_details/userprofile/user_profile_screen.dart';
 import 'package:evogram/presentation/screens/home_screen/widgets/bottomsheet.dart';
 import 'package:evogram/presentation/screens/userprofile/profile_screen/profile_screen.dart';
+import 'package:evogram/presentation/screens/userprofile/profile_screen/widgets/my_post/widgets/gridshimmer.dart';
 import 'package:evogram/presentation/screens/widgets/custom_navigators.dart';
+import 'package:evogram/presentation/screens/widgets/profilecircle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -60,6 +61,7 @@ class PostView extends StatelessWidget {
   final int v;
   final String image;
   final List likes;
+  // ignore: prefer_typing_uninitialized_variables
   final post;
   final String email;
   final bool online;
@@ -88,7 +90,7 @@ class PostView extends StatelessWidget {
     return Align(
       child: Container(
         constraints: const BoxConstraints(maxWidth: 500),
-        decoration: BoxDecoration(),
+        decoration: const BoxDecoration(),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -96,10 +98,7 @@ class PostView extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 children: [
-                  CircleAvatar(
-                    radius: 20,
-                    backgroundImage: NetworkImage(profilePic),
-                  ),
+                  ProfileCircleTile(profilepic: profilePic),
                   w10,
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -147,11 +146,10 @@ class PostView extends StatelessWidget {
                 height: size.width * .84,
                 width: size.width,
                 child: CachedNetworkImage(
-                  imageUrl: image.toString(),
+                  imageUrl: image,
                   fit: BoxFit.cover,
                   placeholder: (context, url) {
-                    return LoadingAnimationWidget.hexagonDots(
-                        color: blueaccent, size: 30);
+                    return gridshimmer(context);
                   },
                 )),
             Padding(
@@ -233,7 +231,7 @@ class PostView extends StatelessWidget {
                                               description: description,
                                               likes: [],
                                               hidden: hidden!,
-                                              blocked: blocked!,
+                                              blocked: blocked,
                                               tags: tags!,
                                               date: date!,
                                               createdAt: creartedAt,

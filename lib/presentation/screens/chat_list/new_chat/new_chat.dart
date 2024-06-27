@@ -35,7 +35,7 @@ class _NewChatScreenState extends State<NewChatScreen> {
         shape: Border(
             bottom: BorderSide(
                 color: Theme.of(context).brightness == Brightness.light
-                    ? Color.fromARGB(255, 211, 210, 210)
+                    ? const Color.fromARGB(255, 211, 210, 210)
                     : black,
                 width: 1.5)),
         backgroundColor:

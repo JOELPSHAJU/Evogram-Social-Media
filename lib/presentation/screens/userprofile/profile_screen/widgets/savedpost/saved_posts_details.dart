@@ -12,8 +12,10 @@ import 'package:evogram/presentation/bloc/saved_post_bloc/saved_post_bloc.dart';
 import 'package:evogram/presentation/screens/discover_screen/widgets/post_details/userprofile/user_profile_screen.dart';
 import 'package:evogram/presentation/screens/home_screen/widgets/bottomsheet.dart';
 import 'package:evogram/presentation/screens/userprofile/profile_screen/profile_screen.dart';
+import 'package:evogram/presentation/screens/userprofile/profile_screen/widgets/my_post/widgets/gridshimmer.dart';
 import 'package:evogram/presentation/screens/userprofile/profile_screen/widgets/shimmer.dart';
 import 'package:evogram/presentation/screens/widgets/custom_navigators.dart';
+import 'package:evogram/presentation/screens/widgets/profilecircle.dart';
 import 'package:evogram/presentation/screens/widgets/text_styles.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -108,24 +110,9 @@ class _SavedPostsDetailsScreenState extends State<SavedPostsDetailsScreen> {
                             padding: const EdgeInsets.only(left: 8.0),
                             child: Row(
                               children: [
-                                Container(
-                                  height: 50,
-                                  width: 50,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(100)),
-                                  child: ClipOval(
-                                      child: CachedNetworkImage(
-                                    imageUrl: statesaved
-                                        .posts[index].postId.userId.profilePic,
-                                    fit: BoxFit.cover,
-                                    placeholder: (context, url) {
-                                      return LoadingAnimationWidget.flickr(
-                                          leftDotColor: blueaccent2,
-                                          rightDotColor: blueaccent3,
-                                          size: 23);
-                                    },
-                                  )),
-                                ),
+                                ProfileCircleTile(
+                                    profilepic: statesaved
+                                        .posts[index].postId.userId.profilePic),
                                 Padding(
                                   padding: const EdgeInsets.only(left: 18.0),
                                   child: Column(

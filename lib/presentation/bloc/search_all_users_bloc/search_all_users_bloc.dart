@@ -1,13 +1,14 @@
 import 'dart:async';
 import 'dart:convert';
 
+// ignore: depend_on_referenced_packages
 import 'package:bloc/bloc.dart';
 import 'package:evogram/domain/models/searchusermodel.dart';
 import 'package:evogram/domain/repository/user_repo.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 
-import '../../../domain/models/user_id.dart';
+
 
 part 'search_all_users_event.dart';
 part 'search_all_users_state.dart';

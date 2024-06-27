@@ -35,7 +35,6 @@ class _UsersPostDetailsListState extends State<UsersPostDetailsList> {
 
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         backgroundColor:
@@ -86,6 +85,7 @@ class _UsersPostDetailsListState extends State<UsersPostDetailsList> {
                           email: post.userId.email,
                           edited: post.editedAt,
                           saved: true,
+                          
                           post: post.userId,
                           image: post.image,
                           likes: post.likes,

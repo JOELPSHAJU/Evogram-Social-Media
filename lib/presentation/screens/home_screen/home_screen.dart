@@ -9,14 +9,13 @@ import 'package:evogram/presentation/bloc/profile_details_bloc/profile_details_b
 import 'package:evogram/presentation/screens/home_screen/widgets/home_page_loading.dart';
 import 'package:evogram/presentation/screens/widgets/custom_navigators.dart';
 import 'package:evogram/presentation/screens/widgets/custom_profile_button.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../../../application/core/constants.dart';
-import 'list_tile_main.dart';
 import '../suggessions_screen/suggession_screen.dart';
-import 'package:flutter/material.dart';
+import 'list_tile_main.dart';
 
 String logginedUserToken = '';
 String logginedUserId = '';
@@ -79,7 +78,7 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: [
           GestureDetector(
               onTap: () {
-                navigatePushAnimaterighttoleft(context, SuggessionScreen());
+                navigatePushAnimaterighttoleft(context, const SuggessionScreen());
               },
               child: Padding(
                   padding: const EdgeInsets.only(right: 8.0),
@@ -158,7 +157,7 @@ class _HomeScreenState extends State<HomeScreen> {
             } else if (state is AllFollowersPostsLoadingState) {
               return homepageloading(context);
             } else {
-              return Text('');
+              return const Text('');
             }
           },
         ),

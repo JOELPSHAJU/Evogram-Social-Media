@@ -8,7 +8,7 @@ class FollowerspostModel {
   bool blocked;
   List<String> tags;
   List<TaggedUser> taggedUsers;
-  DateTime date;
+  
   DateTime createdAt;
   DateTime updatedAt;
   DateTime editedAt;
@@ -27,7 +27,7 @@ class FollowerspostModel {
     required this.blocked,
     required this.tags,
     required this.taggedUsers,
-    required this.date,
+    
     required this.createdAt,
     required this.updatedAt,
     required this.v,
@@ -48,7 +48,7 @@ class FollowerspostModel {
         tags: List<String>.from(json["tags"].map((x) => x)),
         taggedUsers: List<TaggedUser>.from(
             json["taggedUsers"].map((x) => TaggedUser.fromJson(x))),
-        date: DateTime.parse(json["date"]),
+        
         createdAt: DateTime.parse(json["createdAt"]),
         updatedAt: DateTime.parse(json["updatedAt"]),
         v: json["__v"],
@@ -67,7 +67,7 @@ class FollowerspostModel {
         "blocked": blocked,
         "tags": List<dynamic>.from(tags.map((x) => x)),
         "taggedUsers": List<dynamic>.from(taggedUsers.map((x) => x.toJson())),
-        "date": date.toIso8601String(),
+        
         "createdAt": createdAt.toIso8601String(),
         "updatedAt": updatedAt.toIso8601String(),
         "__v": v,

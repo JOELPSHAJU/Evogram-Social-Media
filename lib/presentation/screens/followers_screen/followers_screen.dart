@@ -66,6 +66,7 @@ class FollowersScreen extends StatelessWidget {
                     title: GestureDetector(
                       onTap: () {
                         final user = UserIdSearchModel(
+                          
                             id: followers[index].id.toString(),
                             userName: followers[index].userName.toString(),
                             email: followers[index].email.toString(),

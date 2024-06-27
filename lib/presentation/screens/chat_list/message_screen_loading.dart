@@ -2,11 +2,15 @@ import 'package:evogram/application/core/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
-Shimmer messageScreenShimmerLoading() {
+Shimmer messageScreenShimmerLoading(context) {
   return Shimmer.fromColors(
     direction: ShimmerDirection.ttb,
-    highlightColor: Colors.grey.shade100,
-    baseColor: Colors.grey.shade300,
+    highlightColor: Theme.of(context).brightness == Brightness.light
+        ? Colors.grey.shade100
+        : darkgrey,
+    baseColor: Theme.of(context).brightness == Brightness.light
+        ? Colors.grey.shade300
+        : Color.fromARGB(255, 24, 23, 23),
     child: Center(
       child: Container(
         constraints: const BoxConstraints(maxWidth: 500),

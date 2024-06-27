@@ -185,7 +185,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
                       : grey),
             ),
             h10,
-            Text(
+            const Text(
               '''Opt-Out Rights''',
               style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
             ),
@@ -200,13 +200,13 @@ class PrivacyPolicyScreen extends StatelessWidget {
                       : grey),
             ),
             h10,
-            Text(
+            const Text(
               'Data Retention Policy',
               style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
             ),
             h10,
             Text(
-              '''The Service Provider will retain User Provided data for as long as you use the Application and for a reasonable time thereafter. If you'd like them to delete User Provided Data that you have provided via the Application, please contact them at ribinrajop@gmail.com and they will respond in a reasonable time.''',
+              '''The Service Provider will retain User Provided data for as long as you use the Application and for a reasonable time thereafter. If you'd like them to delete User Provided Data that you have provided via the Application, please contact them at joelpshaju@gmail.com and they will respond in a reasonable time.''',
               textAlign: TextAlign.justify,
               style: TextStyle(
                   fontSize: 14,
@@ -215,13 +215,13 @@ class PrivacyPolicyScreen extends StatelessWidget {
                       : grey),
             ),
             h10,
-            Text(
+            const Text(
               'Children',
               style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
             ),
             h10,
             Text(
-              '''The Service Provider does not use the Application to knowingly solicit data from or market to children under the age of 13. The Service Provider does not knowingly collect personally identifiable information from children. The Service Provider encourages all children to never submit any personally identifiable information through the Application and/or Services. The Service Provider encourage parents and legal guardians to monitor their children's Internet usage and to help enforce this Policy by instructing their children never to provide personally identifiable information through the Application and/or Services without their permission. If you have reason to believe that a child has provided personally identifiable information to the Service Provider through the Application and/or Services, please contact the Service Provider (ribinrajop@gmail.com) so that they will be able to take the necessary actions. You must also be at least 16 years of age to consent to the processing of your personally identifiable information in your country (in some countries we may allow your parent or guardian to do so on your behalf).''',
+              '''The Service Provider does not use the Application to knowingly solicit data from or market to children under the age of 13. The Service Provider does not knowingly collect personally identifiable information from children. The Service Provider encourages all children to never submit any personally identifiable information through the Application and/or Services. The Service Provider encourage parents and legal guardians to monitor their children's Internet usage and to help enforce this Policy by instructing their children never to provide personally identifiable information through the Application and/or Services without their permission. If you have reason to believe that a child has provided personally identifiable information to the Service Provider through the Application and/or Services, please contact the Service Provider (joelpshaju@gmail.com) so that they will be able to take the necessary actions. You must also be at least 16 years of age to consent to the processing of your personally identifiable information in your country (in some countries we may allow your parent or guardian to do so on your behalf).''',
               textAlign: TextAlign.justify,
               style: TextStyle(
                   fontSize: 14,
@@ -230,7 +230,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
                       : grey),
             ),
             h10,
-            Text(
+            const Text(
               'Security',
               style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
             ),

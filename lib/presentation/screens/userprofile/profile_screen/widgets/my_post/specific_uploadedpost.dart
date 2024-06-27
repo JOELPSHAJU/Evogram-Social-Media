@@ -3,14 +3,16 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:evogram/application/core/constants.dart';
 import 'package:evogram/domain/models/comment_model.dart';
-import 'package:evogram/infrastructure/fetchuserpost/fetching_user_post_bloc.dart';
+import 'package:evogram/presentation/bloc/fetchuserpost/fetching_user_post_bloc.dart';
 import 'package:evogram/presentation/bloc/get_comments_bloc/get_comments_bloc.dart';
 import 'package:evogram/presentation/bloc/like_unlike_post_bloc/like_post_bloc.dart';
 import 'package:evogram/presentation/screens/home_screen/home_screen.dart';
 import 'package:evogram/presentation/screens/home_screen/widgets/bottomsheet.dart';
 import 'package:evogram/presentation/screens/userprofile/profile_screen/widgets/debouncer.dart';
+import 'package:evogram/presentation/screens/userprofile/profile_screen/widgets/my_post/widgets/gridshimmer.dart';
 import 'package:evogram/presentation/screens/userprofile/profile_screen/widgets/my_post/widgets/popupbutton.dart';
 import 'package:evogram/presentation/screens/userprofile/profile_screen/widgets/shimmer.dart';
+import 'package:evogram/presentation/screens/widgets/profilecircle.dart';
 import 'package:evogram/presentation/screens/widgets/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
@@ -103,26 +105,10 @@ class _UserPostsState extends State<UserPosts> {
                             padding: const EdgeInsets.only(left: 8.0),
                             child: Row(
                               children: [
-                                Container(
-                                    height: 50,
-                                    width: 50,
-                                    decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(100)),
-                                    child: ClipOval(
-                                      child: CachedNetworkImage(
-                                        imageUrl: state
-                                            .userposts[index].userId.profilePic
-                                            .toString(),
-                                        fit: BoxFit.cover,
-                                        placeholder: (context, url) {
-                                          return LoadingAnimationWidget.flickr(
-                                              leftDotColor: blueaccent2,
-                                              rightDotColor: blueaccent3,
-                                              size: 23);
-                                        },
-                                      ),
-                                    )),
+                                ProfileCircleTile(
+                                    profilepic: state
+                                        .userposts[index].userId.profilePic
+                                        .toString()),
                                 Padding(
                                   padding: const EdgeInsets.only(left: 18.0),
                                   child: Column(
@@ -164,8 +150,7 @@ class _UserPostsState extends State<UserPosts> {
                                     state.userposts[index].image.toString(),
                                 fit: BoxFit.cover,
                                 placeholder: (context, url) {
-                                  return LoadingAnimationWidget.hexagonDots(
-                                      color: blueaccent, size: 30);
+                                  return gridshimmer(context);
                                 },
                               )),
                           Padding(
@@ -203,6 +188,11 @@ class _UserPostsState extends State<UserPosts> {
                                                                   .id
                                                                   .toString()),
                                                         );
+                                                    context
+                                                        .read<
+                                                            FetchingUserPostBloc>()
+                                                        .add(
+                                                            FetchingUserpostInitialEvent());
                                                   } else {
                                                     state.userposts[index].likes
                                                         .remove(logginedUserId);
@@ -216,6 +206,11 @@ class _UserPostsState extends State<UserPosts> {
                                                                   .id
                                                                   .toString()),
                                                         );
+                                                    context
+                                                        .read<
+                                                            FetchingUserPostBloc>()
+                                                        .add(
+                                                            FetchingUserpostInitialEvent());
                                                   }
                                                 },
                                                 child: Icon(
@@ -273,29 +268,50 @@ class _UserPostsState extends State<UserPosts> {
                               ],
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 8.0),
-                            child: RichText(
-                              text: TextSpan(
-                                  text: 'Liked by',
-                                  style: GoogleFonts.inter(
-                                      fontSize: 13,
-                                      color: Theme.of(context).brightness ==
-                                              Brightness.light
-                                          ? black
-                                          : white),
-                                  children: <TextSpan>[
-                                    TextSpan(
-                                      text:
-                                          ' ${state.userposts[index].likes.length} ',
-                                      style: GoogleFonts.inter(
-                                        fontSize: 13,
-                                        fontWeight: FontWeight.w600,
-                                      ),
+                          state.userposts[index].likes.isNotEmpty
+                              ? Padding(
+                                  padding: const EdgeInsets.only(left: 8.0),
+                                  child: RichText(
+                                    text: TextSpan(
+                                        text:
+                                            '${state.userposts[index].likes.length}',
+                                        style: GoogleFonts.inter(
+                                          fontSize: 14,
+                                          color: Theme.of(context).brightness ==
+                                                  Brightness.light
+                                              ? black
+                                              : white,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                        children: <TextSpan>[
+                                          TextSpan(
+                                            text: state.userposts[index].likes
+                                                        .length >
+                                                    1
+                                                ? ' likes'
+                                                : 'like',
+                                            style: GoogleFonts.inter(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w500,
+                                                color: Theme.of(context)
+                                                            .brightness ==
+                                                        Brightness.light
+                                                    ? black
+                                                    : white),
+                                          ),
+                                        ]),
+                                  ),
+                                )
+                              : const Padding(
+                                  padding: EdgeInsets.only(left: 8.0),
+                                  child: Text(
+                                    '0 Likes',
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w500,
                                     ),
-                                  ]),
-                            ),
-                          ),
+                                  ),
+                                ),
                           h10,
                           Padding(
                               padding:

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 class TextFormFieldChatPage extends StatelessWidget {
   final TextEditingController controller;
   final String hintText;
+  // ignore: prefer_typing_uninitialized_variables
   final onchanged;
   final TextInputType keyboard;
   final String? Function(String?)? validator;

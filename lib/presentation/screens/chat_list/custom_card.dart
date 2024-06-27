@@ -1,5 +1,8 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:evogram/domain/models/conversation_model.dart';
 import 'package:evogram/domain/models/get_user_model.dart';
+import 'package:evogram/presentation/screens/userprofile/profile_screen/widgets/my_post/widgets/gridshimmer.dart';
+import 'package:evogram/presentation/screens/widgets/profilecircle.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -15,17 +18,13 @@ class CustomCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: CircleAvatar(
-        radius: 25,
-        backgroundImage: NetworkImage(user.profilePic),
-      ),
+      leading: ProfileCircleTile(profilepic: user.profilePic),
       title: Text(
         user.userName,
         style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
       ),
       subtitle: Text(
-        conversation.lastMessage ??
-            "${user.name == null ? "Guest User" : user.name}",
+        conversation.lastMessage ?? "${user.name ?? "Guest User"}",
         style: const TextStyle(fontSize: 15),
         overflow: TextOverflow.ellipsis,
         maxLines: 1,

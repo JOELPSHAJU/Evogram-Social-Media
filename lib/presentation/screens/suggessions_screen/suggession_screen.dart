@@ -6,7 +6,6 @@ import 'package:evogram/presentation/bloc/fetch_followings_bloc/fetch_followings
 import 'package:evogram/presentation/bloc/fetch_suggession_user_bloc/fetch_suggession_user_bloc.dart';
 import 'package:evogram/presentation/bloc/follow_unfollow_user_bloc/follow_unfollow_user_bloc.dart';
 import 'package:evogram/presentation/screens/discover_screen/widgets/post_details/userprofile/user_profile_screen.dart';
-import 'package:evogram/presentation/screens/home_screen/widgets/bottomsheet.dart';
 import 'package:evogram/presentation/screens/suggessions_screen/followers_loading.dart';
 import 'package:evogram/presentation/screens/widgets/custom_navigators.dart';
 import 'package:evogram/presentation/screens/widgets/text_styles.dart';

@@ -4,6 +4,7 @@ class FollwersPostModel {
   DateTime editedAt;
   List<dynamic> taggedUsers;
   String? id;
+  // ignore: non_constant_identifier_names
   int CommentCount;
   FollowersUserIdModel userId;
   String? image;
@@ -22,6 +23,7 @@ class FollwersPostModel {
   FollwersPostModel({
     required this.taggedUsers,
     required this.id,
+    // ignore: non_constant_identifier_names
     required this.CommentCount,
     required this.userId,
     required this.editedAt,

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+// ignore: depend_on_referenced_packages
 import 'package:bloc/bloc.dart';
 import 'package:evogram/domain/models/fetch_explore_post_model.dart';
 import 'package:evogram/domain/repository/post_repository.dart';

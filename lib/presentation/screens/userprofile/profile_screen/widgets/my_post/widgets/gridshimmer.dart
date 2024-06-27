@@ -15,3 +15,19 @@ Shimmer gridshimmer(BuildContext context) {
             BoxDecoration(color: white, borderRadius: BorderRadius.circular(8)),
       ));
 }
+
+Shimmer circleshimmer(BuildContext context) {
+  return Shimmer.fromColors(
+      highlightColor: Theme.of(context).brightness == Brightness.light
+          ? Colors.grey.shade200
+          : darkgrey,
+      baseColor: Theme.of(context).brightness == Brightness.light
+          ? Colors.grey.shade400
+          : darkbg,
+      child: Container(
+        height: 50,
+        width: 50,
+        decoration: BoxDecoration(
+            color: white, borderRadius: BorderRadius.circular(100)),
+      ));
+}

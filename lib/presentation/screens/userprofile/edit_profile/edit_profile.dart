@@ -6,6 +6,7 @@ import 'package:evogram/domain/models/login_user.dart';
 
 import 'package:evogram/presentation/bloc/edit_profile_bloc/edit_profile_bloc.dart';
 import 'package:evogram/presentation/bloc/login_user_bloc/login_user_bloc.dart';
+import 'package:evogram/presentation/screens/userprofile/profile_screen/widgets/my_post/widgets/gridshimmer.dart';
 
 import 'package:evogram/presentation/screens/widgets/custom_button.dart';
 import 'package:evogram/presentation/screens/widgets/snakbars.dart';
@@ -65,7 +66,7 @@ class EditProfileScreen extends StatelessWidget {
                   FocusScope.of(context).unfocus();
                   Navigator.of(context).pop();
                 },
-                icon: Icon(Icons.arrow_back)),
+                icon: const Icon(Icons.arrow_back)),
             backgroundColor: Theme.of(context).brightness == Brightness.light
                 ? white
                 : black,

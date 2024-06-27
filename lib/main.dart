@@ -27,7 +27,7 @@ import 'package:evogram/presentation/bloc/profile_posts_bloc/profile_bloc.dart';
 import 'package:evogram/presentation/bloc/saved_post_bloc/saved_post_bloc.dart';
 import 'package:evogram/presentation/bloc/search_all_users_bloc/search_all_users_bloc.dart';
 import 'package:evogram/presentation/bloc/signup_bloc/signup_bloc.dart';
-import 'package:evogram/infrastructure/fetchuserpost/fetching_user_post_bloc.dart';
+import 'package:evogram/presentation/bloc/fetchuserpost/fetching_user_post_bloc.dart';
 import 'package:evogram/presentation/screens/splash_screen/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

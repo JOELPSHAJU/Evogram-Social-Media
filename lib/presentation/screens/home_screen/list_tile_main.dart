@@ -10,7 +10,9 @@ import 'package:evogram/presentation/bloc/saved_post_bloc/saved_post_bloc.dart';
 import 'package:evogram/presentation/screens/discover_screen/widgets/post_details/userprofile/user_profile_screen.dart';
 import 'package:evogram/presentation/screens/home_screen/widgets/bottomsheet.dart';
 import 'package:evogram/presentation/screens/userprofile/profile_screen/profile_screen.dart';
+import 'package:evogram/presentation/screens/userprofile/profile_screen/widgets/my_post/widgets/gridshimmer.dart';
 import 'package:evogram/presentation/screens/widgets/custom_navigators.dart';
+import 'package:evogram/presentation/screens/widgets/profilecircle.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -75,9 +77,6 @@ class _ListTileMainScreenState extends State<ListTileMainScreen> {
                 return formatter.format(dateTime);
               }
 
-              if (post.createdAt == post.editedAt) {
-                print("success same date found");
-              }
               String formattedDate = formatDate('${post.date}');
 
               return Padding(
@@ -91,18 +90,10 @@ class _ListTileMainScreenState extends State<ListTileMainScreen> {
                         padding: const EdgeInsets.all(8.0),
                         child: Row(
                           children: [
-                            Container(
-                              height: 50,
-                              width: 50,
-                              decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                      image: NetworkImage(
-                                          post.userId.profilePic.toString()),
-                                      fit: BoxFit.cover),
-                                  borderRadius: BorderRadius.circular(100)),
-                            ),
+                            ProfileCircleTile(
+                                profilepic: post.userId.profilePic.toString()),
                             Padding(
-                              padding: EdgeInsets.only(left: 10.0),
+                              padding: const EdgeInsets.only(left: 10.0),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -181,12 +172,7 @@ class _ListTileMainScreenState extends State<ListTileMainScreen> {
                             imageUrl: post.image.toString(),
                             fit: BoxFit.cover,
                             placeholder: (context, url) {
-                              return Center(
-                                child: LoadingAnimationWidget.flickr(
-                                    leftDotColor: blueaccent,
-                                    rightDotColor: blueaccent2,
-                                    size: 27),
-                              );
+                              return gridshimmer(context);
                             },
                           )),
                       MultiBlocBuilder(
@@ -342,7 +328,7 @@ class _ListTileMainScreenState extends State<ListTileMainScreen> {
                         },
                       ),
                       Padding(
-                        padding: EdgeInsets.only(left: 8.0),
+                        padding: const EdgeInsets.only(left: 8.0),
                         child: RichText(
                           text: TextSpan(
                               text: post.CommentCount.toString(),

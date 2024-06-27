@@ -23,7 +23,7 @@ class UserIdSearchModel {
     required this.email,
     this.password,
     required this.profilePic,
-     this.phone,
+    this.phone,
     required this.online,
     required this.blocked,
     required this.verified,
@@ -37,7 +37,8 @@ class UserIdSearchModel {
     this.name,
   });
 
-  factory UserIdSearchModel.fromJson(Map<String, dynamic> json) => UserIdSearchModel(
+  factory UserIdSearchModel.fromJson(Map<String, dynamic> json) =>
+      UserIdSearchModel(
         id: json["_id"],
         userName: json["userName"],
         email: json["email"],

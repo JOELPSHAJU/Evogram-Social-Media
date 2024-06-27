@@ -15,19 +15,20 @@ class LoginUserModel {
   final String profilePic;
   final String backGroundImage;
 
- LoginUserModel({
+  LoginUserModel({
     required this.id,
     required this.userName,
     required this.email,
     required this.phone,
     required this.online,
+    
     required this.blocked,
     required this.verified,
     required this.role,
     required this.isPrivate,
     required this.createdAt,
     required this.updatedAt,
-     this.bio,
+    this.bio,
     this.name,
     required this.profilePic,
     required this.backGroundImage,
@@ -53,4 +54,3 @@ class LoginUserModel {
     );
   }
 }
-

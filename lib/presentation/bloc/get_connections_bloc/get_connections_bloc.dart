@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+// ignore: depend_on_referenced_packages
 import 'package:bloc/bloc.dart';
 import 'package:evogram/domain/repository/main_user_repo.dart';
 import 'package:flutter/material.dart';

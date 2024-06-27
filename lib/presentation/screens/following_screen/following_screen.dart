@@ -4,19 +4,16 @@ import 'package:evogram/presentation/bloc/fetch_followers/fetch_followers_bloc.d
 import 'package:evogram/presentation/bloc/follow_unfollow_user_bloc/follow_unfollow_user_bloc.dart';
 import 'package:evogram/presentation/screens/discover_screen/widgets/post_details/userprofile/user_profile_screen.dart';
 import 'package:evogram/presentation/screens/widgets/custom_navigators.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../application/core/constants.dart';
-import '../chat_screen/chat_screen.dart';
-import '../chat_list/widgets.dart';
-
 import '../widgets/text_styles.dart';
-import 'package:flutter/material.dart';
 
 class FollowingPersonScreen extends StatefulWidget {
   final List<Following> following;
   final FollowingModel model;
-  FollowingPersonScreen(
+  const FollowingPersonScreen(
       {super.key, required this.following, required this.model});
 
   @override
@@ -70,6 +67,7 @@ class _FollowingPersonScreenState extends State<FollowingPersonScreen> {
                     title: GestureDetector(
                       onTap: () {
                         final user = UserIdSearchModel(
+                         
                             id: widget.following[index].id.toString(),
                             userName:
                                 widget.following[index].userName.toString(),

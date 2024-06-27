@@ -1,13 +1,12 @@
 import 'package:evogram/application/core/constants.dart';
 import 'package:evogram/domain/models/comment_model.dart';
-import 'package:evogram/domain/models/postuser_model.dart';
-import 'package:evogram/domain/models/suggession_user_model.dart';
 import 'package:evogram/presentation/bloc/comment_post_bloc/comment_post_bloc.dart';
 import 'package:evogram/presentation/bloc/delete_comment_bloc/delete_comment_bloc.dart';
 import 'package:evogram/presentation/bloc/get_comments_bloc/get_comments_bloc.dart';
 import 'package:evogram/presentation/screens/home_screen/widgets/alert_dialouge.dart';
 import 'package:evogram/presentation/screens/home_screen/widgets/comments_loading.dart';
 import 'package:evogram/presentation/screens/userprofile/profile_screen/profile_screen.dart';
+import 'package:evogram/presentation/screens/widgets/profilecircle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:multi_bloc_builder/builders/multi_bloc_builder.dart';
@@ -21,7 +20,8 @@ Future<dynamic> commentBottomSheet(
     required List<Comment> comments,
     required String id}) {
   return showModalBottomSheet(
-    backgroundColor: white,
+    backgroundColor:
+        Theme.of(context).brightness == Brightness.light ? white : darkgreymain,
     context: context,
     builder: (context) => Padding(
       padding: const EdgeInsets.all(10.0),
@@ -29,11 +29,7 @@ Future<dynamic> commentBottomSheet(
         children: [
           Row(
             children: [
-              CircleAvatar(
-                backgroundImage: NetworkImage(profiePic),
-                backgroundColor: blueaccent,
-                radius: 25,
-              ),
+              ProfileCircleTile(profilepic: profiePic),
               w10,
               Expanded(
                   child: Form(
@@ -88,7 +84,7 @@ Future<dynamic> commentBottomSheet(
                           style: TextStyle(
                               fontWeight: FontWeight.w500,
                               fontSize: 16,
-                              color: black),
+                              color: buttonclr),
                         ),
                       ),
                     ),

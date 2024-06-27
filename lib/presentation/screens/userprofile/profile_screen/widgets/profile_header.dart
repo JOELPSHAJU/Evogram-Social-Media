@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:evogram/application/core/constants.dart';
 import 'package:evogram/domain/models/followings_model.dart';
-import 'package:evogram/infrastructure/fetchuserpost/fetching_user_post_bloc.dart';
+import 'package:evogram/presentation/bloc/fetchuserpost/fetching_user_post_bloc.dart';
 import 'package:evogram/presentation/bloc/fetch_followers/fetch_followers_bloc.dart';
 import 'package:evogram/presentation/bloc/fetch_followings_bloc/fetch_followings_bloc.dart';
 import 'package:evogram/presentation/bloc/login_user_bloc/login_user_bloc.dart';
@@ -9,6 +9,7 @@ import 'package:evogram/presentation/screens/followers_screen/followers_screen.d
 import 'package:evogram/presentation/screens/following_screen/following_screen.dart';
 import 'package:evogram/presentation/screens/userprofile/edit_profile/edit_profile.dart';
 import 'package:evogram/presentation/screens/userprofile/profile_screen/widgets/my_post/specific_uploadedpost.dart';
+import 'package:evogram/presentation/screens/userprofile/profile_screen/widgets/my_post/widgets/gridshimmer.dart';
 import 'package:evogram/presentation/screens/userprofile/profile_screen/widgets/profile_styles.dart';
 import 'package:evogram/presentation/screens/widgets/custom_navigators.dart';
 import 'package:evogram/presentation/screens/widgets/custom_profile_button.dart';
@@ -27,14 +28,21 @@ Widget profileHeaderWidgets(
       Container(
         height: 210,
         width: size.width,
-        decoration: BoxDecoration(
-            color: blueaccent,
-            image: DecorationImage(
-                image: NetworkImage(state.users.backGroundImage),
-                fit: BoxFit.cover)),
+        decoration: const BoxDecoration(
+          color: blueaccent,
+        ),
         child: Stack(
           clipBehavior: Clip.none,
           children: [
+            Positioned.fill(child: gridshimmer(context)),
+            Positioned.fill(
+              child: CachedNetworkImage(
+                imageUrl: state.users.backGroundImage,
+                fit: BoxFit.cover,
+                placeholder: (context, url) => Container(),
+                errorWidget: (context, url, error) => const Icon(Icons.error),
+              ),
+            ),
             Positioned(
               bottom: -60,
               left: 20,
@@ -53,12 +61,7 @@ Widget profileHeaderWidgets(
                     imageUrl: state.users.profilePic,
                     fit: BoxFit.cover,
                     placeholder: (context, url) {
-                      return ClipOval(
-                        child: Image.asset(
-                          profile,
-                          fit: BoxFit.cover,
-                        ),
-                      );
+                      return circleshimmer(context);
                     },
                   ),
                 ),

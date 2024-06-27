@@ -22,7 +22,7 @@ class _MainScreenState extends State<MainScreen> {
     const HomeScreen(),
     const SearchScreen(),
     AddPostScreen(),
-    FindChatPersonScreen(),
+    const FindChatPersonScreen(),
     const ProfileScreen(),
   ];
 

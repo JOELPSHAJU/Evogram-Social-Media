@@ -74,7 +74,7 @@ class _OtpScreenState extends State<OtpScreen> {
   @override
   Widget build(BuildContext context) {
     final otpbloc = context.read<OtpBloc>();
-    final signupbloc = context.read<SignupBloc>();
+    context.read<SignupBloc>();
     final Size size = MediaQuery.of(context).size;
     return BlocConsumer<OtpBloc, OtpState>(
       listener: (context, state) {

@@ -109,7 +109,6 @@ void failedSnakbar(context, message, color) {
 }
 
 void warningSnakbar(context, message, color) {
-  final Size size = MediaQuery.of(context).size;
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
       behavior: SnackBarBehavior.floating,

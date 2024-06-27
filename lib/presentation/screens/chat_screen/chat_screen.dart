@@ -2,14 +2,14 @@ import 'package:evogram/application/socket/socket.dart';
 import 'package:evogram/domain/models/getall_message_model.dart';
 import 'package:evogram/presentation/bloc/add_message/add_message_bloc.dart';
 import 'package:evogram/presentation/bloc/conversation_bloc/conversation_bloc.dart';
+import 'package:evogram/presentation/bloc/fetch_all_conversations_bloc.dart/fetch_all_conversations_bloc.dart';
 import 'package:evogram/presentation/screens/chat_screen/widgets.dart';
 import 'package:evogram/presentation/screens/chat_screen/widgets/chat_cards.dart';
 import 'package:evogram/presentation/screens/userprofile/profile_screen/profile_screen.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../application/core/constants.dart';
-
-import 'package:flutter/material.dart';
 
 class ChatScreen extends StatefulWidget {
   final String conversationId;
@@ -177,7 +177,7 @@ class _ChatScreenState extends State<ChatScreen> {
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(25)),
                           child: TextFormField(
-                            style: TextStyle(fontWeight: FontWeight.w600),
+                            style: const TextStyle(fontWeight: FontWeight.w600),
                             controller: _messageController,
                             keyboardType: TextInputType.multiline,
                             maxLines: 5,
@@ -219,6 +219,12 @@ class _ChatScreenState extends State<ChatScreen> {
                                   recieverId: widget.recieverid,
                                   conversationId: widget.conversationId));
                           _messageController.clear();
+                          FocusScope.of(context).unfocus(
+                              disposition:
+                                  UnfocusDisposition.previouslyFocusedChild);
+                          context
+                              .read<FetchAllConversationsBloc>()
+                              .add(AllConversationsInitialFetchEvent());
                         }
                       },
                       child: const Padding(

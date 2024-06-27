@@ -18,7 +18,7 @@ class ReplayCard extends StatelessWidget {
           elevation: 1,
           color: Theme.of(context).brightness == Brightness.light
               ? white
-              : Color.fromARGB(255, 48, 47, 47),
+              : const Color.fromARGB(255, 48, 47, 47),
           margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
           // color: kBlue,
           child: Stack(

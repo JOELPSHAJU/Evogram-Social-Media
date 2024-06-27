@@ -4,7 +4,7 @@ import 'dart:io';
 
 import 'package:evogram/presentation/bloc/add_post_bloc/addpost_bloc.dart';
 
-import 'package:evogram/infrastructure/fetchuserpost/fetching_user_post_bloc.dart';
+import 'package:evogram/presentation/bloc/fetchuserpost/fetching_user_post_bloc.dart';
 import 'package:evogram/presentation/screens/main_screen/main_screen.dart';
 import 'package:evogram/presentation/screens/widgets/custom_button.dart';
 import 'package:evogram/presentation/screens/widgets/snakbars.dart';
@@ -177,20 +177,23 @@ class AddPostScreen extends StatelessWidget {
                                           fit: BoxFit.cover)),
                               pickImage.value.isNotEmpty
                                   ? Positioned(
-                                      top: 10,
+                                      bottom: 10,
                                       right: 10,
-                                      child: IconButton(
-                                          onPressed: () {
-                                            pickImage.value = '';
-                                          },
-                                          icon: Icon(
-                                            Icons.cancel,
-                                            color:
-                                                Theme.of(context).brightness ==
-                                                        Brightness.light
-                                                    ? red
-                                                    : darkgrey,
-                                            size: 35,
+                                      child: Container(
+                                          height: 40,
+                                          width: 40,
+                                          decoration: BoxDecoration(
+                                              color: white,
+                                              borderRadius:
+                                                  BorderRadius.circular(100)),
+                                          child: GestureDetector(
+                                            onTap: () {
+                                              pickImage.value = '';
+                                            },
+                                            child: Image.asset(
+                                              deleteicon,
+                                              width: 35,
+                                            ),
                                           )),
                                     )
                                   : h10,

@@ -7,10 +7,14 @@ import 'package:evogram/presentation/bloc/search_all_users_bloc/search_all_users
 import 'package:evogram/presentation/screens/discover_screen/widgets/explore_page_list_view_shimmer.dart';
 import 'package:evogram/presentation/screens/discover_screen/widgets/post_details/post_details.dart';
 import 'package:evogram/presentation/screens/discover_screen/widgets/post_details/userprofile/user_profile_screen.dart';
+import 'package:evogram/presentation/screens/userprofile/profile_screen/profile_screen.dart';
 import 'package:evogram/presentation/screens/widgets/custom_navigators.dart';
+import 'package:evogram/presentation/screens/widgets/profilecircle.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../../application/core/constants.dart';
 
@@ -133,27 +137,21 @@ class _SearchScreenState extends State<SearchScreen> {
                     itemCount: state.posts.length,
                     itemBuilder: (context, index) {
                       final ExplorePostModel post = state.posts[index];
-                      return Center(
-                        child: Container(
-                          constraints: const BoxConstraints(maxWidth: 500),
-                          child: GestureDetector(
-                            onTap: () {
-                              navigatePushAnimaterbottomtotop(context,
-                                  UsersPostDetailsList(initialindex: index));
-                            },
-                            child: Padding(
-                              padding: const EdgeInsets.all(2),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(5),
-                                child: CachedNetworkImage(
-                                  imageUrl: post.image,
-                                  placeholder: (context, url) {
-                                    return LoadingAnimationWidget.stretchedDots(
-                                        color: blue, size: 30);
-                                  },
-                                ),
-                              ),
-                            ),
+                      return GestureDetector(
+                        onTap: () {
+                          navigatePushAnimaterbottomtotop(context,
+                              UsersPostDetailsList(initialindex: index));
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.all(2),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(5),
+                            child: CachedNetworkImage(
+                                imageUrl: post.image,
+                                placeholder: (context, url) {
+                                  return LoadingAnimationWidget.hexagonDots(
+                                      color: buttonclr, size: 30);
+                                }),
                           ),
                         ),
                       );
@@ -164,10 +162,32 @@ class _SearchScreenState extends State<SearchScreen> {
                 builder: (context, state) {
                   if (state is SearchAllUsersSuccesfulState) {
                     return state.users.isEmpty
-                        ? const Center(
-                            child: Text(
-                              'No User Found !',
-                              style: TextStyle(fontWeight: FontWeight.w600),
+                        ? Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Image.asset(
+                                  Theme.of(context).brightness ==
+                                          Brightness.light
+                                      ? nouserfoundlight
+                                      : nouserfounddark,
+                                  width: size.width * .4,
+                                ),
+                                const Text(
+                                  'Sorry, No user found',
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                const Text(
+                                  textAlign: TextAlign.center,
+                                  "The user you searched was unfortunately not found or dosen't exist",
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      color: grey,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                              ],
                             ),
                           )
                         : ListView.builder(
@@ -188,28 +208,27 @@ class _SearchScreenState extends State<SearchScreen> {
                                             ));
                                       },
                                       child: ListTile(
-                                        leading: CircleAvatar(
-                                          backgroundColor: white,
-                                          radius: 28,
-                                          child: CircleAvatar(
-                                            backgroundImage:
-                                                NetworkImage(user.profilePic),
-                                            radius: 26,
-                                          ),
+                                        leading: ProfileCircleTile(
+                                          profilepic: user.profilePic,
                                         ),
                                         title: Text(
                                           user.userName,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                               fontWeight: FontWeight.bold),
                                         ),
                                         subtitle: user.name != null
                                             ? Text(
                                                 user.name.toString(),
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                     fontWeight:
                                                         FontWeight.w600),
                                               )
-                                            : h10,
+                                            : Text(
+                                                'Guest User 1${index}10${index}29$index',
+                                                style: const TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.w600),
+                                              ),
                                       )),
                                 ),
                               );
@@ -217,7 +236,9 @@ class _SearchScreenState extends State<SearchScreen> {
                   } else if (state is SearchAllUsersLoadingState) {
                     return explorePageLoading(context);
                   } else {
-                    print(state);
+                    if (kDebugMode) {
+                      print(state);
+                    }
                     return Center(
                         child: LoadingAnimationWidget.discreteCircle(
                       color: black,
@@ -230,7 +251,7 @@ class _SearchScreenState extends State<SearchScreen> {
           } else if (state is FetchExplorePostLoadingState) {
             return explorePageLoading(context);
           } else {
-            return Center(
+            return const Center(
               child: Text('error'),
             );
           }

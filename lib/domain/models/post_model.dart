@@ -1,4 +1,5 @@
 import 'package:evogram/domain/models/suggession_user_model.dart';
+
 class Post {
   final String id;
   final User userId;
@@ -8,6 +9,7 @@ class Post {
   final bool hidden;
   final bool blocked;
   final DateTime date;
+  final DateTime edited;
   final DateTime createdAt;
   final DateTime updatedAt;
   final int v;
@@ -20,6 +22,7 @@ class Post {
     required this.likes,
     required this.hidden,
     required this.blocked,
+    required this.edited,
     required this.date,
     required this.createdAt,
     required this.updatedAt,
@@ -38,6 +41,7 @@ class Post {
       date: DateTime.parse(json['date']),
       createdAt: DateTime.parse(json['createdAt']),
       updatedAt: DateTime.parse(json['updatedAt']),
+      edited: DateTime.parse(json['edited']),
       v: json['__v'],
     );
   }
@@ -52,6 +56,7 @@ class Post {
       'hidden': hidden,
       'blocked': blocked,
       'date': date.toIso8601String(),
+      'edited': edited.toIso8601String(),
       'createdAt': createdAt.toIso8601String(),
       'updatedAt': updatedAt.toIso8601String(),
       'v': v,

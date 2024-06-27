@@ -2,7 +2,6 @@
 
 import 'dart:async';
 import 'dart:convert';
-import 'dart:math';
 
 import 'package:bloc/bloc.dart';
 import 'package:evogram/domain/models/get_followers_post_model.dart';
@@ -78,7 +77,7 @@ class AllFollowersPostsBloc
           ..addAll(newPosts);
         emit(AllFollowersPostsSuccesfulState(posts: updatedPosts));
       } else {
-        emit(AllFollowersPostsServerErrorState(null));
+        emit(const AllFollowersPostsServerErrorState(null));
       }
     }
   }
