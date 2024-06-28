@@ -8,7 +8,7 @@ import 'package:socket_io_client/socket_io_client.dart' as io;
 
 class SocketService {
   io.Socket socket = io.io(
-    'https://hyperedge.online',
+    '13.49.146.41',
     io.OptionBuilder()
         .setTransports(['websocket'])
         .disableAutoConnect()

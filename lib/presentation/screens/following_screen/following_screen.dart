@@ -1,9 +1,11 @@
 import 'package:evogram/domain/models/followings_model.dart';
 import 'package:evogram/domain/models/searchusermodel.dart';
 import 'package:evogram/presentation/bloc/fetch_followers/fetch_followers_bloc.dart';
+import 'package:evogram/presentation/bloc/fetch_followings_bloc/fetch_followings_bloc.dart';
 import 'package:evogram/presentation/bloc/follow_unfollow_user_bloc/follow_unfollow_user_bloc.dart';
 import 'package:evogram/presentation/screens/discover_screen/widgets/post_details/userprofile/user_profile_screen.dart';
 import 'package:evogram/presentation/screens/widgets/custom_navigators.dart';
+import 'package:evogram/presentation/screens/widgets/profilecircle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -53,21 +55,12 @@ class _FollowingPersonScreenState extends State<FollowingPersonScreen> {
               return Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: ListTile(
-                    leading: Container(
-                      height: 60,
-                      width: 60,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(100),
-                          image: DecorationImage(
-                              image: NetworkImage(widget
-                                  .following[index].profilePic
-                                  .toString()),
-                              fit: BoxFit.cover)),
+                    leading: ProfileCircleTile(
+                      profilepic: widget.following[index].profilePic.toString(),
                     ),
                     title: GestureDetector(
                       onTap: () {
                         final user = UserIdSearchModel(
-                         
                             id: widget.following[index].id.toString(),
                             userName:
                                 widget.following[index].userName.toString(),
@@ -98,7 +91,9 @@ class _FollowingPersonScreenState extends State<FollowingPersonScreen> {
                       ),
                     ),
                     subtitle: Text(
-                      widget.following[index].name.toString(),
+                      widget.following[index].name != null
+                          ? widget.following[index].name.toString()
+                          : 'Guest 14${index}745${index}35$index',
                       style: const TextStyle(
                           fontSize: 13, fontWeight: FontWeight.bold),
                     ),
@@ -119,6 +114,9 @@ class _FollowingPersonScreenState extends State<FollowingPersonScreen> {
                           });
                           widget.model.totalCount--;
                           context.read<FetchFollowersBloc>();
+                          context
+                              .read<FetchFollowingsBloc>()
+                              .add(FollowingsInitialFetchEvent());
                         },
                         child: const Text('Unfollow',
                             style: TextStyle(

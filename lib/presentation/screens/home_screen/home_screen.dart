@@ -44,7 +44,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Future<void> refresh() async {
     await Future.delayed(const Duration(seconds: 2));
-    context.read<AllFollowersPostsBloc>().add(LoadMoreFollowersPostsEvent());
+    context
+        .read<AllFollowersPostsBloc>()
+        .add(AllFollowersPostsInitialFetchEvent(n: currentPage));
   }
 
   getToken() async {
@@ -78,7 +80,8 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: [
           GestureDetector(
               onTap: () {
-                navigatePushAnimaterighttoleft(context, const SuggessionScreen());
+                navigatePushAnimaterighttoleft(
+                    context, const SuggessionScreen());
               },
               child: Padding(
                   padding: const EdgeInsets.only(right: 8.0),

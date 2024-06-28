@@ -5,7 +5,8 @@ class CustomProfileButton extends StatelessWidget {
   const CustomProfileButton({
     super.key,
     required this.size,
-    required this.text, required this.width,
+    required this.text,
+    required this.width,
   });
 
   final Size size;
@@ -18,14 +19,14 @@ class CustomProfileButton extends StatelessWidget {
         decoration: BoxDecoration(
           color: Theme.of(context).brightness == Brightness.light
               ? Colors.grey[300]
-              : darkgreymain,
+              : black,
           borderRadius: BorderRadius.circular(10.0),
           boxShadow: [
             BoxShadow(
               blurStyle: BlurStyle.normal,
               color: Theme.of(context).brightness == Brightness.light
                   ? Colors.grey.shade500
-                  : const Color.fromARGB(255, 0, 0, 0),
+                  : Color.fromARGB(255, 16, 15, 15),
               offset: const Offset(6.0, 6.0),
               blurRadius: 20.0,
               spreadRadius: 5.0,
@@ -34,7 +35,7 @@ class CustomProfileButton extends StatelessWidget {
               blurStyle: BlurStyle.normal,
               color: Theme.of(context).brightness == Brightness.light
                   ? Colors.white
-                  : const Color.fromARGB(255, 0, 0, 0),
+                  : Color.fromARGB(255, 20, 20, 20),
               offset: const Offset(-6.0, -6.0),
               blurRadius: 20.0,
               spreadRadius: 5.0,

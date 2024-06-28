@@ -67,6 +67,7 @@ class ProfileScreen extends StatefulWidget {
 const nointernetimage = "assets/nointernet.png";
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  final FocusNode _focusNode = FocusNode();
   @override
   void initState() {
     context.read<FetchingUserPostBloc>().add(FetchingUserpostInitialEvent());
@@ -74,6 +75,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
     context.read<FetchFollowingsBloc>().add(FollowingsInitialFetchEvent());
     context.read<FetchFollowersBloc>().add(FetchFollowersInitialEvent());
     context.read<FetchSavedPostsBloc>().add(SavedPostsInitialFetchEvent());
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      FocusScope.of(context).requestFocus(_focusNode);
+    });
+
     super.initState();
   }
 
@@ -116,7 +121,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           return Scaffold(
               backgroundColor: Theme.of(context).brightness == Brightness.light
                   ? Colors.grey[300]
-                  : black,
+                  : darkgreymain,
               extendBody: true,
               appBar: AppBar(
                 elevation: 5,
@@ -175,10 +180,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             color:
                                 Theme.of(context).brightness == Brightness.light
                                     ? Colors.grey[300]
-                                    : black,
+                                    : darkgreymain,
                             child: TabBar(
-                                overlayColor:
-                                    WidgetStatePropertyAll(Colors.grey[300]),
+                                overlayColor: Theme.of(context).brightness ==
+                                        Brightness.light
+                                    ? WidgetStatePropertyAll(Colors.grey[300])
+                                    : WidgetStatePropertyAll(darkgreymain),
                                 dividerColor: blueaccent3,
                                 unselectedLabelColor: grey,
                                 labelColor: Theme.of(context).brightness ==

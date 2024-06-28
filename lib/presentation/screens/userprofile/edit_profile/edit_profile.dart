@@ -74,6 +74,61 @@ class EditProfileScreen extends StatelessWidget {
                 ? white
                 : black,
             title: appbarTitle(title: 'Edit Profile'),
+            actions: [
+              BlocBuilder<EditProfileBloc, EditProfileState>(
+                  builder: (context, state) {
+                if (state is EditProfileLoadingState) {
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: SizedBox(
+                      width: 100,
+                      height: 40,
+                      child: loadingButton(
+                        media: size,
+                        onPressed: () {},
+                        color: buttonclr,
+                      ),
+                    ),
+                  );
+                }
+                return Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: MaterialButton(
+                      color: buttonclr,
+                      minWidth: 100,
+                      height: 55,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5)),
+                      onPressed: () {
+                        if (_editprofileformkey.currentState!.validate()) {
+                          if (bioController.text.isNotEmpty &&
+                              nameController.text.isNotEmpty) {
+                            profileEditBloc.add(EditprofileClickEvent(
+                                name: nameController.text,
+                                bio: bioController.text,
+                                image: profilepicfile ?? profilepic,
+                                imageUrl:
+                                    profilepicfile == null ? profilepic : '',
+                                bgImage: Coverpicfile ?? coverpic,
+                                bgImageUrl:
+                                    Coverpicfile == null ? coverpic : ''));
+                            context
+                                .read<LoginUserBloc>()
+                                .add(LoginUserInitialFetchingEvent());
+                          } else {
+                            warningSnakbar(
+                                context, 'Fill all the fields', grey300);
+                          }
+                        }
+                      },
+                      child: const Text('Update',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: white,
+                              fontSize: 17))),
+                );
+              })
+            ],
           ),
           body: SingleChildScrollView(
             child: SizedBox(
@@ -89,7 +144,28 @@ class EditProfileScreen extends StatelessWidget {
                           width: size.width,
                           height: 250,
                           decoration: BoxDecoration(
-                              color: blueaccent,
+                              gradient: LinearGradient(
+                                colors: [
+                                  Theme.of(context).brightness ==
+                                          Brightness.light
+                                      ? Color.fromARGB(255, 204, 208, 211)
+                                      : Color.fromARGB(255, 22, 21, 21),
+                                  Theme.of(context).brightness ==
+                                          Brightness.light
+                                      ? const Color.fromARGB(255, 144, 150, 144)
+                                      : Color.fromARGB(255, 36, 36, 36),
+                                  Theme.of(context).brightness ==
+                                          Brightness.light
+                                      ? Color.fromARGB(255, 204, 208, 211)
+                                      : Color.fromARGB(255, 24, 23, 23),
+                                  Theme.of(context).brightness ==
+                                          Brightness.light
+                                      ? const Color.fromARGB(255, 144, 150, 144)
+                                      : Color.fromARGB(255, 29, 28, 28),
+                                ],
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                              ),
                               image: DecorationImage(
                                   image: coverimageeditprofile.value.isEmpty
                                       ? NetworkImage(coverpic)
@@ -128,6 +204,40 @@ class EditProfileScreen extends StatelessWidget {
                                           height: 180,
                                           width: 180,
                                           decoration: BoxDecoration(
+                                              gradient: LinearGradient(
+                                                colors: [
+                                                  Theme.of(context)
+                                                              .brightness ==
+                                                          Brightness.light
+                                                      ? Color.fromARGB(
+                                                          255, 204, 208, 211)
+                                                      : Color.fromARGB(
+                                                          255, 22, 21, 21),
+                                                  Theme.of(context)
+                                                              .brightness ==
+                                                          Brightness.light
+                                                      ? const Color.fromARGB(
+                                                          255, 144, 150, 144)
+                                                      : Color.fromARGB(
+                                                          255, 36, 36, 36),
+                                                  Theme.of(context)
+                                                              .brightness ==
+                                                          Brightness.light
+                                                      ? Color.fromARGB(
+                                                          255, 204, 208, 211)
+                                                      : Color.fromARGB(
+                                                          255, 24, 23, 23),
+                                                  Theme.of(context)
+                                                              .brightness ==
+                                                          Brightness.light
+                                                      ? const Color.fromARGB(
+                                                          255, 144, 150, 144)
+                                                      : Color.fromARGB(
+                                                          255, 29, 28, 28),
+                                                ],
+                                                begin: Alignment.topLeft,
+                                                end: Alignment.bottomRight,
+                                              ),
                                               image: DecorationImage(
                                                   image: profileimageeditprofile
                                                           .value.isEmpty
@@ -138,7 +248,6 @@ class EditProfileScreen extends StatelessWidget {
                                                                   .value),
                                                         ),
                                                   fit: BoxFit.cover),
-                                              color: blueaccent3,
                                               borderRadius:
                                                   BorderRadius.circular(100),
                                               border: Border.all(
@@ -246,61 +355,6 @@ class EditProfileScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                  BlocBuilder<EditProfileBloc, EditProfileState>(
-                      builder: (context, state) {
-                    if (state is EditProfileLoadingState) {
-                      return Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: SizedBox(
-                          width: size.width,
-                          height: 55,
-                          child: loadingButton(
-                            media: size,
-                            onPressed: () {},
-                            color: buttonclr,
-                          ),
-                        ),
-                      );
-                    }
-                    return Padding(
-                      padding:
-                          const EdgeInsets.only(left: 8.0, right: 8, top: 20),
-                      child: MaterialButton(
-                          color: buttonclr,
-                          minWidth: size.width,
-                          height: 55,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5)),
-                          onPressed: () {
-                            if (_editprofileformkey.currentState!.validate()) {
-                              if (bioController.text.isNotEmpty &&
-                                  nameController.text.isNotEmpty) {
-                                profileEditBloc.add(EditprofileClickEvent(
-                                    name: nameController.text,
-                                    bio: bioController.text,
-                                    image: profilepicfile ?? profilepic,
-                                    imageUrl: profilepicfile == null
-                                        ? profilepic
-                                        : '',
-                                    bgImage: Coverpicfile ?? coverpic,
-                                    bgImageUrl:
-                                        Coverpicfile == null ? coverpic : ''));
-                                context
-                                    .read<LoginUserBloc>()
-                                    .add(LoginUserInitialFetchingEvent());
-                              } else {
-                                warningSnakbar(
-                                    context, 'Fill all the fields', grey300);
-                              }
-                            }
-                          },
-                          child: const Text('Update',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: white,
-                                  fontSize: 17))),
-                    );
-                  })
                 ],
               ),
             ),

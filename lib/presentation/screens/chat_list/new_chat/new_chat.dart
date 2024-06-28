@@ -9,6 +9,7 @@ import 'package:evogram/presentation/screens/chat_screen/chat_screen.dart';
 import 'package:evogram/presentation/screens/suggessions_screen/followers_loading.dart';
 import 'package:evogram/presentation/screens/userprofile/profile_screen/profile_screen.dart';
 import 'package:evogram/presentation/screens/widgets/custom_navigators.dart';
+import 'package:evogram/presentation/screens/widgets/profilecircle.dart';
 import 'package:evogram/presentation/screens/widgets/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -98,15 +99,9 @@ class _NewChatScreenState extends State<NewChatScreen> {
                                   }
                                 },
                                 child: ListTile(
-                                  leading: CircleAvatar(
-                                    backgroundColor: white,
-                                    radius: 28,
-                                    child: CircleAvatar(
-                                      backgroundImage: NetworkImage(
+                                  leading: ProfileCircleTile(
+                                      profilepic:
                                           following.profilePic.toString()),
-                                      radius: 26,
-                                    ),
-                                  ),
                                   title: Text(
                                     following.userName.toString(),
                                     style: const TextStyle(

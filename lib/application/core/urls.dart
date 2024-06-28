@@ -1,4 +1,4 @@
-String baseurl = 'https://3b5xb3l8-7002.inc1.devtunnels.ms/api';
+String baseurl = 'http://13.49.146.41/api';
 //signup
 String signup = '/users/send-otp';
 String otpurl = '/users/verify-otp';

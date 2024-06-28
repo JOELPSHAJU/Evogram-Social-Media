@@ -20,6 +20,7 @@ class TextFormFieldAuthRegister extends StatelessWidget {
       cursorWidth: 2,
       controller: controller,
       keyboardType: keyboard,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
       cursorColor:
           Theme.of(context).brightness == Brightness.light ? black : white,
       style: const TextStyle(fontWeight: FontWeight.w600),
@@ -76,6 +77,7 @@ class _TextFormFieldPasswordRegisterState
     return TextFormField(
       cursorWidth: 2,
       controller: widget.controller,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
       validator: widget.validator,
       cursorColor:
           Theme.of(context).brightness == Brightness.light ? black : white,

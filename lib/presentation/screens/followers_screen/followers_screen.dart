@@ -2,6 +2,7 @@ import 'package:evogram/domain/models/followers_model.dart';
 import 'package:evogram/domain/models/searchusermodel.dart';
 import 'package:evogram/presentation/screens/discover_screen/widgets/post_details/userprofile/user_profile_screen.dart';
 import 'package:evogram/presentation/screens/widgets/custom_navigators.dart';
+import 'package:evogram/presentation/screens/widgets/profilecircle.dart';
 
 import '../../../application/core/constants.dart';
 
@@ -54,19 +55,11 @@ class FollowersScreen extends StatelessWidget {
               return Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: ListTile(
-                    leading: Container(
-                      height: 60,
-                      width: 60,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(100),
-                          image: DecorationImage(
-                              image: NetworkImage(followers[index].profilePic),
-                              fit: BoxFit.cover)),
-                    ),
+                    leading: ProfileCircleTile(
+                        profilepic: followers[index].profilePic),
                     title: GestureDetector(
                       onTap: () {
                         final user = UserIdSearchModel(
-                          
                             id: followers[index].id.toString(),
                             userName: followers[index].userName.toString(),
                             email: followers[index].email.toString(),
@@ -94,7 +87,9 @@ class FollowersScreen extends StatelessWidget {
                       ),
                     ),
                     subtitle: Text(
-                      followers[index].name.toString(),
+                      followers[index].name != null
+                          ? followers[index].name.toString()
+                          : 'Guest 14${index}745${index}35$index',
                       style: const TextStyle(
                           fontSize: 13, fontWeight: FontWeight.bold),
                     ),

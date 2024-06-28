@@ -37,84 +37,88 @@ class _MainScreenState extends State<MainScreen> {
           children: pages,
         ),
       ),
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          color:
-              Theme.of(context).brightness == Brightness.light ? white : black,
-          border: Border.symmetric(
-              horizontal: BorderSide(
-            color:
-                Theme.of(context).brightness == Brightness.light ? grey : black,
-          )),
-        ),
-        height: 62,
-        child: FlashyTabBar(
-          backgroundColor:
-              Theme.of(context).brightness == Brightness.light ? white : black,
-          selectedIndex: currentPage.value,
-          showElevation: true,
-          onItemSelected: (index) {
-            setState(() {
+      bottomNavigationBar: ValueListenableBuilder<int>(
+        valueListenable: currentPage,
+        builder: (context, value, child) => Container(
+          decoration: BoxDecoration(
+            color: Theme.of(context).brightness == Brightness.light
+                ? white
+                : black,
+            border: Border.symmetric(
+                horizontal: BorderSide(
+              color: Theme.of(context).brightness == Brightness.light
+                  ? grey
+                  : black,
+            )),
+          ),
+          height: 62,
+          child: FlashyTabBar(
+            backgroundColor: Theme.of(context).brightness == Brightness.light
+                ? white
+                : black,
+            selectedIndex: value,
+            showElevation: true,
+            onItemSelected: (index) {
               currentPage.value = index;
-            });
-          },
-          items: [
-            FlashyTabBarItem(
-              inactiveColor: grey,
-              activeColor: Theme.of(context).brightness == Brightness.light
-                  ? black
-                  : white,
-              icon: const Icon(
-                CupertinoIcons.home,
-                size: 28,
+            },
+            items: [
+              FlashyTabBarItem(
+                inactiveColor: grey,
+                activeColor: Theme.of(context).brightness == Brightness.light
+                    ? black
+                    : white,
+                icon: const Icon(
+                  CupertinoIcons.home,
+                  size: 28,
+                ),
+                title: const Text("Home"),
               ),
-              title: const Text("Home"),
-            ),
-            FlashyTabBarItem(
-              inactiveColor: grey,
-              activeColor: Theme.of(context).brightness == Brightness.light
-                  ? black
-                  : white,
-              icon: const Icon(
-                CupertinoIcons.search,
-                size: 28,
+              FlashyTabBarItem(
+                inactiveColor: grey,
+                activeColor: Theme.of(context).brightness == Brightness.light
+                    ? black
+                    : white,
+                icon: const Icon(
+                  CupertinoIcons.search,
+                  size: 28,
+                ),
+                title: const Text("Discover"),
               ),
-              title: const Text("Discover"),
-            ),
-            FlashyTabBarItem(
-              inactiveColor: grey,
-              activeColor: Theme.of(context).brightness == Brightness.light
-                  ? black
-                  : white,
-              icon: const Icon(
-                CupertinoIcons.add_circled,
-                size: 28,
+              FlashyTabBarItem(
+                inactiveColor: grey,
+                activeColor: Theme.of(context).brightness == Brightness.light
+                    ? black
+                    : white,
+                icon: const Icon(
+                  CupertinoIcons.add_circled,
+                  size: 28,
+                ),
+                title: const Text("Add Post"),
               ),
-              title: const Text("Add Post"),
-            ),
-            FlashyTabBarItem(
-              inactiveColor: grey,
-              activeColor: Theme.of(context).brightness == Brightness.light
-                  ? black
-                  : white,
-              icon: const Icon(
-                CupertinoIcons.chat_bubble,
-                size: 28,
+              FlashyTabBarItem(
+                inactiveColor: grey,
+                activeColor: Theme.of(context).brightness == Brightness.light
+                    ? black
+                    : white,
+                icon: const Icon(
+                  CupertinoIcons.chat_bubble,
+                  size: 28,
+                ),
+                title: const Text("Chat"),
               ),
-              title: const Text("Chat"),
-            ),
-            FlashyTabBarItem(
-              inactiveColor: grey,
-              activeColor: Theme.of(context).brightness == Brightness.light
-                  ? black
-                  : white,
-              icon: const Icon(
-                Icons.person,
-                size: 28,
+              FlashyTabBarItem(
+                inactiveColor: grey,
+                activeColor: Theme.of(context).brightness == Brightness.light
+                    ? black
+                    : white,
+                icon: const Icon(
+                  Icons.person,
+                  size: 28,
+                ),
+                title: const Text("Account"),
               ),
-              title: const Text("Account"),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

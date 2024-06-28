@@ -12,6 +12,8 @@ import 'package:evogram/presentation/screens/chat_screen/chat_screen.dart';
 import 'package:evogram/presentation/screens/discover_screen/post_details/post_details.dart';
 import 'package:evogram/presentation/screens/discover_screen/widgets/post_details/userprofile/posts_loading.dart';
 import 'package:evogram/presentation/screens/userprofile/profile_screen/profile_screen.dart';
+import 'package:evogram/presentation/screens/userprofile/profile_screen/widgets/my_post/widgets/gridshimmer.dart';
+import 'package:evogram/presentation/screens/userprofile/profile_screen/widgets/profile_header.dart';
 import 'package:evogram/presentation/screens/userprofile/profile_screen/widgets/profile_styles.dart';
 import 'package:evogram/presentation/screens/widgets/custom_navigators.dart';
 import 'package:evogram/presentation/screens/widgets/custom_profile_button.dart';
@@ -26,7 +28,8 @@ class UserProfileScreen extends StatefulWidget {
   // ignore: prefer_typing_uninitialized_variables
   final UserIdSearchModel user;
 
-  const UserProfileScreen({super.key, required this.userId, required this.user});
+  const UserProfileScreen(
+      {super.key, required this.userId, required this.user});
 
   @override
   State<UserProfileScreen> createState() => _UserProfileScreenState();
@@ -60,7 +63,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
         ),
         backgroundColor: Theme.of(context).brightness == Brightness.light
             ? Colors.grey.shade300
-            : black,
+            : darkgreymain,
         body: SizedBox(
           height: size.height,
           width: size.width,
@@ -78,6 +81,16 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                 child: Stack(
                   clipBehavior: Clip.none,
                   children: [
+                    Positioned.fill(child: gridshimmer(context)),
+                    Positioned.fill(
+                      child: CachedNetworkImage(
+                        imageUrl: widget.user.backGroundImage,
+                        fit: BoxFit.cover,
+                        placeholder: (context, url) => Container(),
+                        errorWidget: (context, url, error) =>
+                            const Icon(Icons.error),
+                      ),
+                    ),
                     Positioned(
                       bottom: -60,
                       left: 20,
@@ -90,20 +103,24 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                 color: Theme.of(context).brightness ==
                                         Brightness.light
                                     ? Colors.grey.shade300
-                                    : black),
+                                    : darkgreymain),
                             borderRadius: BorderRadius.circular(100)),
-                        child: ClipOval(
-                          child: CachedNetworkImage(
-                            imageUrl: widget.user.profilePic,
-                            fit: BoxFit.cover,
-                            placeholder: (context, url) {
-                              return ClipOval(
-                                child: Image.asset(
-                                  profile,
-                                  fit: BoxFit.cover,
-                                ),
-                              );
-                            },
+                        child: GestureDetector(
+                          onTap: () {
+                            showDialog(
+                                context: context,
+                                builder: (_) => ImageDialouge(
+                                      image: widget.user.profilePic,
+                                    ));
+                          },
+                          child: ClipOval(
+                            child: CachedNetworkImage(
+                              imageUrl: widget.user.profilePic,
+                              fit: BoxFit.cover,
+                              placeholder: (context, url) {
+                                return circleshimmer(context);
+                              },
+                            ),
                           ),
                         ),
                       ),
@@ -224,9 +241,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   BlocConsumer<FetchFollowingsBloc, FetchFollowingsState>(
-                    listener: (context, state) {
-                
-                    },
+                    listener: (context, state) {},
                     builder: (context, state) {
                       if (state is FetchFollowingsSuccesfulState) {
                         final FollowingModel followingsModel =

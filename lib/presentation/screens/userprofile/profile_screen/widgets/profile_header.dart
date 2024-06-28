@@ -54,15 +54,24 @@ Widget profileHeaderWidgets(
                         width: 5,
                         color: Theme.of(context).brightness == Brightness.light
                             ? Colors.grey.shade300
-                            : black),
+                            : darkgreymain),
                     borderRadius: BorderRadius.circular(100)),
-                child: ClipOval(
-                  child: CachedNetworkImage(
-                    imageUrl: state.users.profilePic,
-                    fit: BoxFit.cover,
-                    placeholder: (context, url) {
-                      return circleshimmer(context);
-                    },
+                child: GestureDetector(
+                  onTap: () {
+                    showDialog(
+                        context: context,
+                        builder: (_) => ImageDialouge(
+                              image: state.users.profilePic,
+                            ));
+                  },
+                  child: ClipOval(
+                    child: CachedNetworkImage(
+                      imageUrl: state.users.profilePic,
+                      fit: BoxFit.cover,
+                      placeholder: (context, url) {
+                        return circleshimmer(context);
+                      },
+                    ),
                   ),
                 ),
               ),
@@ -100,7 +109,7 @@ Widget profileHeaderWidgets(
               } else if (state is FetchUserPostSuccessState) {
                 return GestureDetector(
                   onTap: () {
-                    navigatePushAnimaterighttoleft(
+                    navigatePushAnimaterbottomtotop(
                         context,
                         UserPosts(
                           userId: state.userposts[0].userId.id,
@@ -232,4 +241,37 @@ Widget profileHeaderWidgets(
       h20,
     ]),
   );
+}
+
+class ImageDialouge extends StatelessWidget {
+  final String image;
+  const ImageDialouge({super.key, required this.image});
+
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      elevation: 0,
+      surfaceTintColor: black,
+      backgroundColor: Colors.transparent,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: ClipOval(
+          child: Container(
+            width: 280,
+            height: 280,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(100),
+            ),
+            child: CachedNetworkImage(
+              imageUrl: image,
+              fit: BoxFit.cover,
+              placeholder: (context, url) {
+                return circleshimmer(context);
+              },
+            ),
+          ),
+        ),
+      ),
+    );
+  }
 }

@@ -20,6 +20,7 @@ class TextFormFieldAuth extends StatelessWidget {
       cursorWidth: 2,
       controller: controller,
       validator: validator,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
       cursorColor:
           Theme.of(context).brightness == Brightness.light ? black : white,
       style: const TextStyle(fontWeight: FontWeight.w600),
@@ -41,8 +42,9 @@ class TextFormFieldAuth extends StatelessWidget {
               borderSide: BorderSide(color: lightgrey)),
           focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(
-            color:
-                Theme.of(context).brightness == Brightness.light ? buttonclr : white,
+            color: Theme.of(context).brightness == Brightness.light
+                ? buttonclr
+                : white,
           )),
           enabledBorder:
               const OutlineInputBorder(borderSide: BorderSide(color: grey))),
@@ -75,6 +77,7 @@ class _TextFormFieldPasswordState extends State<TextFormFieldPassword> {
       cursorWidth: 2,
       controller: widget.controller,
       validator: widget.validator,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
       cursorColor:
           Theme.of(context).brightness == Brightness.light ? black : white,
       style: const TextStyle(fontWeight: FontWeight.w600),

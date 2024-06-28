@@ -246,12 +246,15 @@ class PostView extends StatelessWidget {
                                     }
                                   },
                                   child: Icon(
-                                    size: 26,
-                                    posts!.any((element) =>
-                                            element.postId.id == id)
-                                        ? Icons.bookmark
-                                        : Icons.bookmark_border,
-                                  ),
+                                      size: 26,
+                                      posts!.any((element) =>
+                                              element.postId.id == id)
+                                          ? Icons.bookmark
+                                          : Icons.bookmark_border,
+                                      color: posts!.any((element) =>
+                                              element.postId.id == id)
+                                          ? buttonclr
+                                          : grey),
                                 )
                               : const SizedBox()
                         ],

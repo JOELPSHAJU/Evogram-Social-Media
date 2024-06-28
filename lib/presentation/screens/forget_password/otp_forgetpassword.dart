@@ -29,11 +29,14 @@ class OtpForgetpassword extends StatelessWidget {
     return BlocConsumer<ForgetpasswordBloc, ForgetpasswordState>(
       listener: (context, state) {
         if (state is ResetPasswordSuccesState) {
-          navigatePushandRemoveuntil(context, const LoginScreen());
+          Navigator.of(context).pushAndRemoveUntil(
+              MaterialPageRoute(builder: (context) => const LoginScreen()),
+              (route) => false);
+          successSnakbar(context, 'Password Changed Successfully', white);
         } else if (state is OtpverifiedErrorState) {
-          customSnackbar(context, state.error, redlogout);
+          failedSnakbar(context, state.error, redlogout);
         } else if (state is ResetPasswordErrorState) {
-          customSnackbar(context, state.error, red);
+          failedSnakbar(context, state.error, red);
         }
       },
       builder: (context, state) {
@@ -114,8 +117,8 @@ class OtpForgetpassword extends StatelessWidget {
                                             email: email,
                                             password: passwordcontroller.text));
                                   } else {
-                                    customSnackbar(
-                                        context, 'Fill The Field', redlogout);
+                                    warningSnakbar(
+                                        context, 'Fill The Field', white);
                                   }
                                 },
                                 child: const Text('Continue',
@@ -180,7 +183,7 @@ class OtpForgetpassword extends StatelessWidget {
                           color:
                               Theme.of(context).brightness == Brightness.light
                                   ? white
-                                  : grey,
+                                  : darkgreymain,
                           minWidth: size.width * .4,
                           height: 55,
                           shape: RoundedRectangleBorder(
@@ -213,7 +216,7 @@ class OtpForgetpassword extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(5)),
                               onPressed: () {
                                 if (otp.length < 4 || otp.isEmpty) {
-                                  customSnackbar(
+                                  failedSnakbar(
                                       context, 'Inavlid Otp', redlogout);
                                 }
                                 context.read<ForgetpasswordBloc>().add(
