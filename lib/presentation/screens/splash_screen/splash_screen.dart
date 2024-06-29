@@ -84,10 +84,10 @@ class _SplashScreenState extends State<SplashScreen> {
     final preferences = await SharedPreferences.getInstance();
     final userLoggedIn = preferences.get('LOGIN');
     if (userLoggedIn == null || userLoggedIn == false) {
-      await Future.delayed(const Duration(seconds: 5));
+      await Future.delayed( Duration(seconds:Theme.of(context).brightness == Brightness.light? 5:4));
       navigatePushReplaceAnimaterbottomtotop(context, LoginScreen());
     } else {
-      await Future.delayed(const Duration(seconds: 5));
+      await Future.delayed( Duration(seconds:Theme.of(context).brightness == Brightness.light? 5:4));
       navigatePushReplaceAnimaterbottomtotop(context, MainScreen());
     }
   }
