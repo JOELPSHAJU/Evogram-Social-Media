@@ -2,6 +2,7 @@ import 'package:evogram/application/core/sharedpreferences.dart';
 import 'package:evogram/domain/models/getall_message_model.dart';
 import 'package:evogram/main.dart';
 import 'package:evogram/presentation/bloc/conversation_bloc/conversation_bloc.dart';
+import 'package:evogram/presentation/bloc/fetch_all_conversations_bloc.dart/fetch_all_conversations_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:socket_io_client/socket_io_client.dart' as io;
@@ -38,7 +39,14 @@ class SocketService {
           updatedAt: DateTime.now(),
           v: 0,
         );
-
+        if (ctx != null) {
+          ctx
+              .read<ConversationBloc>()
+              .add(AddNewMessageEvent(message: message));
+        }
+        context
+            .read<FetchAllConversationsBloc>()
+            .add(AllConversationsInitialFetchEvent());
         context
             .read<ConversationBloc>()
             .add(AddNewMessageEvent(message: message));

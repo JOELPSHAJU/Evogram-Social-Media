@@ -182,11 +182,17 @@ class _ChatScreenState extends State<ChatScreen> {
                             keyboardType: TextInputType.multiline,
                             maxLines: 5,
                             minLines: 1,
-                            decoration: const InputDecoration(
+                            decoration: InputDecoration(
+                                filled: true,
+                                fillColor: Theme.of(context).brightness ==
+                                        Brightness.light
+                                    ? white
+                                    : darkbg,
                                 prefix: SizedBox(
                                   width: 10,
                                 ),
                                 border: UnderlineInputBorder(
+                                    borderRadius: BorderRadius.circular(100),
                                     borderSide: BorderSide.none),
                                 hintText: 'Type a message...',
                                 contentPadding: EdgeInsets.all(5)),
@@ -218,13 +224,10 @@ class _ChatScreenState extends State<ChatScreen> {
                                   senderId: loginuserinfo.id,
                                   recieverId: widget.recieverid,
                                   conversationId: widget.conversationId));
-                          _messageController.clear();
-                          FocusScope.of(context).unfocus(
-                              disposition:
-                                  UnfocusDisposition.previouslyFocusedChild);
                           context
                               .read<FetchAllConversationsBloc>()
                               .add(AllConversationsInitialFetchEvent());
+                          _messageController.clear();
                         }
                       },
                       child: const Padding(

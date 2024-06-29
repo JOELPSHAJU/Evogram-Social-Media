@@ -46,6 +46,7 @@ class EditProfileScreen extends StatelessWidget {
     return BlocConsumer<EditProfileBloc, EditProfileState>(
       listener: (context, state) {
         if (state is EditProfileSuccessState) {
+          context.read<LoginUserBloc>().add(LoginUserInitialFetchingEvent());
           successSnakbar(
               context, 'Profile has been updated\nsuccessfully', grey300);
 
@@ -112,9 +113,6 @@ class EditProfileScreen extends StatelessWidget {
                                 bgImage: Coverpicfile ?? coverpic,
                                 bgImageUrl:
                                     Coverpicfile == null ? coverpic : ''));
-                            context
-                                .read<LoginUserBloc>()
-                                .add(LoginUserInitialFetchingEvent());
                           } else {
                             warningSnakbar(
                                 context, 'Fill all the fields', grey300);

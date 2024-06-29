@@ -108,7 +108,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ? Container(
                       color: Theme.of(context).brightness == Brightness.light
                           ? Colors.grey.shade300
-                          : black,
+                          : darkgreymain,
                       width: size.width,
                       height: size.height,
                       child: Column(

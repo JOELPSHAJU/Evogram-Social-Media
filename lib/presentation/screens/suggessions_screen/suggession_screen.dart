@@ -8,6 +8,7 @@ import 'package:evogram/presentation/bloc/follow_unfollow_user_bloc/follow_unfol
 import 'package:evogram/presentation/screens/discover_screen/widgets/post_details/userprofile/user_profile_screen.dart';
 import 'package:evogram/presentation/screens/suggessions_screen/followers_loading.dart';
 import 'package:evogram/presentation/screens/widgets/custom_navigators.dart';
+import 'package:evogram/presentation/screens/widgets/profilecircle.dart';
 import 'package:evogram/presentation/screens/widgets/text_styles.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -103,16 +104,8 @@ class _SuggessionScreenState extends State<SuggessionScreen> {
                               );
                             }
                             return ListTile(
-                              leading: Container(
-                                height: 60,
-                                width: 60,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(100),
-                                    image: DecorationImage(
-                                        image: NetworkImage(
-                                            suggession.profilePic.toString()),
-                                        fit: BoxFit.cover)),
-                              ),
+                              leading: ProfileCircleTile(
+                                  profilepic: suggession.profilePic.toString()),
                               title: GestureDetector(
                                 onTap: () {
                                   final user = UserIdSearchModel(

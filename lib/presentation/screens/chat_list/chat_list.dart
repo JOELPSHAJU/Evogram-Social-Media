@@ -7,7 +7,9 @@ import 'package:evogram/presentation/bloc/add_message/add_message_bloc.dart';
 import 'package:evogram/presentation/bloc/fetch_all_conversations_bloc.dart/fetch_all_conversations_bloc.dart';
 import 'package:evogram/presentation/screens/chat_list/custom_card.dart';
 import 'package:evogram/presentation/screens/chat_list/message_screen_loading.dart';
+import 'package:evogram/presentation/screens/suggessions_screen/suggession_screen.dart';
 import 'package:evogram/presentation/screens/widgets/custom_navigators.dart';
+import 'package:evogram/presentation/screens/widgets/custom_profile_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -125,9 +127,52 @@ class _FindChatPersonScreenState extends State<FindChatPersonScreen> {
                       (element) => element.userName.contains(onchanged ?? ''))
                   .toList();
               return filteredUsers.isEmpty
-                  ? const Center(
-                      child: Text('No chat found !'),
-                    )
+                  ? Center(
+                      child: Container(
+                      color: Theme.of(context).brightness == Brightness.light
+                          ? Colors.grey.shade300
+                          : darkgreymain,
+                      width: size.width,
+                      height: size.height,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            'assets/no data found.jpg',
+                            width: size.width * .5,
+                          ),
+                          h10,
+                          const Text(
+                            'Looks a little quiet around here!',
+                            style: TextStyle(
+                                fontSize: 17, fontWeight: FontWeight.bold),
+                          ),
+                          h10,
+                          const Text(
+                            textAlign: TextAlign.center,
+                            'Follow some awesome people to chat with them.',
+                            style: TextStyle(
+                                fontSize: 14, fontWeight: FontWeight.w500),
+                          ),
+                          h20,
+                          SizedBox(
+                            width: size.width * .55,
+                            child: GestureDetector(
+                              onTap: () {
+                                navigatePushAnimaterighttoleft(
+                                    context, const SuggessionScreen());
+                              },
+                              child: CustomProfileButton(
+                                  size: size,
+                                  text: 'See some suggession?',
+                                  width: size.width * .5),
+                            ),
+                          ),
+                          h40,
+                          h10
+                        ],
+                      ),
+                    ))
                   : ListView.builder(
                       itemCount: filteredUsers.length,
                       itemBuilder: (context, index) {

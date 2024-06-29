@@ -33,6 +33,8 @@ class _FollowingPersonScreenState extends State<FollowingPersonScreen> {
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
+        backgroundColor:
+            Theme.of(context).brightness == Brightness.light ? white : black,
         elevation: 1,
         shadowColor: grey,
         leading: IconButton(

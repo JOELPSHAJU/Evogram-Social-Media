@@ -19,6 +19,8 @@ class FollowersScreen extends StatelessWidget {
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
+        backgroundColor:
+            Theme.of(context).brightness == Brightness.light ? white : black,
         shadowColor: grey,
         elevation: 1,
         leading: IconButton(

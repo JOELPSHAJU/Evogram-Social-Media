@@ -69,7 +69,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 LoadingAnimationWidget.prograssiveDots(
                   color: Theme.of(context).brightness == Brightness.light
                       ? black
-                      : darkgrey,
+                      : white,
                   size: 40,
                 )
               ],

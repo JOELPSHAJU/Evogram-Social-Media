@@ -26,7 +26,7 @@ class CustomProfileButton extends StatelessWidget {
               blurStyle: BlurStyle.normal,
               color: Theme.of(context).brightness == Brightness.light
                   ? Colors.grey.shade500
-                  : Color.fromARGB(255, 16, 15, 15),
+                  : Colors.transparent,
               offset: const Offset(6.0, 6.0),
               blurRadius: 20.0,
               spreadRadius: 5.0,
@@ -35,7 +35,7 @@ class CustomProfileButton extends StatelessWidget {
               blurStyle: BlurStyle.normal,
               color: Theme.of(context).brightness == Brightness.light
                   ? Colors.white
-                  : Color.fromARGB(255, 20, 20, 20),
+                  : Colors.transparent,
               offset: const Offset(-6.0, -6.0),
               blurRadius: 20.0,
               spreadRadius: 5.0,

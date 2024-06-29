@@ -7,8 +7,10 @@ import 'package:evogram/presentation/bloc/fetch_followings_bloc/fetch_followings
 import 'package:evogram/presentation/screens/chat_list/new_chat/rich_text.dart';
 import 'package:evogram/presentation/screens/chat_screen/chat_screen.dart';
 import 'package:evogram/presentation/screens/suggessions_screen/followers_loading.dart';
+import 'package:evogram/presentation/screens/suggessions_screen/suggession_screen.dart';
 import 'package:evogram/presentation/screens/userprofile/profile_screen/profile_screen.dart';
 import 'package:evogram/presentation/screens/widgets/custom_navigators.dart';
+import 'package:evogram/presentation/screens/widgets/custom_profile_button.dart';
 import 'package:evogram/presentation/screens/widgets/profilecircle.dart';
 import 'package:evogram/presentation/screens/widgets/text_styles.dart';
 import 'package:flutter/material.dart';
@@ -31,6 +33,7 @@ class _NewChatScreenState extends State<NewChatScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         shape: Border(
@@ -61,7 +64,52 @@ class _NewChatScreenState extends State<NewChatScreen> {
           if (state[0] is FetchFollowingsSuccesfulState) {
             final FollowingModel followings = state[0].followingsModel;
             return followings.following.isEmpty
-                ? const Center(child: Richtext())
+                ? Center(
+                    child: Container(
+                    color: Theme.of(context).brightness == Brightness.light
+                        ? Colors.grey.shade300
+                        : darkgreymain,
+                    width: size.width,
+                    height: size.height,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          'assets/no data found.jpg',
+                          width: size.width * .5,
+                        ),
+                        h10,
+                        const Text(
+                          'Looks a little quiet around here!',
+                          style: TextStyle(
+                              fontSize: 17, fontWeight: FontWeight.bold),
+                        ),
+                        h10,
+                        const Text(
+                          textAlign: TextAlign.center,
+                          'Follow some awesome people to chat with them.',
+                          style: TextStyle(
+                              fontSize: 14, fontWeight: FontWeight.w500),
+                        ),
+                        h20,
+                        SizedBox(
+                          width: size.width * .55,
+                          child: GestureDetector(
+                            onTap: () {
+                              navigatePushAnimaterighttoleft(
+                                  context, const SuggessionScreen());
+                            },
+                            child: CustomProfileButton(
+                                size: size,
+                                text: 'See some suggession?',
+                                width: size.width * .5),
+                          ),
+                        ),
+                        h40,
+                        h10
+                      ],
+                    ),
+                  ))
                 : ListView.builder(
                     itemCount: followings.totalCount,
                     itemBuilder: (context, index) {

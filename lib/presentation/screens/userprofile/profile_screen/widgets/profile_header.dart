@@ -84,14 +84,16 @@ Widget profileHeaderWidgets(
       Padding(
         padding: const EdgeInsets.only(left: 20.0),
         child: Text(
-          state.users.name.toString(),
+          state.users.name != null
+              ? state.users.name.toString()
+              : 'GuestUser102934',
           style: profilestyle,
         ),
       ),
       Padding(
         padding: const EdgeInsets.only(left: 20.0, right: 20),
         child: Text(
-          state.users.bio.toString(),
+          state.users.bio != null ? state.users.bio.toString() : '',
           style: profilestyle2,
         ),
       ),
@@ -108,14 +110,16 @@ Widget profileHeaderWidgets(
                         color: blueaccent2, size: 40));
               } else if (state is FetchUserPostSuccessState) {
                 return GestureDetector(
-                  onTap: () {
-                    navigatePushAnimaterbottomtotop(
-                        context,
-                        UserPosts(
-                          userId: state.userposts[0].userId.id,
-                          initialindex: 0,
-                        ));
-                  },
+                  onTap: state.userposts.length != 0
+                      ? () {
+                          navigatePushAnimaterbottomtotop(
+                              context,
+                              UserPosts(
+                                userId: state.userposts[0].userId.id,
+                                initialindex: 0,
+                              ));
+                        }
+                      : () {},
                   child: Column(
                     children: [
                       Text(
@@ -149,13 +153,15 @@ Widget profileHeaderWidgets(
                         color: blueaccent2, size: 40));
               } else if (state is FetchFollowersSuccessState) {
                 return GestureDetector(
-                    onTap: () {
-                      navigatePushAnimaterbottomtotop(
-                          context,
-                          FollowersScreen(
-                            followers: state.followers.followers,
-                          ));
-                    },
+                    onTap: state.followers.totalCount != 0
+                        ? () {
+                            navigatePushAnimaterbottomtotop(
+                                context,
+                                FollowersScreen(
+                                  followers: state.followers.followers,
+                                ));
+                          }
+                        : () {},
                     child: Column(
                       children: [
                         Text(
@@ -187,14 +193,16 @@ Widget profileHeaderWidgets(
               } else if (state is FetchFollowingsSuccesfulState) {
                 final FollowingModel followingsModel = state.followingsModel;
                 return GestureDetector(
-                  onTap: () {
-                    navigatePushAnimaterbottomtotop(
-                        context,
-                        FollowingPersonScreen(
-                          model: followingsModel,
-                          following: state.followingsModel.following,
-                        ));
-                  },
+                  onTap: followingsModel.totalCount != 0
+                      ? () {
+                          navigatePushAnimaterbottomtotop(
+                              context,
+                              FollowingPersonScreen(
+                                model: followingsModel,
+                                following: state.followingsModel.following,
+                              ));
+                        }
+                      : () {},
                   child: Column(
                     children: [
                       Text(
